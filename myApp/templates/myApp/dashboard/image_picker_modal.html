@@ -1,0 +1,307 @@
+<!-- Image Picker Modal -->
+<div id="imagePickerModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-6 border-b">
+            <h3 class="text-2xl font-bold text-navy">Choose Image</h3>
+            <button onclick="closeImagePickerModal()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Modal Tabs -->
+        <div class="border-b">
+            <div class="flex">
+                <button onclick="switchTab('gallery')" id="tab-gallery" class="px-6 py-3 font-semibold text-navy border-b-2 border-navy">
+                    Gallery
+                </button>
+                <button onclick="switchTab('upload')" id="tab-upload" class="px-6 py-3 font-semibold text-gray-500 hover:text-navy">
+                    Upload
+                </button>
+            </div>
+        </div>
+        
+        <!-- Modal Content -->
+        <div class="flex-1 overflow-y-auto p-6">
+            <!-- Gallery Tab -->
+            <div id="content-gallery" class="tab-content">
+                <div class="mb-4">
+                    <input type="text" id="gallerySearch" placeholder="Search images..." 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                           onkeyup="filterGallery()">
+                </div>
+                <div id="galleryGrid" class="grid grid-cols-3 md:grid-cols-4 gap-4">
+                    <!-- Gallery images will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Upload Tab -->
+            <div id="content-upload" class="tab-content hidden">
+                <form id="uploadFormModal" enctype="multipart/form-data" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Image File</label>
+                        <input type="file" name="image" id="modalImageInput" accept="image/*" required multiple
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                        <p class="text-sm text-gray-500 mt-2">You can select multiple images</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Folder (optional)</label>
+                        <input type="text" name="folder" value="garden_gate" placeholder="garden_gate"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Alt Text (optional)</label>
+                        <input type="text" name="alt_text" placeholder="Descriptive alt text (applied to all images)"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div id="modalUploadProgress" class="hidden">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-semibold text-gray-700">Upload Progress</span>
+                            <span id="modalProgressText" class="text-sm text-gray-600">0 / 0</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div id="modalProgressBar" class="bg-navy h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <p id="modalCurrentFile" class="text-sm text-gray-500 mt-2"></p>
+                    </div>
+                    
+                    <button type="submit" id="modalUploadButton" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+                        <i class="fas fa-upload mr-2"></i> Upload Image(s)
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentFieldId = null;
+let selectedImageUrl = null;
+
+// Open modal for single image selection
+function openImagePickerModal(fieldId) {
+    currentFieldId = fieldId;
+    document.getElementById('imagePickerModal').classList.remove('hidden');
+    switchTab('gallery');
+    loadGallery();
+}
+
+function closeImagePickerModal() {
+    document.getElementById('imagePickerModal').classList.add('hidden');
+    currentFieldId = null;
+    selectedImageUrl = null;
+}
+
+function switchTab(tab) {
+    // Update tab buttons
+    document.getElementById('tab-gallery').classList.remove('border-navy', 'text-navy');
+    document.getElementById('tab-gallery').classList.add('text-gray-500');
+    document.getElementById('tab-upload').classList.remove('border-navy', 'text-navy');
+    document.getElementById('tab-upload').classList.add('text-gray-500');
+    
+    // Hide all content
+    document.getElementById('content-gallery').classList.add('hidden');
+    document.getElementById('content-upload').classList.add('hidden');
+    
+    // Show selected tab
+    if (tab === 'gallery') {
+        document.getElementById('tab-gallery').classList.add('border-navy', 'text-navy');
+        document.getElementById('tab-gallery').classList.remove('text-gray-500');
+        document.getElementById('content-gallery').classList.remove('hidden');
+        loadGallery();
+    } else {
+        document.getElementById('tab-upload').classList.add('border-navy', 'text-navy');
+        document.getElementById('tab-upload').classList.remove('text-gray-500');
+        document.getElementById('content-upload').classList.remove('hidden');
+    }
+}
+
+async function loadGallery() {
+    try {
+        const response = await fetch('{% url "dashboard:gallery" %}', {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+        
+        if (response.headers.get('content-type').includes('application/json')) {
+            const data = await response.json();
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            
+            if (data.assets && data.assets.length > 0) {
+                data.assets.forEach(asset => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-white rounded-lg overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition';
+                    div.innerHTML = `
+                        <img src="${asset.thumb_url || asset.url}" alt="${asset.alt_text || asset.filename}" class="w-full h-32 object-cover">
+                        <div class="p-2">
+                            <button onclick="selectImage('${asset.url}')" class="w-full bg-navy text-white px-3 py-2 rounded text-sm hover:bg-navy/90">
+                                Select
+                            </button>
+                        </div>
+                    `;
+                    grid.appendChild(div);
+                });
+            } else {
+                grid.innerHTML = '<div class="col-span-4 text-center py-8 text-gray-600">No images in gallery yet. Upload some images first!</div>';
+            }
+        } else {
+            // Fallback to HTML parsing
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const assets = doc.querySelectorAll('[data-asset-id]');
+            
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            
+            assets.forEach(asset => {
+                const img = asset.querySelector('img');
+                const url = img.getAttribute('data-url');
+                const thumb = img.src;
+                const alt = img.alt;
+                
+                const div = document.createElement('div');
+                div.className = 'bg-white rounded-lg overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition';
+                div.innerHTML = `
+                    <img src="${thumb}" alt="${alt}" class="w-full h-32 object-cover">
+                    <div class="p-2">
+                        <button onclick="selectImage('${url}')" class="w-full bg-navy text-white px-3 py-2 rounded text-sm hover:bg-navy/90">
+                            Select
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+    } catch (error) {
+        console.error('Error loading gallery:', error);
+        document.getElementById('galleryGrid').innerHTML = '<div class="col-span-4 text-center py-8 text-red-600">Error loading gallery. Please refresh the page.</div>';
+    }
+}
+
+function filterGallery() {
+    const search = document.getElementById('gallerySearch').value.toLowerCase();
+    const items = document.querySelectorAll('#galleryGrid > div');
+    items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(search) ? 'block' : 'none';
+    });
+}
+
+function selectImage(url) {
+    if (currentFieldId) {
+        document.getElementById(currentFieldId).value = url;
+        closeImagePickerModal();
+    }
+}
+
+// Upload form handler
+document.getElementById('uploadFormModal').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = document.getElementById('uploadFormModal');
+    const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+    const files = document.getElementById('modalImageInput').files;
+    const folder = form.querySelector('[name="folder"]').value || 'garden_gate';
+    const altText = form.querySelector('[name="alt_text"]').value;
+    
+    if (files.length === 0) {
+        alert('Please select at least one image');
+        return;
+    }
+    
+    // Show progress
+    const progressDiv = document.getElementById('modalUploadProgress');
+    const progressBar = document.getElementById('modalProgressBar');
+    const progressText = document.getElementById('modalProgressText');
+    const currentFile = document.getElementById('modalCurrentFile');
+    const uploadButton = document.getElementById('modalUploadButton');
+    
+    progressDiv.classList.remove('hidden');
+    uploadButton.disabled = true;
+    uploadButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Uploading...';
+    
+    let uploaded = 0;
+    let failed = 0;
+    let firstUploadedUrl = null;
+    const total = files.length;
+    
+    // Upload each file
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileFormData = new FormData();
+        fileFormData.append('image', file);
+        fileFormData.append('folder', folder);
+        fileFormData.append('alt_text', altText || file.name);
+        
+        try {
+            currentFile.textContent = `Uploading: ${file.name}...`;
+            
+            const response = await fetch('{% url "dashboard:upload_image" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                body: fileFormData
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                uploaded++;
+                if (!firstUploadedUrl && currentFieldId) {
+                    firstUploadedUrl = data.url;
+                }
+            } else {
+                failed++;
+                console.error('Failed to upload:', file.name, data.error);
+            }
+        } catch (error) {
+            failed++;
+            console.error('Error uploading:', file.name, error);
+        }
+        
+        // Update progress
+        const progress = ((i + 1) / total) * 100;
+        progressBar.style.width = progress + '%';
+        progressText.textContent = `${i + 1} / ${total}`;
+    }
+    
+    // Reset UI
+    uploadButton.disabled = false;
+    uploadButton.innerHTML = '<i class="fas fa-upload mr-2"></i> Upload Image(s)';
+    currentFile.textContent = '';
+    
+    // Auto-select first image if we have a field to fill
+    if (firstUploadedUrl && currentFieldId) {
+        document.getElementById(currentFieldId).value = firstUploadedUrl;
+        closeImagePickerModal();
+        return;
+    }
+    
+    // Reload gallery and show results
+    if (uploaded > 0) {
+        loadGallery();
+        switchTab('gallery');
+        if (uploaded === total) {
+            alert(`Successfully uploaded ${uploaded} image(s)!`);
+        } else {
+            alert(`Uploaded ${uploaded} image(s) successfully. ${failed} failed.`);
+        }
+    } else {
+        alert('Failed to upload images. Please try again.');
+        progressDiv.classList.add('hidden');
+    }
+});
+
+// Close modal on outside click
+document.getElementById('imagePickerModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeImagePickerModal();
+    }
+});
+</script>
+

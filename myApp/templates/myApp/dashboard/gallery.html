@@ -1,0 +1,302 @@
+{% extends "myApp/dashboard/base.html" %}
+
+{% block title %}Image Gallery{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-navy mb-2">Image Gallery</h2>
+    <p class="text-gray-600">Upload and manage images</p>
+</div>
+
+<!-- Upload Form -->
+<div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+    <h3 class="text-xl font-semibold text-navy mb-4">Upload Images</h3>
+    
+    <!-- Drag and Drop Zone -->
+    <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center mb-4 transition-colors hover:border-navy hover:bg-navy/5 cursor-pointer">
+        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+        <p class="text-lg font-semibold text-gray-700 mb-2">Drag and drop images here</p>
+        <p class="text-sm text-gray-500 mb-4">or</p>
+        <label for="imageInput" class="inline-block bg-navy text-white px-6 py-3 rounded-xl font-semibold hover:bg-navy/90 transition cursor-pointer">
+            <i class="fas fa-folder-open mr-2"></i> Browse Files
+        </label>
+        <p class="text-sm text-gray-500 mt-4">
+            <i class="fas fa-info-circle mr-1"></i> You can select or drop multiple images at once
+        </p>
+        <p class="text-xs text-gray-400 mt-2">
+            Images are automatically converted to WebP format for optimal performance
+        </p>
+    </div>
+    
+    <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Image Files</label>
+            <input type="file" name="image" id="imageInput" accept="image/*" required multiple
+                   class="hidden">
+            <div id="fileList" class="mt-2 space-y-2"></div>
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Folder (optional)</label>
+            <input type="text" name="folder" value="garden_gate" placeholder="garden_gate"
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Alt Text (optional)</label>
+            <input type="text" name="alt_text" placeholder="Descriptive alt text (applied to all images)"
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+        
+        <!-- Progress Bar -->
+        <div id="uploadProgress" class="hidden">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-semibold text-gray-700">Upload Progress</span>
+                <span id="progressText" class="text-sm text-gray-600">0 / 0</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div id="progressBar" class="bg-navy h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <p id="currentFile" class="text-sm text-gray-500 mt-2"></p>
+        </div>
+        
+        <button type="submit" id="uploadButton" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+            <i class="fas fa-upload mr-2"></i> Upload Image(s)
+        </button>
+    </form>
+</div>
+
+<!-- Gallery Grid -->
+<div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {% for asset in assets %}
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden" data-asset-id="{{ asset.id }}">
+        <img src="{{ asset.secure_url|default:asset.url }}" 
+             data-url="{{ asset.secure_url|default:asset.url }}"
+             alt="{{ asset.alt_text|default:asset.filename }}" 
+             class="w-full h-48 object-cover">
+        <div class="p-4">
+            <p class="text-sm text-gray-600 mb-2 truncate">{{ asset.filename|default:asset.public_id }}</p>
+            <button onclick="copyToClipboard('{{ asset.secure_url|default:asset.url }}')" class="text-sm text-navy hover:underline">
+                <i class="fas fa-copy mr-1"></i> Copy URL
+            </button>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-4 text-center py-12">
+        <p class="text-gray-600">No images uploaded yet. Upload your first image above!</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+// Global functions that need to be accessible from onclick handlers
+let imageInput, fileList;
+
+function handleFiles(files) {
+    const fileArray = Array.from(files).filter(file => file.type.startsWith('image/'));
+    
+    // Clear previous file list
+    fileList.innerHTML = '';
+    
+    if (fileArray.length === 0) {
+        if (files.length > 0) {
+            fileList.innerHTML = '<p class="text-sm text-red-500">Please select only image files</p>';
+        }
+        return;
+    }
+    
+    // Create file list display
+    const listDiv = document.createElement('div');
+    listDiv.className = 'bg-gray-50 rounded-lg p-4 space-y-2';
+    
+    fileArray.forEach((file) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'flex items-center justify-between bg-white rounded p-2';
+        fileItem.setAttribute('data-file-name', file.name);
+        const fileSize = (file.size / 1024 / 1024).toFixed(2);
+        fileItem.innerHTML = `
+            <div class="flex items-center gap-2 flex-1 min-w-0">
+                <i class="fas fa-image text-navy"></i>
+                <span class="text-sm text-gray-700 truncate">${file.name}</span>
+                <span class="text-xs text-gray-500">(${fileSize} MB)</span>
+            </div>
+            <button type="button" onclick="removeFileByName('${file.name.replace(/'/g, "\\'")}')" class="text-red-500 hover:text-red-700 ml-2">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        listDiv.appendChild(fileItem);
+    });
+    
+    fileList.appendChild(listDiv);
+    
+    // Update the file input (create a new DataTransfer)
+    const dataTransfer = new DataTransfer();
+    fileArray.forEach(file => dataTransfer.items.add(file));
+    imageInput.files = dataTransfer.files;
+}
+
+function removeFileByName(fileName) {
+    const currentFiles = Array.from(imageInput.files);
+    
+    // Remove file by name
+    const filteredFiles = currentFiles.filter(file => file.name !== fileName);
+    
+    // Update file input
+    const dataTransfer = new DataTransfer();
+    filteredFiles.forEach(file => dataTransfer.items.add(file));
+    imageInput.files = dataTransfer.files;
+    
+    // Refresh file list display
+    handleFiles(imageInput.files);
+}
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Drag and Drop functionality
+    const dropZone = document.getElementById('dropZone');
+    imageInput = document.getElementById('imageInput');
+    fileList = document.getElementById('fileList');
+    
+    if (!dropZone || !imageInput || !fileList) {
+        console.error('Required elements not found');
+        return;
+    }
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // Highlight drop zone when item is dragged over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        dropZone.classList.add('border-navy', 'bg-navy/10');
+    }
+
+    function unhighlight(e) {
+        dropZone.classList.remove('border-navy', 'bg-navy/10');
+    }
+
+    // Handle dropped files
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles(files);
+    }
+
+    // Handle file input change
+    imageInput.addEventListener('change', function(e) {
+        handleFiles(e.target.files);
+    });
+
+    // Click on drop zone to trigger file input
+    dropZone.addEventListener('click', function() {
+        imageInput.click();
+    });
+
+    // Form submit handler
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const files = imageInput.files;
+    const folder = document.querySelector('[name="folder"]').value;
+    const altText = document.querySelector('[name="alt_text"]').value;
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+    if (files.length === 0) {
+        alert('Please select or drop at least one image');
+        return;
+    }
+    
+    // Show progress bar
+    const progressDiv = document.getElementById('uploadProgress');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const currentFile = document.getElementById('currentFile');
+    const uploadButton = document.getElementById('uploadButton');
+    
+    progressDiv.classList.remove('hidden');
+    uploadButton.disabled = true;
+    uploadButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Uploading...';
+    
+    let uploaded = 0;
+    let failed = 0;
+    const total = files.length;
+    
+    // Upload each file
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('folder', folder);
+        formData.append('alt_text', altText || file.name);
+        
+        try {
+            currentFile.textContent = `Uploading: ${file.name}...`;
+            
+            const response = await fetch('{% url "dashboard:upload_image" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken
+                },
+                body: formData
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                uploaded++;
+            } else {
+                failed++;
+                console.error('Failed to upload:', file.name, data.error);
+            }
+        } catch (error) {
+            failed++;
+            console.error('Error uploading:', file.name, error);
+        }
+        
+        // Update progress
+        const progress = ((i + 1) / total) * 100;
+        progressBar.style.width = progress + '%';
+        progressText.textContent = `${i + 1} / ${total}`;
+    }
+    
+    // Reset UI
+    uploadButton.disabled = false;
+    uploadButton.innerHTML = '<i class="fas fa-upload mr-2"></i> Upload Image(s)';
+    currentFile.textContent = '';
+    
+    // Show results
+    if (uploaded === total) {
+        alert(`Successfully uploaded ${uploaded} image(s)!`);
+        location.reload();
+    } else if (uploaded > 0) {
+        alert(`Uploaded ${uploaded} image(s) successfully. ${failed} failed.`);
+        location.reload();
+    } else {
+        alert(`Failed to upload images. Please try again.`);
+        progressDiv.classList.add('hidden');
+    }
+    });
+});
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('URL copied to clipboard!');
+    });
+}
+</script>
+{% endblock %}
+

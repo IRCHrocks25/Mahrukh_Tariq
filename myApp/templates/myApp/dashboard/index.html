@@ -1,0 +1,51 @@
+{% extends "myApp/dashboard/base.html" %}
+
+{% block title %}Dashboard - Image Management{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-navy mb-2">Image Management</h2>
+    <p class="text-gray-600">Edit images, icons, and background images for each section</p>
+</div>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Header Logo - First Card -->
+    {% if logo %}
+    <a href="{% url 'dashboard:section_edit' logo.id %}" class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition border-2 border-gold">
+        <div class="flex items-center justify-between mb-4">
+            <i class="fas fa-image text-3xl text-navy"></i>
+            <span class="text-sm text-gray-500">Logo</span>
+        </div>
+        <h3 class="text-lg font-semibold text-navy mb-2">{{ logo.display_name }}</h3>
+        <p class="text-gray-600 text-sm">Edit website logo</p>
+    </a>
+    {% endif %}
+    
+    <!-- Methodology Icons - Single Card -->
+    <a href="{% url 'dashboard:methodology_icons_edit' %}" class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between mb-4">
+            <i class="fas fa-icons text-3xl text-navy"></i>
+            <span class="text-sm text-gray-500">Icons</span>
+        </div>
+        <h3 class="text-lg font-semibold text-navy mb-2">Methodology Icons (All 5)</h3>
+        <p class="text-gray-600 text-sm">Edit all methodology icons in one place</p>
+    </a>
+    
+    <!-- Other Sections -->
+    {% for section in sections %}
+    <a href="{% url 'dashboard:section_edit' section.id %}" class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between mb-4">
+            <i class="fas fa-image text-3xl text-navy"></i>
+            <span class="text-sm text-gray-500">Section</span>
+        </div>
+        <h3 class="text-lg font-semibold text-navy mb-2">{{ section.display_name }}</h3>
+        <p class="text-gray-600 text-sm">Edit images for this section</p>
+    </a>
+    {% empty %}
+    <div class="col-span-3 text-center py-12">
+        <p class="text-gray-600">No sections found. Run the initialization command to create sections.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
