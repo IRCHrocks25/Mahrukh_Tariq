@@ -3,86 +3,55 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16 fade-in">
             <h2 class="text-4xl font-serif font-bold text-navy mb-4">
-                Management That Fits Your Goals.
+                {{ services_section.title|default:"Management That Fits Your Goals." }}
             </h2>
             <div class="w-24 h-1 bg-gold mx-auto mb-4"></div>
             <p class="text-lg text-navy/70 max-w-3xl mx-auto mb-4">
-                Every landlord is different. Some want complete freedom. Others prefer involvement. We tailor our service to fit you.
+                {{ services_section.description|default:"Every landlord is different. Some want complete freedom. Others prefer involvement. We tailor our service to fit you." }}
             </p>
         </div>
         
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Service 1: Full-Service -->
-            <div class="bg-beige rounded-lg overflow-hidden shadow-sm card-hover fade-in stagger-1">
+            {% for card in service_cards %}
+            <div class="bg-beige rounded-lg overflow-hidden shadow-sm card-hover fade-in stagger-{{ card.card_number }}">
                 <div class="h-48 bg-gradient-to-br from-navy to-gray-700 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop&q=80" 
-                         alt="Full-Service Property Management" 
+                    {% if card.image_url %}
+                    <img src="{{ card.image_url }}" 
+                         alt="{{ card.image_alt|default:card.title }}" 
                          class="w-full h-full object-cover opacity-80 img-transition">
+                    {% else %}
+                    <div class="w-full h-full bg-gradient-to-br from-navy to-gray-700"></div>
+                    {% endif %}
                 </div>
                 <div class="p-8">
-                    <h3 class="text-2xl font-serif font-semibold text-[#C19A6B] mb-2">Full-Service Management</h3>
-                    <p class="text-gold text-sm mb-4 italic">For landlords who want zero hassle.</p>
-                    <ul class="space-y-3 text-gold mb-4">
-                        <li>Tenant placement and screening</li>
-                        <li>Lease management and rent collection</li>
-                        <li>24/7 maintenance coordination</li>
-                        <li>Financial reporting and inspections</li>
+                    <h3 class="text-2xl font-serif font-semibold text-[#C19A6B] mb-2">{{ card.title }}</h3>
+                    {% if card.subtitle %}
+                    <p class="text-gold text-sm mb-4 italic">{{ card.subtitle }}</p>
+                    {% endif %}
+                    {% if card.features %}
+                    <ul class="space-y-3 text-navy mb-4">
+                        {% for feature in card.get_features_list %}
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-gold mt-1 flex-shrink-0"></i>
+                            <span>{{ feature }}</span>
+                        </li>
+                        {% endfor %}
                     </ul>
-                    <p class="text-navy font-semibold mb-4">Result: Steady income, no stress, full trust.</p>
-                    <a href="#consultation" class="text-gold font-semibold hover:underline">
-                        Learn More
+                    {% endif %}
+                    {% if card.result_text %}
+                    <p class="text-navy font-semibold mb-4">{{ card.result_text }}</p>
+                    {% endif %}
+                    <a href="{{ card.cta_link|default:'#consultation' }}" class="text-gold font-semibold hover:underline">
+                        {{ card.cta_text|default:"Learn More" }}
                     </a>
                 </div>
             </div>
-            
-            <!-- Service 2: Tenant Placement -->
-            <div class="bg-beige rounded-lg overflow-hidden shadow-sm card-hover fade-in stagger-2">
-                <div class="h-48 bg-gradient-to-br from-navy to-gray-700 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=300&fit=crop&q=80" 
-                         alt="Tenant Placement" 
-                         class="w-full h-full object-cover opacity-80 img-transition">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-serif font-semibold text-[#C19A6B] mb-2">Tenant Placement Only</h3>
-                    <p class="text-gold text-sm mb-4 italic">We'll find your tenant — you take it from there.</p>
-                    <ul class="space-y-3 text-gold mb-4">
-                        <li>Professional marketing and showings</li>
-                        <li>Thorough pre-qualification and screening</li>
-                        <li>Lease prep and move-in coordination</li>
-                    </ul>
-                    <p class="text-navy font-semibold mb-4">Result: Quality tenants, fast occupancy.</p>
-                    <a href="#consultation" class="text-gold font-semibold hover:underline">
-                        Learn More
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Service 3: Portfolio Building -->
-            <div class="bg-beige rounded-lg overflow-hidden shadow-sm card-hover fade-in stagger-3">
-                <div class="h-48 bg-gradient-to-br from-navy to-gray-700 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop&q=80" 
-                         alt="Portfolio Building" 
-                         class="w-full h-full object-cover opacity-80 img-transition">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-serif font-semibold text-[#C19A6B] mb-2">Portfolio Building & Investment Guidance</h3>
-                    <p class="text-gold text-sm mb-4 italic">For investors growing wealth long-term.</p>
-                    <ul class="space-y-3 text-gold mb-4">
-                        <li>Market analysis and property selection</li>
-                        <li>Financing and acquisition support</li>
-                        <li>Post-purchase management and optimization</li>
-                    </ul>
-                    <p class="text-navy font-semibold mb-4">Result: Profitable portfolios built with strategy and care.</p>
-                    <a href="#consultation" class="text-gold font-semibold hover:underline">
-                        Learn More
-                    </a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         
         <div class="text-center mt-12">
-            <a href="#consultation" class="inline-block px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
-                Find Your Fit
+            <a href="{{ services_section.cta_link|default:'#consultation' }}" class="inline-block px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
+                {{ services_section.cta_text|default:"Find Your Fit" }}
             </a>
         </div>
     </div>

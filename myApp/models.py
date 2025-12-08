@@ -40,3 +40,54 @@ class MediaAsset(models.Model):
     
     def __str__(self):
         return self.filename or self.public_id
+
+# Model to store services section content
+class ServiceCard(models.Model):
+    card_number = models.IntegerField(unique=True, help_text="Card number (1, 2, or 3)")
+    title = models.CharField(max_length=200, help_text="Service card title")
+    subtitle = models.CharField(max_length=300, blank=True, help_text="Service card subtitle")
+    image_url = models.URLField(blank=True, null=True, help_text="Card image URL")
+    image_alt = models.CharField(max_length=200, blank=True, help_text="Image alt text")
+    features = models.TextField(help_text="Features list (one per line)")
+    result_text = models.CharField(max_length=300, help_text="Result text")
+    cta_text = models.CharField(max_length=100, default="Learn More", help_text="Call to action text")
+    cta_link = models.CharField(max_length=200, default="#consultation", help_text="Call to action link")
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['card_number']
+        verbose_name = "Service Card"
+        verbose_name_plural = "Service Cards"
+    
+    def __str__(self):
+        return f"Service Card {self.card_number}: {self.title}"
+    
+    def get_features_list(self):
+        """Return features as a list"""
+        return [f.strip() for f in self.features.split('\n') if f.strip()]
+
+# Model to store services section header
+class ServicesSection(models.Model):
+    title = models.CharField(max_length=200, default="Management That Fits Your Goals.")
+    description = models.TextField(default="Every landlord is different. Some want complete freedom. Others prefer involvement. We tailor our service to fit you.")
+    cta_text = models.CharField(max_length=100, default="Find Your Fit")
+    cta_link = models.CharField(max_length=200, default="#consultation")
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Services Section"
+        verbose_name_plural = "Services Section"
+    
+    def __str__(self):
+        return "Services Section"
+    
+    def save(self, *args, **kwargs):
+        # Ensure only one instance exists
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    @classmethod
+    def get_instance(cls):
+        """Get or create the single instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj

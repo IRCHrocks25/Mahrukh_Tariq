@@ -31,6 +31,16 @@
         <p class="text-gray-600 text-sm">Edit all methodology icons in one place</p>
     </a>
     
+    <!-- Services Section - Single Card -->
+    <a href="{% url 'dashboard:services_edit' %}" class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between mb-4">
+            <i class="fas fa-briefcase text-3xl text-navy"></i>
+            <span class="text-sm text-gray-500">Content</span>
+        </div>
+        <h3 class="text-lg font-semibold text-navy mb-2">Services Section</h3>
+        <p class="text-gray-600 text-sm">Edit services section content and cards</p>
+    </a>
+    
     <!-- Other Sections -->
     {% for section in sections %}
     <a href="{% url 'dashboard:section_edit' section.id %}" class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">

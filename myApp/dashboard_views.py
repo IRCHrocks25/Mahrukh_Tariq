@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from .models import SectionImage, MediaAsset
+from .models import SectionImage, MediaAsset, ServiceCard, ServicesSection
 from .utils.cloudinary_utils import upload_to_cloudinary
 import json
 
@@ -149,5 +149,55 @@ def gallery(request):
     
     return render(request, 'myApp/dashboard/gallery.html', {
         'assets': assets
+    })
+
+# Edit services section
+@login_required
+def services_edit(request):
+    # Get or create services section header
+    services_section = ServicesSection.get_instance()
+    
+    # Get or create service cards
+    cards = {}
+    for i in range(1, 4):
+        card, created = ServiceCard.objects.get_or_create(
+            card_number=i,
+            defaults={
+                'title': f'Service {i}',
+                'subtitle': '',
+                'features': '',
+                'result_text': '',
+                'cta_text': 'Learn More',
+                'cta_link': '#consultation'
+            }
+        )
+        cards[i] = card
+    
+    if request.method == 'POST':
+        # Update section header
+        services_section.title = request.POST.get('section_title', '')
+        services_section.description = request.POST.get('section_description', '')
+        services_section.cta_text = request.POST.get('section_cta_text', 'Find Your Fit')
+        services_section.cta_link = request.POST.get('section_cta_link', '#consultation')
+        services_section.save()
+        
+        # Update each card
+        for i in range(1, 4):
+            card = cards[i]
+            card.title = request.POST.get(f'card_{i}_title', '')
+            card.subtitle = request.POST.get(f'card_{i}_subtitle', '')
+            card.image_url = request.POST.get(f'card_{i}_image_url', '')
+            card.image_alt = request.POST.get(f'card_{i}_image_alt', '')
+            card.features = request.POST.get(f'card_{i}_features', '')
+            card.result_text = request.POST.get(f'card_{i}_result_text', '')
+            card.cta_text = request.POST.get(f'card_{i}_cta_text', 'Learn More')
+            card.cta_link = request.POST.get(f'card_{i}_cta_link', '#consultation')
+            card.save()
+        
+        return redirect('dashboard:index')
+    
+    return render(request, 'myApp/dashboard/services_edit.html', {
+        'services_section': services_section,
+        'cards': cards
     })
 

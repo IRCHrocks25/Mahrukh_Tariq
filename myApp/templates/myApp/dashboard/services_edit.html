@@ -1,0 +1,245 @@
+{% extends "myApp/dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Edit Services Section{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+    <h2 class="text-3xl font-bold text-navy mb-2">Services Section</h2>
+    <p class="text-gray-600">Edit services section header and all 3 service cards</p>
+</div>
+
+<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-8">
+    {% csrf_token %}
+    
+    <!-- Section Header -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Section Header</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Title</label>
+                <input type="text" name="section_title" value="{{ services_section.title|default:'' }}" 
+                       placeholder="Management That Fits Your Goals."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Description</label>
+                <textarea name="section_description" rows="3" 
+                          placeholder="Every landlord is different. Some want complete freedom. Others prefer involvement. We tailor our service to fit you."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ services_section.description|default:'' }}</textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Text</label>
+                    <input type="text" name="section_cta_text" value="{{ services_section.cta_text|default:'Find Your Fit' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Link</label>
+                    <input type="text" name="section_cta_link" value="{{ services_section.cta_link|default:'#consultation' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Service Card 1 -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Service Card 1</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Title</label>
+                <input type="text" name="card_1_title" value="{{ cards.1.title|default:'' }}" 
+                       placeholder="Full-Service Management"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Subtitle</label>
+                <input type="text" name="card_1_subtitle" value="{{ cards.1.subtitle|default:'' }}" 
+                       placeholder="For landlords who want zero hassle."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Image URL</label>
+                <input type="url" name="card_1_image_url" id="field_card_1_image_url" value="{{ cards.1.image_url|default:'' }}" 
+                       placeholder="https://res.cloudinary.com/..."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                <p class="text-sm text-gray-500 mt-2">
+                    <button type="button" onclick="openImagePickerModal('field_card_1_image_url')" 
+                            class="text-navy hover:underline">
+                        <i class="fas fa-images mr-1"></i> Choose from Gallery
+                    </button>
+                </p>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Image Alt Text</label>
+                <input type="text" name="card_1_image_alt" value="{{ cards.1.image_alt|default:'' }}" 
+                       placeholder="Full-Service Property Management"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Features (one per line)</label>
+                <textarea name="card_1_features" rows="5" 
+                          placeholder="Tenant placement and screening&#10;Lease management and rent collection&#10;24/7 maintenance coordination&#10;Financial reporting and inspections"
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ cards.1.features|default:'' }}</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Result Text</label>
+                <input type="text" name="card_1_result_text" value="{{ cards.1.result_text|default:'' }}" 
+                       placeholder="Result: Steady income, no stress, full trust."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Text</label>
+                    <input type="text" name="card_1_cta_text" value="{{ cards.1.cta_text|default:'Learn More' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Link</label>
+                    <input type="text" name="card_1_cta_link" value="{{ cards.1.cta_link|default:'#consultation' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Service Card 2 -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Service Card 2</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Title</label>
+                <input type="text" name="card_2_title" value="{{ cards.2.title|default:'' }}" 
+                       placeholder="Tenant Placement Only"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Subtitle</label>
+                <input type="text" name="card_2_subtitle" value="{{ cards.2.subtitle|default:'' }}" 
+                       placeholder="We'll find your tenant — you take it from there."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Image URL</label>
+                <input type="url" name="card_2_image_url" id="field_card_2_image_url" value="{{ cards.2.image_url|default:'' }}" 
+                       placeholder="https://res.cloudinary.com/..."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                <p class="text-sm text-gray-500 mt-2">
+                    <button type="button" onclick="openImagePickerModal('field_card_2_image_url')" 
+                            class="text-navy hover:underline">
+                        <i class="fas fa-images mr-1"></i> Choose from Gallery
+                    </button>
+                </p>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Image Alt Text</label>
+                <input type="text" name="card_2_image_alt" value="{{ cards.2.image_alt|default:'' }}" 
+                       placeholder="Tenant Placement"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Features (one per line)</label>
+                <textarea name="card_2_features" rows="5" 
+                          placeholder="Professional marketing and showings&#10;Thorough pre-qualification and screening&#10;Lease prep and move-in coordination"
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ cards.2.features|default:'' }}</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Result Text</label>
+                <input type="text" name="card_2_result_text" value="{{ cards.2.result_text|default:'' }}" 
+                       placeholder="Result: Quality tenants, fast occupancy."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Text</label>
+                    <input type="text" name="card_2_cta_text" value="{{ cards.2.cta_text|default:'Learn More' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Link</label>
+                    <input type="text" name="card_2_cta_link" value="{{ cards.2.cta_link|default:'#consultation' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Service Card 3 -->
+    <div class="pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Service Card 3</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Title</label>
+                <input type="text" name="card_3_title" value="{{ cards.3.title|default:'' }}" 
+                       placeholder="Portfolio Building & Investment Guidance"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Subtitle</label>
+                <input type="text" name="card_3_subtitle" value="{{ cards.3.subtitle|default:'' }}" 
+                       placeholder="For investors growing wealth long-term."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Image URL</label>
+                <input type="url" name="card_3_image_url" id="field_card_3_image_url" value="{{ cards.3.image_url|default:'' }}" 
+                       placeholder="https://res.cloudinary.com/..."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                <p class="text-sm text-gray-500 mt-2">
+                    <button type="button" onclick="openImagePickerModal('field_card_3_image_url')" 
+                            class="text-navy hover:underline">
+                        <i class="fas fa-images mr-1"></i> Choose from Gallery
+                    </button>
+                </p>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Image Alt Text</label>
+                <input type="text" name="card_3_image_alt" value="{{ cards.3.image_alt|default:'' }}" 
+                       placeholder="Portfolio Building"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Features (one per line)</label>
+                <textarea name="card_3_features" rows="5" 
+                          placeholder="Market analysis and property selection&#10;Financing and acquisition support&#10;Post-purchase management and optimization"
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ cards.3.features|default:'' }}</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Result Text</label>
+                <input type="text" name="card_3_result_text" value="{{ cards.3.result_text|default:'' }}" 
+                       placeholder="Result: Profitable portfolios built with strategy and care."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Text</label>
+                    <input type="text" name="card_3_cta_text" value="{{ cards.3.cta_text|default:'Learn More' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Link</label>
+                    <input type="text" name="card_3_cta_link" value="{{ cards.3.cta_link|default:'#consultation' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Form Actions -->
+    <div class="flex gap-4 pt-6 border-t">
+        <button type="submit" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+            Save Changes
+        </button>
+        <a href="{% url 'dashboard:index' %}" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
+            Cancel
+        </a>
+    </div>
+</form>
+
+{% include "myApp/dashboard/image_picker_modal.html" %}
+{% endblock %}
+
