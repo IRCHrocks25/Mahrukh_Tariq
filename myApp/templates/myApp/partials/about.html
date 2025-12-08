@@ -3,7 +3,7 @@
 <section id="about" class="py-20 relative overflow-hidden min-h-[800px] flex items-center"{% if bg_url %} style="background-image: url('{{ bg_url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% else %} style="background-image: url('YOUR_BACKGROUND_IMAGE_URL_HERE'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="grid md:grid-cols-2 gap-12 items-center">
-            <!-- Left: Empty space (background image shows the girl) -->
+            <!-- Left: Empty space for image -->
             <div class="hidden md:block"></div>
             
             <!-- Right: Narrative -->
@@ -46,5 +46,11 @@
             </div>
         </div>
     </div>
+    <!-- Image positioned absolutely to touch left edge -->
+    {% if section_images.about_image.image_url %}
+    <div class="hidden md:flex items-center justify-start absolute left-0 top-1/2 -translate-y-1/2 z-10" style="height: 100%; margin: 0; padding: 0;">
+        <img src="{{ section_images.about_image.image_url }}" alt="{{ section_images.about_image.image_alt|default:'Mahrukh Tariq' }}" class="h-auto max-h-[800px] object-contain" style="background: transparent; border: none; outline: none; width: auto; margin: 0; padding: 0; display: block;">
+    </div>
+    {% endif %}
 </section>
 {% endwith %}

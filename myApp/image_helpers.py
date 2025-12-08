@@ -29,7 +29,7 @@ def get_all_section_images():
     } for section in sections}
     
     # Ensure expected sections exist (even if empty) to prevent template errors
-    expected_sections = ['hero_background', 'hero_image', 'about_background', 'statistics_background']
+    expected_sections = ['hero_background', 'hero_image', 'about_background', 'about_image', 'statistics_background']
     for section_name in expected_sections:
         if section_name not in result:
             result[section_name] = {
