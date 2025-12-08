@@ -17,25 +17,32 @@ def smart_compress_to_bytes(image_file, max_bytes=10 * 1024 * 1024, target_bytes
     # Open image
     img = Image.open(image_file)
     
-    # Convert RGBA to RGB if necessary (WebP supports transparency, but we'll handle it)
-    # For WebP, we can keep RGBA mode as it supports transparency
+    # Preserve transparency - convert to RGBA if image has transparency
+    # WebP supports transparency, so we keep RGBA mode
     if img.mode == 'P':
+        # Palette mode - check if it has transparency
+        if 'transparency' in img.info:
+            img = img.convert('RGBA')
+        else:
+            img = img.convert('RGB')
+    elif img.mode == 'LA':
+        # Grayscale with alpha
         img = img.convert('RGBA')
     elif img.mode not in ('RGB', 'RGBA'):
-        # Convert other modes to RGB
-        if img.mode in ('LA',):
-            background = Image.new('RGB', img.size, (255, 255, 255))
-            if img.mode == 'LA':
-                img = img.convert('RGBA')
-            background.paste(img, mask=img.split()[-1] if img.mode in ('RGBA', 'LA') else None)
-            img = background
+        # For other modes, try to preserve transparency if possible
+        if hasattr(img, 'mode') and 'A' in img.mode or img.mode in ('RGBA', 'LA'):
+            img = img.convert('RGBA')
         else:
             img = img.convert('RGB')
     
     # Get current size with WebP
     output = BytesIO()
-    # Save as WebP with high quality first
-    img.save(output, format='WEBP', quality=95, method=6)
+    # Save as WebP with high quality first, preserving transparency
+    save_kwargs = {'format': 'WEBP', 'quality': 95, 'method': 6}
+    if img.mode == 'RGBA':
+        # Ensure lossless transparency is preserved
+        save_kwargs['lossless'] = False  # Use lossy but preserve alpha
+    img.save(output, **save_kwargs)
     current_size = output.tell()
     
     # If already under target, return
@@ -51,7 +58,10 @@ def smart_compress_to_bytes(image_file, max_bytes=10 * 1024 * 1024, target_bytes
     while min_quality <= max_quality:
         quality = (min_quality + max_quality) // 2
         output = BytesIO()
-        img.save(output, format='WEBP', quality=quality, method=6)
+        save_kwargs = {'format': 'WEBP', 'quality': quality, 'method': 6}
+        if img.mode == 'RGBA':
+            save_kwargs['lossless'] = False  # Preserve alpha channel
+        img.save(output, **save_kwargs)
         size = output.tell()
         
         if size <= target_bytes:
@@ -69,7 +79,10 @@ def smart_compress_to_bytes(image_file, max_bytes=10 * 1024 * 1024, target_bytes
     scale = (target_bytes / current_size) ** 0.5
     new_size = (int(img.width * scale), int(img.height * scale))
     img_resized = img.resize(new_size, Image.Resampling.LANCZOS)
-    img_resized.save(output, format='WEBP', quality=85, method=6)
+    save_kwargs = {'format': 'WEBP', 'quality': 85, 'method': 6}
+    if img_resized.mode == 'RGBA':
+        save_kwargs['lossless'] = False  # Preserve alpha channel
+    img_resized.save(output, **save_kwargs)
     output.seek(0)
     return output
 
@@ -93,17 +106,32 @@ def upload_to_cloudinary(image_file, folder='garden_gate', public_id=None):
     name_without_ext = os.path.splitext(filename)[0]
     
     # Step 3: Upload WebP to Cloudinary (already in WebP format)
+    # Check if image has transparency by checking mode
+    compressed_webp.seek(0)  # Reset to beginning
+    img_check = Image.open(compressed_webp)
+    has_transparency = img_check.mode == 'RGBA'
+    compressed_webp.seek(0)  # Reset to beginning again after reading
+    
+    # Build transformation list
+    transformations = [{'quality': 'auto'}]
+    if has_transparency:
+        transformations.append({'fetch_format': 'webp'})
+    else:
+        transformations.append({'fetch_format': 'auto'})
+    
+    # Build upload kwargs
+    upload_kwargs = {
+        'folder': folder,
+        'public_id': public_id or name_without_ext,
+        'resource_type': 'image',
+        'format': 'webp',
+        'transformation': transformations,
+        'access_mode': 'public'
+    }
+    
     upload_result = cloudinary.uploader.upload(
         compressed_webp,
-        folder=folder,
-        public_id=public_id or name_without_ext,
-        resource_type='image',
-        format='webp',  # Already WebP, but specify for clarity
-        transformation=[
-            {'quality': 'auto'},
-            {'fetch_format': 'auto'}
-        ],
-        access_mode='public'
+        **upload_kwargs
     )
     
     # Generate URLs
