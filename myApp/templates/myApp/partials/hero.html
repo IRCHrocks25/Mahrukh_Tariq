@@ -18,10 +18,16 @@
                     Show Me How This Actually Works
                 </a>
             </div>
-            <!-- Right: Woman image is part of background -->
+            <!-- Right: Transparent woman image - extends to edge -->
             <div class="hidden md:block"></div>
         </div>
     </div>
+    <!-- Image positioned absolutely to touch edge -->
+    {% if section_images.hero_image.image_url %}
+    <div class="hidden md:flex items-center justify-end absolute right-0 top-1/2 -translate-y-1/2 z-10" style="height: 100%; margin: 0; padding: 0;">
+        <img src="{{ section_images.hero_image.image_url }}" alt="{{ section_images.hero_image.image_alt|default:'Mahrukh Tariq' }}" class="h-auto max-h-[800px] object-contain" style="background: transparent; border: none; outline: none; width: auto; margin: 0; padding: 0; display: block;">
+    </div>
+    {% endif %}
 </section>
 {% endwith %}
 
