@@ -46,10 +46,10 @@
             </div>
         </div>
     </div>
-    <!-- Image positioned absolutely to touch left edge -->
+    <!-- Image positioned absolutely to touch left edge and bottom -->
     {% if section_images.about_image.image_url %}
-    <div class="hidden md:flex items-center justify-start absolute left-0 top-1/2 -translate-y-1/2 z-10" style="height: 100%; margin: 0; padding: 0;">
-        <img src="{{ section_images.about_image.image_url }}" alt="{{ section_images.about_image.image_alt|default:'Mahrukh Tariq' }}" class="h-auto max-h-[800px] object-contain" style="background: transparent; border: none; outline: none; width: auto; margin: 0; padding: 0; display: block;">
+    <div class="hidden md:flex items-end justify-start absolute left-0 bottom-0 z-10" style="height: 100%; margin: 0; padding: 0;">
+        <img src="{{ section_images.about_image.image_url }}" alt="{{ section_images.about_image.image_alt|default:'Mahrukh Tariq' }}" class="h-auto max-h-full w-auto object-contain" style="background: transparent; border: none; outline: none; margin: 0; padding: 0; display: block;">
     </div>
     {% endif %}
 </section>
