@@ -1,0 +1,136 @@
+{% extends "myApp/dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Edit Pain Points Section{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+    <h2 class="text-3xl font-bold text-navy mb-2">Pain Points Section</h2>
+    <p class="text-gray-600">Edit pain points and solutions</p>
+</div>
+
+<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-8">
+    {% csrf_token %}
+    
+    <!-- Section Header -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Section Header</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+                <input type="text" name="title" value="{{ pain_points.title|default:'' }}" 
+                       placeholder="Common Problems.<br>Clear Solutions."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                <textarea name="description" rows="3" 
+                          placeholder="Owning rental property shouldn't mean chasing managers..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ pain_points.description|default:'' }}</textarea>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pain Points -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Pain Points (What Goes Wrong)</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Pain Point 1</label>
+                <input type="text" name="pain_point_1" value="{{ pain_points.pain_point_1|default:'' }}" 
+                       placeholder="Managers who disappear when you need answers."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Pain Point 2</label>
+                <input type="text" name="pain_point_2" value="{{ pain_points.pain_point_2|default:'' }}" 
+                       placeholder="Inflated maintenance costs and hidden markups."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Pain Point 3</label>
+                <input type="text" name="pain_point_3" value="{{ pain_points.pain_point_3|default:'' }}" 
+                       placeholder="Weak screening that lets in problem tenants."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Pain Point 4</label>
+                <input type="text" name="pain_point_4" value="{{ pain_points.pain_point_4|default:'' }}" 
+                       placeholder="Generic, one-size-fits-all service."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Pain Point 5</label>
+                <input type="text" name="pain_point_5" value="{{ pain_points.pain_point_5|default:'' }}" 
+                       placeholder="Unapproved expenses with zero transparency."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Solutions -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Solutions (How We're Different)</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Solution 1</label>
+                <input type="text" name="solution_1" value="{{ pain_points.solution_1|default:'' }}" 
+                       placeholder="<strong class=\"text-gold italic\">Immediate Access</strong> — You call. I answer. Same day."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Solution 2</label>
+                <input type="text" name="solution_2" value="{{ pain_points.solution_2|default:'' }}" 
+                       placeholder="<strong class=\"text-gold italic\">Transparent Pricing</strong> — You review every estimate before work begins."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Solution 3</label>
+                <input type="text" name="solution_3" value="{{ pain_points.solution_3|default:'' }}" 
+                       placeholder="<strong class=\"text-gold italic\">Rigorous Screening</strong> — Every tenant meets me personally before approval."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Solution 4</label>
+                <input type="text" name="solution_4" value="{{ pain_points.solution_4|default:'' }}" 
+                       placeholder="<strong class=\"text-gold italic\">Customized Management</strong> — Your goals, your preferences, your plan."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Solution 5</label>
+                <input type="text" name="solution_5" value="{{ pain_points.solution_5|default:'' }}" 
+                       placeholder="<strong class=\"text-gold italic\">Total Transparency</strong> — You're informed before money moves. Always."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA -->
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Text</label>
+            <input type="text" name="cta_text" value="{{ pain_points.cta_text|default:'Turn Frustrations Into Results' }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Link</label>
+            <input type="text" name="cta_link" value="{{ pain_points.cta_link|default:'#consultation' }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+    </div>
+    
+    <!-- Form Actions -->
+    <div class="flex gap-4 pt-6 border-t">
+        <button type="submit" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+            Save Changes
+        </button>
+        <a href="{% url 'dashboard:index' %}" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock %}
+

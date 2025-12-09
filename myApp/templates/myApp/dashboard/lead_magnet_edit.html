@@ -1,0 +1,84 @@
+{% extends "myApp/dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Edit Lead Magnet Section{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+    <h2 class="text-3xl font-bold text-navy mb-2">Lead Magnet Section</h2>
+    <p class="text-gray-600">Edit lead magnet content</p>
+</div>
+
+<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-6">
+    {% csrf_token %}
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+        <input type="text" name="title" value="{{ lead_magnet.title|default:'' }}" 
+               placeholder="Free 15 Minute Property<br>Assessment"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle</label>
+        <input type="text" name="subtitle" value="{{ lead_magnet.subtitle|default:'' }}" 
+               placeholder="No sales pitch. Just straight answers to:"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Bullet Point 1</label>
+        <input type="text" name="bullet_1" value="{{ lead_magnet.bullet_1|default:'' }}" 
+               placeholder="What your property should actually rent for"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Bullet Point 2</label>
+        <input type="text" name="bullet_2" value="{{ lead_magnet.bullet_2|default:'' }}" 
+               placeholder="Where you're currently losing money"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Bullet Point 3</label>
+        <input type="text" name="bullet_3" value="{{ lead_magnet.bullet_3|default:'' }}" 
+               placeholder="Whether we're a good fit (honest answer)"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+        <textarea name="description" rows="3" 
+                  placeholder="If we're not right for you, I'll tell you. If we are, you'll know exactly what happens next."
+                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ lead_magnet.description|default:'' }}</textarea>
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Text</label>
+            <input type="text" name="cta_text" value="{{ lead_magnet.cta_text|default:'Show Me How This Actually Works' }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Link</label>
+            <input type="text" name="cta_link" value="{{ lead_magnet.cta_link|default:'#consultation' }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+    </div>
+    
+    <!-- Form Actions -->
+    <div class="flex gap-4 pt-6 border-t">
+        <button type="submit" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+            Save Changes
+        </button>
+        <a href="{% url 'dashboard:index' %}" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock %}
+

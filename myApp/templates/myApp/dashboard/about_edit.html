@@ -1,0 +1,71 @@
+{% extends "myApp/dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Edit About Section{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+    <h2 class="text-3xl font-bold text-navy mb-2">About Section</h2>
+    <p class="text-gray-600">Edit about section content</p>
+</div>
+
+<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-6">
+    {% csrf_token %}
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+        <input type="text" name="title" value="{{ about.title|default:'' }}" 
+               placeholder="I Built This Because I Was You"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Content (one paragraph per line)</label>
+        <textarea name="content" rows="10" 
+                  placeholder="Fourteen years ago, I stepped off a plane...&#10;&#10;I started managing rentals for $300 commissions..."
+                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ about.content|default:'' }}</textarea>
+        <p class="text-sm text-gray-500 mt-2">Enter each paragraph on a separate line. Empty lines will be preserved.</p>
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Quote Text</label>
+        <input type="text" name="quote_text" value="{{ about.quote_text|default:'' }}" 
+               placeholder="I don't lock clients in. I earn their trust, one transparent decision at a time."
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Quote Author</label>
+        <input type="text" name="quote_author" value="{{ about.quote_author|default:'' }}" 
+               placeholder="— Mahrukh Tariq"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Text</label>
+            <input type="text" name="cta_text" value="{{ about.cta_text|default:\"See If We're a Fit\" }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Link</label>
+            <input type="text" name="cta_link" value="{{ about.cta_link|default:'#consultation' }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+    </div>
+    
+    <!-- Form Actions -->
+    <div class="flex gap-4 pt-6 border-t">
+        <button type="submit" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+            Save Changes
+        </button>
+        <a href="{% url 'dashboard:index' %}" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock %}
+

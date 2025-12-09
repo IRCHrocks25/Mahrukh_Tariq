@@ -1,0 +1,135 @@
+{% extends "myApp/dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Edit Credibility Section{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+    <h2 class="text-3xl font-bold text-navy mb-2">Credibility Section</h2>
+    <p class="text-gray-600">Edit credibility section content and cards</p>
+</div>
+
+<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-8">
+    {% csrf_token %}
+    
+    <!-- Section Header -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Section Header</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Main Title</label>
+                <input type="text" name="title" value="{{ credibility.title|default:'' }}" 
+                       placeholder="Proven Experience. Personal Commitment.<br>Real Results."
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                <textarea name="description" rows="3" 
+                          placeholder="Garden Gate is not a franchise or volume-driven agency..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ credibility.description|default:'' }}</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle</label>
+                <input type="text" name="subtitle" value="{{ credibility.subtitle|default:'' }}" 
+                       placeholder="Why Landlords Choose Garden Gate"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle Description</label>
+                <textarea name="subtitle_description" rows="2" 
+                          placeholder="Most property managers have never been landlords..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ credibility.subtitle_description|default:'' }}</textarea>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Credibility Cards -->
+    {% with card1=cards.1 card2=cards.2 card3=cards.3 card4=cards.4 %}
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Credibility Card 1</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Title</label>
+                <input type="text" name="card_1_title" value="{{ card1.title|default:'' }}" 
+                       placeholder="Personal Tenant Screening"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Description</label>
+                <textarea name="card_1_description" rows="3" 
+                          placeholder="With an average 4-day placement time..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ card1.description|default:'' }}</textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Credibility Card 2</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Title</label>
+                <input type="text" name="card_2_title" value="{{ card2.title|default:'' }}" 
+                       placeholder="Personal Tenant Screening"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Description</label>
+                <textarea name="card_2_description" rows="3" 
+                          placeholder="With an average 4-day placement time..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ card2.description|default:'' }}</textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Credibility Card 3</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Title</label>
+                <input type="text" name="card_3_title" value="{{ card3.title|default:'' }}" 
+                       placeholder="Personal Tenant Screening"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Description</label>
+                <textarea name="card_3_description" rows="3" 
+                          placeholder="With an average 4-day placement time..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ card3.description|default:'' }}</textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Credibility Card 4</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Title</label>
+                <input type="text" name="card_4_title" value="{{ card4.title|default:'' }}" 
+                       placeholder="Personal Tenant Screening"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Card Description</label>
+                <textarea name="card_4_description" rows="3" 
+                          placeholder="With an average 4-day placement time..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ card4.description|default:'' }}</textarea>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+    
+    <!-- Form Actions -->
+    <div class="flex gap-4 pt-6 border-t">
+        <button type="submit" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+            Save Changes
+        </button>
+        <a href="{% url 'dashboard:index' %}" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock %}
+

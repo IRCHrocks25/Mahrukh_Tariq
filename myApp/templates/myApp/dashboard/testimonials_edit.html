@@ -1,0 +1,71 @@
+{% extends "myApp/dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Edit Testimonials Section{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+    <h2 class="text-3xl font-bold text-navy mb-2">Testimonials Section</h2>
+    <p class="text-gray-600">Edit testimonials section header</p>
+</div>
+
+<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-6">
+    {% csrf_token %}
+    
+    <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Section Title</label>
+        <input type="text" name="title" value="{{ testimonials_section.title|default:'' }}" 
+               placeholder="Why Landlords Stop Looking After Finding Us"
+               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Text</label>
+            <input type="text" name="cta_text" value="{{ testimonials_section.cta_text|default:'See What We Can Do' }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Link</label>
+            <input type="text" name="cta_link" value="{{ testimonials_section.cta_link|default:'#consultation' }}" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+        </div>
+    </div>
+    
+    <!-- Form Actions -->
+    <div class="flex gap-4 pt-6 border-t">
+        <button type="submit" class="bg-navy text-white px-8 py-3 rounded-xl font-semibold hover:bg-navy/90 transition">
+            Save Changes
+        </button>
+        <a href="{% url 'dashboard:index' %}" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
+            Cancel
+        </a>
+    </div>
+</form>
+
+<div class="mt-8 bg-white rounded-xl shadow-sm p-8">
+    <h3 class="text-xl font-semibold text-navy mb-4">Individual Testimonials</h3>
+    <div class="space-y-4">
+        {% for testimonial in testimonials %}
+        <div class="border border-gray-200 rounded-lg p-4 flex items-center justify-between">
+            <div>
+                <p class="font-semibold text-navy">Testimonial {{ testimonial.testimonial_number }}: {{ testimonial.author_name|default:"Untitled" }}</p>
+                <p class="text-sm text-gray-600">{{ testimonial.quote_short|truncatewords:10|default:"No quote" }}</p>
+            </div>
+            <a href="{% url 'dashboard:testimonial_edit' testimonial.id %}" class="bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy/90 transition">
+                Edit
+            </a>
+        </div>
+        {% empty %}
+        <p class="text-gray-600">No testimonials yet. <a href="{% url 'dashboard:testimonial_new' %}" class="text-navy hover:underline">Create one</a></p>
+        {% endfor %}
+        <a href="{% url 'dashboard:testimonial_new' %}" class="inline-block bg-gold text-white px-6 py-3 rounded-lg font-semibold hover:bg-gold/90 transition">
+            + Add New Testimonial
+        </a>
+    </div>
+</div>
+{% endblock %}
+

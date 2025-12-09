@@ -380,9 +380,20 @@ def methodology_step_edit(request, step_id=None):
         step = MethodologyStep.objects.create(step_number=max_number + 1)
     
     if request.method == 'POST':
-        step.title = request.POST.get('title', '')
-        step.description = request.POST.get('description', '')
-        step.result_text = request.POST.get('result_text', '')
+        if step_id:  # Only allow updating step_number for new steps
+            step.title = request.POST.get('title', '')
+            step.description = request.POST.get('description', '')
+            step.result_text = request.POST.get('result_text', '')
+        else:  # New step - can set step_number
+            step_number = request.POST.get('step_number')
+            if step_number:
+                try:
+                    step.step_number = int(step_number)
+                except ValueError:
+                    pass
+            step.title = request.POST.get('title', '')
+            step.description = request.POST.get('description', '')
+            step.result_text = request.POST.get('result_text', '')
         step.save()
         return redirect('dashboard:methodology_edit')
     
