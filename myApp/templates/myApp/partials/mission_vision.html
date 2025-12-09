@@ -8,11 +8,11 @@
                     <div class="text-gold text-5xl icon-rotate">
                         <i class="fas fa-bullseye"></i>
                     </div>
-                    <h2 class="text-3xl font-serif font-bold text-navy text-left">Our Mission</h2>
+                    <h2 class="text-3xl font-serif font-bold text-navy text-left">{{ mission_vision_section.mission_title|default:"Our Mission" }}</h2>
                 </div>
-                <h3 class="text-2xl font-serif font-bold text-navy mb-4 text-left">Deliver What Corporate Management Can't.</h3>
+                <h3 class="text-2xl font-serif font-bold text-navy mb-4 text-left">{{ mission_vision_section.mission_subtitle|default:"Deliver What Corporate Management Can't." }}</h3>
                 <p class="text-navy/80 leading-relaxed mb-4 text-left">
-                    We exist because landlords deserve better — direct access, transparent pricing, and genuine partnership. Garden Gate gives you clarity, control, and confidence in your investment.
+                    {{ mission_vision_section.mission_description|default:"We exist because landlords deserve better — direct access, transparent pricing, and genuine partnership. Garden Gate gives you clarity, control, and confidence in your investment." }}
                 </p>
             </div>
             
@@ -22,18 +22,18 @@
                     <div class="text-gold text-5xl icon-rotate">
                         <i class="fas fa-eye"></i>
                     </div>
-                    <h2 class="text-3xl font-serif font-bold text-navy text-left">Our Vision</h2>
+                    <h2 class="text-3xl font-serif font-bold text-navy text-left">{{ mission_vision_section.vision_title|default:"Our Vision" }}</h2>
                 </div>
-                <h3 class="text-2xl font-serif font-bold text-navy mb-4 text-left">Boutique Management That Puts Landlords First.</h3>
+                <h3 class="text-2xl font-serif font-bold text-navy mb-4 text-left">{{ mission_vision_section.vision_subtitle|default:"Boutique Management That Puts Landlords First." }}</h3>
                 <p class="text-navy/80 leading-relaxed mb-4 text-left">
-                    We're building Northern Virginia's most trusted boutique property management firm — where landlords enjoy ownership, not endure it.
+                    {{ mission_vision_section.vision_description|default:"We're building Northern Virginia's most trusted boutique property management firm — where landlords enjoy ownership, not endure it." }}
                 </p>
             </div>
         </div>
         
         <div class="text-center mt-12">
-            <a href="#consultation" class="inline-flex items-center gap-2 px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
-                Join Us
+            <a href="{{ mission_vision_section.cta_link|default:'#consultation' }}" class="inline-flex items-center gap-2 px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
+                {{ mission_vision_section.cta_text|default:"Join Us" }}
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>

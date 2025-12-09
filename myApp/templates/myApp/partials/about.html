@@ -9,38 +9,31 @@
             <!-- Right: Narrative -->
             <div class="fade-in-right">
                 <h2 class="text-4xl font-serif font-bold text-navy mb-6">
-                    I Built This Because I Was You
+                    {{ about_section.title|default:"I Built This Because I Was You" }}
                 </h2>
                 <div class="space-y-6 text-navy/80 leading-relaxed">
-                    <p>
-                        Fourteen years ago, I stepped off a plane with no car, limited English, and an arranged marriage that dropped me in Northern Virginia with zero network.
+                    {% for paragraph in about_section.get_content_paragraphs %}
+                    <p{% if forloop.counter == 3 or forloop.counter == 4 %} class="font-semibold text-navy"{% endif %}>
+                        {{ paragraph }}
                     </p>
-                    <p>
-                        I started managing rentals for $300 commissions. I watched landlords get overcharged. Ignored. Misled. I watched property managers treat people's life savings like paperwork.
-                    </p>
-                    <p class="font-semibold text-navy">
-                        And I thought: "There has to be a better way."
-                    </p>
-                    <p class="font-semibold text-navy">
-                        So I built one.
-                    </p>
-                    <p>
-                        Today, I manage 90 units using the same systems I use for Garden Gate clients. When I tell you "I treat your property like my own," it's not marketing. It's literally true. The toilets in my units? Same contractors who fix yours. The tenants I screen? Same process you get. The pricing I negotiate? Same hustle I use for my own portfolio.
-                    </p>
-                    <p>
-                        Every dollar I save you, I'm saving myself somewhere else. Every system that works for you, I depend on for my own financial freedom.
-                    </p>
-                    <p>
-                        This isn't a franchise. This isn't corporate training. This is 13 years of figuring out what actually works when your own money is on the line.
-                    </p>
+                    {% empty %}
+                    <!-- Fallback content -->
+                    <p>Fourteen years ago, I stepped off a plane with no car, limited English, and an arranged marriage that dropped me in Northern Virginia with zero network.</p>
+                    <p>I started managing rentals for $300 commissions. I watched landlords get overcharged. Ignored. Misled. I watched property managers treat people's life savings like paperwork.</p>
+                    <p class="font-semibold text-navy">And I thought: "There has to be a better way."</p>
+                    <p class="font-semibold text-navy">So I built one.</p>
+                    <p>Today, I manage 90 units using the same systems I use for Garden Gate clients. When I tell you "I treat your property like my own," it's not marketing. It's literally true. The toilets in my units? Same contractors who fix yours. The tenants I screen? Same process you get. The pricing I negotiate? Same hustle I use for my own portfolio.</p>
+                    <p>Every dollar I save you, I'm saving myself somewhere else. Every system that works for you, I depend on for my own financial freedom.</p>
+                    <p>This isn't a franchise. This isn't corporate training. This is 13 years of figuring out what actually works when your own money is on the line.</p>
+                    {% endfor %}
                     <div class="border-l-4 border-gold pl-6 my-8">
                         <p class="font-serif text-xl italic text-navy">
-                            "I don't lock clients in. I earn their trust, one transparent decision at a time."
+                            "{{ about_section.quote_text|default:"I don't lock clients in. I earn their trust, one transparent decision at a time." }}"
                         </p>
-                        <p class="text-navy/70 mt-2">— Mahrukh Tariq</p>
+                        <p class="text-navy/70 mt-2">{{ about_section.quote_author|default:"— Mahrukh Tariq" }}</p>
                     </div>
-                    <a href="#consultation" class="inline-flex items-center gap-2 text-gold font-semibold hover:underline link-transition">
-                        See If We're a Fit <i class="fas fa-arrow-right"></i>
+                    <a href="{{ about_section.cta_link|default:'#consultation' }}" class="inline-flex items-center gap-2 text-gold font-semibold hover:underline link-transition">
+                        {{ about_section.cta_text|default:"See If We're a Fit" }} <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>

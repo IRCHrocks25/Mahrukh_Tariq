@@ -13,22 +13,22 @@
             <!-- Left: Stats -->
             <div class="fade-in-left">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
-                    Why Quality Management Matters
+                    {{ statistics_section.title|default:"Why Quality Management Matters" }}
                 </h2>
                 <div class="mb-8">
-                    <h3 class="text-xl font-semibold text-gold mb-4">The Cost of Poor Management:</h3>
+                    <h3 class="text-xl font-semibold text-gold mb-4">{{ statistics_section.subtitle|default:"The Cost of Poor Management:" }}</h3>
                     <ul class="space-y-3 text-white/90">
                         <li class="flex items-start gap-2">
                             <span class="text-gold mt-1">•</span>
-                            <span>Long vacancies that cost thousands in lost rent.</span>
+                            <span>{{ statistics_section.point_1|default:"Long vacancies that cost thousands in lost rent." }}</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-gold mt-1">•</span>
-                            <span>Vendor markups of 10–25% on maintenance invoices.</span>
+                            <span>{{ statistics_section.point_2|default:"Vendor markups of 10–25% on maintenance invoices." }}</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <span class="text-gold mt-1">•</span>
-                            <span>Unresponsive managers — 29% of tenants report landlords are "slow to get things done."</span>
+                            <span>{{ statistics_section.point_3|default:"Unresponsive managers — 29% of tenants report landlords are \"slow to get things done.\"" }}</span>
                         </li>
                     </ul>
                 </div>
