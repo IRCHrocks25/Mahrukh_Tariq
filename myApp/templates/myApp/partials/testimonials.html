@@ -2,7 +2,7 @@
 <section id="testimonials" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16 fade-in">
-            <h2 class="text-4xl font-serif font-bold text-navy mb-4">
+            <h2 class="text-4xl font-display font-bold text-navy mb-4">
                 {{ testimonials_section.title|default:"Why Landlords Stop Looking After Finding Us" }}
             </h2>
             <div class="w-24 h-1 bg-gold mx-auto"></div>
@@ -11,20 +11,13 @@
         <div class="grid md:grid-cols-3 gap-8">
             {% for testimonial in testimonials %}
             <div class="bg-beige p-8 rounded-lg shadow-sm relative card-hover fade-in stagger-{{ testimonial.testimonial_number }}">
-                {% if testimonial.avatar_url %}
-                <div class="absolute -top-4 -left-4 w-16 h-16 bg-gold rounded-full flex items-center justify-center">
-                    <img src="{{ testimonial.avatar_url }}" 
-                         alt="{{ testimonial.avatar_alt|default:testimonial.author_name }}" 
-                         class="w-14 h-14 rounded-full object-cover border-2 border-white">
-                </div>
-                {% endif %}
-                <div class="text-gold text-3xl mb-4 mt-4">
+                <div class="text-gold text-4xl mb-6">
                     <i class="fas fa-quote-left"></i>
                 </div>
-                <p class="text-navy/80 mb-4 leading-relaxed italic font-semibold">
+                <p class="text-amber-800 mb-6 leading-relaxed italic font-semibold text-xl">
                     {{ testimonial.quote_short }}
                 </p>
-                <p class="text-navy/80 mb-6 leading-relaxed">
+                <p class="text-navy/80 mb-6 leading-relaxed text-lg">
                     {{ testimonial.quote_long }}
                 </p>
                 <div class="border-t border-gold/20 pt-4">
@@ -35,18 +28,13 @@
             {% empty %}
             <!-- Fallback testimonials if none exist -->
             <div class="bg-beige p-8 rounded-lg shadow-sm relative card-hover fade-in stagger-1">
-                <div class="absolute -top-4 -left-4 w-16 h-16 bg-gold rounded-full flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&q=80" 
-                         alt="Tom R." 
-                         class="w-14 h-14 rounded-full object-cover border-2 border-white">
-                </div>
-                <div class="text-gold text-3xl mb-4 mt-4">
+                <div class="text-gold text-4xl mb-6">
                     <i class="fas fa-quote-left"></i>
                 </div>
-                <p class="text-navy/80 mb-4 leading-relaxed italic font-semibold">
+                <p class="text-amber-800 mb-6 leading-relaxed italic font-semibold text-xl">
                     After three property managers, I finally found someone who answers the phone.
                 </p>
-                <p class="text-navy/80 mb-6 leading-relaxed">
+                <p class="text-navy/80 mb-6 leading-relaxed text-lg">
                     I wasted two years with managers who'd take 3 days to return a call if they called back at all. With Mahrukh, if something comes up at 8 PM, she responds. That level of access is exactly what I needed.
                 </p>
                 <div class="border-t border-gold/20 pt-4">

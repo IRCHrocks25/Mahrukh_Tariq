@@ -9,12 +9,17 @@
     
     <!-- Text Content Overlay -->
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <div class="grid md:grid-cols-2 gap-12">
+        <!-- Centered Title -->
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-6">
+                {{ statistics_section.title|default:"Why Quality Management Matters" }}
+            </h2>
+        </div>
+        
+        <!-- Two Columns -->
+        <div class="grid md:grid-cols-2 gap-12 mb-12">
             <!-- Left: Stats -->
             <div class="fade-in-left">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
-                    {{ statistics_section.title|default:"Why Quality Management Matters" }}
-                </h2>
                 <div class="mb-8">
                     <h3 class="text-xl font-semibold text-gold mb-4">{{ statistics_section.subtitle|default:"The Cost of Poor Management:" }}</h3>
                     <ul class="space-y-3 text-white/90">
@@ -56,10 +61,14 @@
                 <p class="text-white/90 text-lg font-semibold mb-6">
                     Result: Managers who treat investments like their own build lasting success — not stress.
                 </p>
-                <a href="#consultation" class="inline-block px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
-                    Protect Your Investment
-                </a>
             </div>
+        </div>
+        
+        <!-- Centered Button -->
+        <div class="text-center fade-in">
+            <a href="#consultation" class="inline-block px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
+                Protect Your Investment
+            </a>
         </div>
     </div>
 </section>

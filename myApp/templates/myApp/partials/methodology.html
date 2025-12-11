@@ -2,7 +2,7 @@
 <section id="method" class="py-20 bg-navy text-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16 fade-in">
-            <h2 class="text-4xl font-serif font-bold text-gold mb-4">
+            <h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-4">
                 {{ methodology_section.title|default:"The Garden Gate Framework" }}
             </h2>
             <div class="w-24 h-1 bg-gold mx-auto mb-4"></div>
@@ -12,54 +12,54 @@
         </div>
         
         <!-- Process Steps -->
-        <div class="grid md:grid-cols-5 gap-6 relative mb-12">
+        <div class="grid md:grid-cols-5 gap-8 md:gap-10 relative mb-12">
             <!-- Connecting Line (Desktop) - Light Brown -->
-            <div class="hidden md:block absolute top-10 left-0 right-0 h-0.5 bg-[#C19A6B]" style="margin: 0 12%;"></div>
+            <div class="hidden md:block absolute top-12 left-0 right-0 h-0.5 bg-[#C19A6B]" style="margin: 0 12%;"></div>
             
             {% for step in methodology_steps %}
             <div class="relative z-10 text-center fade-in stagger-{{ step.step_number }}">
-                <div class="w-20 h-20 bg-navy/70 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-24 h-24 bg-navy/70 rounded-full flex items-center justify-center mx-auto mb-6">
                     {% if step.step_number == 1 %}
                         <img src="{{ section_images.methodology_icon_1.icon_url|default:'YOUR_ICON_IMAGE_URL_1_HERE' }}" 
                              alt="{{ section_images.methodology_icon_1.image_alt|default:step.title|add:' Icon' }}" 
-                             class="w-20 h-20 object-contain">
+                             class="w-24 h-24 object-contain">
                     {% elif step.step_number == 2 %}
                         <img src="{{ section_images.methodology_icon_2.icon_url|default:'YOUR_ICON_IMAGE_URL_2_HERE' }}" 
                              alt="{{ section_images.methodology_icon_2.image_alt|default:step.title|add:' Icon' }}" 
-                             class="w-20 h-20 object-contain">
+                             class="w-24 h-24 object-contain">
                     {% elif step.step_number == 3 %}
                         <img src="{{ section_images.methodology_icon_3.icon_url|default:'YOUR_ICON_IMAGE_URL_3_HERE' }}" 
                              alt="{{ section_images.methodology_icon_3.image_alt|default:step.title|add:' Icon' }}" 
-                             class="w-20 h-20 object-contain">
+                             class="w-24 h-24 object-contain">
                     {% elif step.step_number == 4 %}
                         <img src="{{ section_images.methodology_icon_4.icon_url|default:'YOUR_ICON_IMAGE_URL_4_HERE' }}" 
                              alt="{{ section_images.methodology_icon_4.image_alt|default:step.title|add:' Icon' }}" 
-                             class="w-20 h-20 object-contain">
+                             class="w-24 h-24 object-contain">
                     {% elif step.step_number == 5 %}
                         <img src="{{ section_images.methodology_icon_5.icon_url|default:'YOUR_ICON_IMAGE_URL_5_HERE' }}" 
                              alt="{{ section_images.methodology_icon_5.image_alt|default:step.title|add:' Icon' }}" 
-                             class="w-20 h-20 object-contain">
+                             class="w-24 h-24 object-contain">
                     {% endif %}
                 </div>
-                <h3 class="font-serif text-xl font-semibold mb-2">{{ step.step_number }}. {{ step.title }}</h3>
-                <p class="text-white/80 text-sm leading-relaxed mb-2">
+                <h3 class="font-display text-2xl font-semibold mb-3 prevent-orphans">{{ step.step_number }}. {{ step.title }}</h3>
+                <p class="text-white/80 text-base leading-relaxed mb-3 prevent-orphans">
                     {{ step.description }}
                 </p>
-                <p class="text-gold text-xs font-semibold">{{ step.result_text }}</p>
+                <p class="text-gold text-sm font-semibold prevent-orphans">{{ step.result_text }}</p>
             </div>
             {% empty %}
             <!-- Fallback steps if none exist -->
             <div class="relative z-10 text-center fade-in stagger-1">
-                <div class="w-20 h-20 bg-navy/70 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-24 h-24 bg-navy/70 rounded-full flex items-center justify-center mx-auto mb-6">
                     <img src="{{ section_images.methodology_icon_1.icon_url|default:'YOUR_ICON_IMAGE_URL_1_HERE' }}" 
                          alt="{{ section_images.methodology_icon_1.image_alt|default:'Assessment Icon' }}" 
-                         class="w-20 h-20 object-contain">
+                         class="w-24 h-24 object-contain">
                 </div>
-                <h3 class="font-serif text-xl font-semibold mb-2">1. Assessment</h3>
-                <p class="text-white/80 text-sm leading-relaxed mb-2">
+                <h3 class="font-display text-2xl font-semibold mb-3 prevent-orphans">1. Assessment</h3>
+                <p class="text-white/80 text-base leading-relaxed mb-3 prevent-orphans">
                     We start with your goals — returns, concerns, and preferences.
                 </p>
-                <p class="text-gold text-xs font-semibold">Result: A plan that fits you, not a template.</p>
+                <p class="text-gold text-sm font-semibold prevent-orphans">Result: A plan that fits you, not a template.</p>
             </div>
             {% endfor %}
         </div>

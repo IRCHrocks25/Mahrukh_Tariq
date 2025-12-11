@@ -2,7 +2,7 @@
 <section id="credibility" class="py-16 bg-warm-grey relative">
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-8 fade-in">
-            <h2 class="text-5xl md:text-6xl font-serif font-bold text-gold mb-3">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#654321] mb-6 leading-tight">
                 {{ credibility_section.title|default:"Proven Experience. Personal Commitment.<br>Real Results."|safe }}
             </h2>
             <div class="w-24 h-1 bg-gold mx-auto mb-3"></div>
@@ -12,7 +12,7 @@
         </div>
         
         <div class="mb-6">
-            <h3 class="text-2xl font-serif font-semibold text-gold mb-3 text-center">
+            <h3 class="text-2xl font-display font-semibold text-[#654321] mb-3 text-center">
                 {{ credibility_section.subtitle|default:"Why Landlords Choose Garden Gate" }}
             </h3>
             <p class="text-lg text-navy/80 mb-4 text-center max-w-3xl mx-auto">
@@ -23,7 +23,7 @@
         <div class="grid md:grid-cols-4 gap-6">
             {% for card in credibility_cards %}
             <div class="bg-beige p-8 rounded-lg border border-warm-grey card-hover fade-in stagger-{{ card.card_number }}">
-                <h3 class="font-serif text-3xl font-bold text-[#654321] mb-4 text-left">{{ card.title }}</h3>
+                <h3 class="font-display text-3xl font-bold text-[#654321] mb-4 text-left">{{ card.title }}</h3>
                 <p class="text-navy/80 leading-relaxed">
                     {{ card.description }}
                 </p>
@@ -31,7 +31,7 @@
             {% empty %}
             <!-- Fallback if no cards -->
             <div class="bg-beige p-8 rounded-lg border border-warm-grey card-hover fade-in stagger-1">
-                <h3 class="font-serif text-3xl font-bold text-[#654321] mb-4 text-left">Personal Tenant Screening</h3>
+                <h3 class="font-display text-3xl font-bold text-[#654321] mb-4 text-left">Personal Tenant Screening</h3>
                 <p class="text-navy/80 leading-relaxed">
                     With an average 4-day placement time, vacancies are filled faster than competitors who sit empty for weeks. Experience as a landlord ensures speed without compromising quality.
                 </p>
