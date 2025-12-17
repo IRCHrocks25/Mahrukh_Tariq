@@ -9,7 +9,11 @@
             <!-- Right: Narrative -->
             <div class="fade-in-right">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-[#654321] mb-6">
-                    {{ about_section.title|default:"I Built This Because I Was You" }}
+                    {% if about_section.title %}
+                        {{ about_section.title|linebreaks }}
+                    {% else %}
+                        I Built This Because<br>I Was You
+                    {% endif %}
                 </h2>
                 <div class="space-y-6 text-navy/80 leading-relaxed">
                     {% for paragraph in about_section.get_content_paragraphs %}
