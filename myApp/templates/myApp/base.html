@@ -11,10 +11,10 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- Google Fonts: Bebas Neue (display/headings) + Cormorant Garamond (serif) + Inter (sans-serif) -->
+    <!-- Google Fonts: Raleway (headlines) + Lora (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -28,9 +28,9 @@
                         'sage': '#A7B2A2',
                     },
                     fontFamily: {
-                        'display': ['Bebas Neue', 'cursive'],
-                        'serif': ['Cormorant Garamond', 'serif'],
-                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Raleway', 'sans-serif'],
+                        'serif': ['Lora', 'serif'],
+                        'sans': ['Lora', 'serif'],
                     },
                 }
             }
@@ -42,10 +42,10 @@
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Lora', serif;
         }
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Bebas Neue', cursive;
+            font-family: 'Raleway', sans-serif;
             letter-spacing: 0.02em;
         }
         
@@ -271,6 +271,37 @@
             }
         }
         
+        /* Hero Section Slide Animations */
+        .hero-text-slide-left {
+            animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        
+        .hero-image-slide-right {
+            animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-80px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
         /* Mobile menu animations */
         @media (max-width: 768px) {
             /* Ensure all fade animations work on mobile */
@@ -308,17 +339,31 @@
             }
             
             /* Hero section mobile animation */
-            .hero-text {
-                animation: fadeUpMobile 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+            .hero-text-slide-left {
+                animation: slideInLeftMobile 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
             }
-            @keyframes fadeUpMobile {
+            @keyframes slideInLeftMobile {
                 from {
                     opacity: 0;
-                    transform: translateY(40px);
+                    transform: translateX(-50px);
                 }
                 to {
                     opacity: 1;
-                    transform: translateY(0);
+                    transform: translateX(0);
+                }
+            }
+            
+            .hero-image-slide-right {
+                animation: slideInRightMobile 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+            }
+            @keyframes slideInRightMobile {
+                from {
+                    opacity: 0;
+                    transform: translateX(60px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
                 }
             }
         }

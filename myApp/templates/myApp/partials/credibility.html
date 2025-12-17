@@ -1,43 +1,111 @@
 <!-- Credibility Section -->
-<section id="credibility" class="py-16 bg-warm-grey relative">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-8 fade-in">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#654321] mb-6 leading-tight">
-                {{ credibility_section.title|default:"Proven Experience. Personal Commitment.<br>Real Results."|safe }}
-            </h2>
-            <div class="w-24 h-1 bg-gold mx-auto mb-3"></div>
-            <p class="text-lg text-navy/70 max-w-3xl mx-auto">
-                {{ credibility_section.description|default:"Garden Gate is not a franchise or volume-driven agency. It's a boutique property management firm built on 13 years of hands-on real estate experience — backed by a personal portfolio that proves its systems deliver results." }}
-            </p>
-        </div>
-        
-        <div class="mb-6">
-            <h3 class="text-2xl font-display font-semibold text-[#654321] mb-3 text-center">
-                {{ credibility_section.subtitle|default:"Why Landlords Choose Garden Gate" }}
-            </h3>
-            <p class="text-lg text-navy/80 mb-4 text-center max-w-3xl mx-auto">
-                {{ credibility_section.subtitle_description|default:"Most property managers have never been landlords. Mahrukh Tariq is both. Here's why that matters to your bottom line:" }}
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-4 gap-6">
-            {% for card in credibility_cards %}
-            <div class="bg-beige p-8 rounded-lg border border-warm-grey card-hover fade-in stagger-{{ card.card_number }}">
-                <h3 class="font-display text-3xl font-bold text-[#654321] mb-4 text-left">{{ card.title }}</h3>
-                <p class="text-navy/80 leading-relaxed">
-                    {{ card.description }}
-                </p>
-            </div>
-            {% empty %}
-            <!-- Fallback if no cards -->
-            <div class="bg-beige p-8 rounded-lg border border-warm-grey card-hover fade-in stagger-1">
-                <h3 class="font-display text-3xl font-bold text-[#654321] mb-4 text-left">Personal Tenant Screening</h3>
-                <p class="text-navy/80 leading-relaxed">
-                    With an average 4-day placement time, vacancies are filled faster than competitors who sit empty for weeks. Experience as a landlord ensures speed without compromising quality.
-                </p>
-            </div>
-            {% endfor %}
-        </div>
+<section id="credibility" class="relative py-20 md:py-28 bg-warm-grey overflow-hidden">
+    <!-- Luxury background layers -->
+    <div class="absolute inset-0 pointer-events-none">
+      <!-- soft gradient wash -->
+      <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/30"></div>
+  
+      <!-- subtle “linen” texture vibe -->
+      <div class="absolute inset-0 opacity-[0.06] mix-blend-multiply"
+           style="background-image: radial-gradient(#654321 1px, transparent 1px); background-size: 18px 18px;"></div>
+  
+      <!-- blurred accent shapes -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-gold/20 blur-3xl"></div>
+      <div class="absolute -bottom-28 -right-24 w-[32rem] h-[32rem] rounded-full bg-[#654321]/10 blur-3xl"></div>
     </div>
-</section>
-
+  
+    <div class="relative max-w-7xl mx-auto px-6">
+      <!-- Header -->
+      <div class="text-center mb-10 md:mb-14 fade-in">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#654321]/15 bg-white/40 backdrop-blur-sm text-[#654321] text-xs md:text-sm tracking-wide">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+          Boutique Property Management • Landlord-Led
+        </div>
+  
+        <h2 class="mt-6 text-2xl md:text-4xl lg:text-5xl font-display font-bold text-[#654321] leading-[1.05]">
+          {{ credibility_section.title|default:"Proven Experience. Personal Commitment.<br>Real Results."|safe }}
+        </h2>
+  
+        <!-- premium divider -->
+        <div class="mt-6 flex items-center justify-center gap-3">
+          <span class="h-px w-10 bg-[#654321]/25"></span>
+          <span class="h-1 w-20 rounded-full bg-gold"></span>
+          <span class="h-px w-10 bg-[#654321]/25"></span>
+        </div>
+  
+        <p class="mt-6 text-base md:text-lg text-navy/70 max-w-3xl mx-auto leading-relaxed">
+          {{ credibility_section.description|default:"Garden Gate is not a franchise or volume-driven agency. It's a boutique property management firm built on 13 years of hands-on real estate experience — backed by a personal portfolio that proves its systems deliver results." }}
+        </p>
+      </div>
+  
+      <!-- Optional “proof” strip (feels premium even if numbers are placeholders) -->
+     
+  
+      <!-- Subheader -->
+      <div class="mb-8 md:mb-10 text-center">
+        <h3 class="text-2xl md:text-3xl font-display font-semibold text-[#654321]">
+          {{ credibility_section.subtitle|default:"Why Landlords Choose Garden Gate" }}
+        </h3>
+        <p class="mt-3 text-base md:text-lg text-navy/80 max-w-3xl mx-auto leading-relaxed">
+          {{ credibility_section.subtitle_description|default:"Most property managers have never been landlords. Mahrukh Tariq is both. Here's why that matters to your bottom line:" }}
+        </p>
+      </div>
+  
+      <!-- Cards -->
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {% for card in credibility_cards %}
+        <div class="group relative rounded-3xl border border-[#654321]/10 bg-white/55 backdrop-blur-md p-7 md:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(0,0,0,0.10)] fade-in stagger-{{ card.card_number }}">
+          <!-- top accent -->
+          <div class="absolute inset-x-6 top-0 h-[2px] bg-gradient-to-r from-transparent via-gold/90 to-transparent opacity-70"></div>
+  
+          <!-- subtle inner glow -->
+          <div class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+               style="background: radial-gradient(800px circle at 20% 10%, rgba(212,175,55,0.18), transparent 55%);">
+          </div>
+  
+          <div class="relative">
+            <!-- mini badge -->
+            <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#654321]/70">
+              <span class="w-2 h-2 rounded-full bg-gold"></span>
+              Credibility
+            </div>
+  
+            <h4 class="mt-4 font-display text-xl md:text-2xl font-bold text-[#654321] leading-tight">
+              {{ card.title }}
+            </h4>
+  
+            <p class="mt-4 text-navy/80 leading-relaxed">
+              {{ card.description }}
+            </p>
+  
+            <!-- micro CTA line (optional but premium) -->
+            <div class="mt-6 text-sm text-[#654321]/70">
+              Built to protect your property value.
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <!-- Fallback if no cards -->
+        <div class="group relative rounded-3xl border border-[#654321]/10 bg-white/55 backdrop-blur-md p-7 md:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(0,0,0,0.10)] fade-in stagger-1">
+          <div class="absolute inset-x-6 top-0 h-[2px] bg-gradient-to-r from-transparent via-gold/90 to-transparent opacity-70"></div>
+          <div class="relative">
+            <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#654321]/70">
+              <span class="w-2 h-2 rounded-full bg-gold"></span>
+              Credibility
+            </div>
+            <h4 class="mt-4 font-display text-xl md:text-2xl font-bold text-[#654321] leading-tight">
+              Personal Tenant Screening
+            </h4>
+            <p class="mt-4 text-navy/80 leading-relaxed">
+              With an average 4-day placement time, vacancies are filled faster than competitors who sit empty for weeks. Experience as a landlord ensures speed without compromising quality.
+            </p>
+            <div class="mt-6 text-sm text-[#654321]/70">
+              Built to protect your property value.
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
