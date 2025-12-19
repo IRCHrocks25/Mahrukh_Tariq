@@ -5,7 +5,7 @@
     
     <div class="relative max-w-7xl mx-auto px-6 z-10">
         <div class="text-center mb-16 fade-in">
-            <h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+            <h2 class="text-5xl md:text-6xl font-display font-normal text-white mb-4 prevent-orphans">
                 {{ pain_points_section.title|default:"Common Problems.<br>Clear Solutions."|safe }}
             </h2>
             <div class="w-24 h-1 bg-[#3B82F6] mx-auto mb-4"></div>
@@ -19,7 +19,7 @@
             <div class="relative fade-in-left flex">
                 <div class="absolute inset-0 bg-red-500/20 opacity-30 rounded-lg"></div>
                 <div class="relative bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg border border-white/20 card-hover w-full flex flex-col">
-                    <h3 class="text-2xl font-display font-semibold text-white mb-6 flex items-center gap-3">
+                    <h3 class="text-2xl font-display font-normal text-white mb-6 flex items-center gap-3 prevent-orphans">
                         <i class="fas fa-triangle-exclamation text-red-400"></i>
                         What Goes Wrong:
                     </h3>
@@ -57,7 +57,7 @@
                             color: white !important;
                         }
                     </style>
-                    <h3 class="text-2xl font-display font-semibold text-white mb-6 flex items-center gap-3">
+                    <h3 class="text-2xl font-display font-normal text-white mb-6 flex items-center gap-3 prevent-orphans">
                         <i class="fas fa-check-circle text-white"></i>
                         How We're Different:
                     </h3>
