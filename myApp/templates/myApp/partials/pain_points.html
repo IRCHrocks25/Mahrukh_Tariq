@@ -1,12 +1,15 @@
 <!-- Pain Points & Solution Section -->
-<section class="py-20 bg-beige">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="py-20 relative overflow-hidden" style="background-image: url('https://res.cloudinary.com/dcuswyfur/image/upload/v1766132647/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202-2.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <!-- Dark overlay for text readability -->
+    <div class="absolute inset-0 bg-[#0F172A]/70"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-6 z-10">
         <div class="text-center mb-16 fade-in">
-            <h2 class="text-5xl md:text-6xl font-display font-bold text-[#654321] mb-4">
+            <h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-4">
                 {{ pain_points_section.title|default:"Common Problems.<br>Clear Solutions."|safe }}
             </h2>
-            <div class="w-24 h-1 bg-gold mx-auto mb-4"></div>
-            <p class="text-lg text-navy/70 max-w-3xl mx-auto">
+            <div class="w-24 h-1 bg-[#3B82F6] mx-auto mb-4"></div>
+            <p class="text-lg text-white/90 max-w-3xl mx-auto">
                 {{ pain_points_section.description|default:"Owning rental property shouldn't mean chasing managers or worrying about surprise bills. But too often, landlords deal with:" }}
             </p>
         </div>
@@ -14,32 +17,32 @@
         <div class="grid md:grid-cols-2 gap-12 items-stretch">
             <!-- Left: Pain Points -->
             <div class="relative fade-in-left flex">
-                <div class="absolute inset-0 bg-red-50 opacity-20 rounded-lg"></div>
-                <div class="relative bg-white p-8 rounded-lg shadow-sm card-hover w-full flex flex-col">
-                    <h3 class="text-2xl font-display font-semibold text-navy mb-6 flex items-center gap-3">
-                        <i class="fas fa-triangle-exclamation text-red-600"></i>
+                <div class="absolute inset-0 bg-red-500/20 opacity-30 rounded-lg"></div>
+                <div class="relative bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg border border-white/20 card-hover w-full flex flex-col">
+                    <h3 class="text-2xl font-display font-semibold text-white mb-6 flex items-center gap-3">
+                        <i class="fas fa-triangle-exclamation text-red-400"></i>
                         What Goes Wrong:
                     </h3>
                     <ul class="space-y-4 flex-grow">
                         <li class="flex items-start gap-3">
-                            <span class="text-red-600 mt-1">•</span>
-                            <span class="text-navy/80">{{ pain_points_section.pain_point_1|default:"Managers who disappear when you need answers." }}</span>
+                            <span class="text-red-400 mt-1">•</span>
+                            <span class="text-white/90">{{ pain_points_section.pain_point_1|default:"Managers who disappear when you need answers." }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-red-600 mt-1">•</span>
-                            <span class="text-navy/80">{{ pain_points_section.pain_point_2|default:"Inflated maintenance costs and hidden markups." }}</span>
+                            <span class="text-red-400 mt-1">•</span>
+                            <span class="text-white/90">{{ pain_points_section.pain_point_2|default:"Inflated maintenance costs and hidden markups." }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-red-600 mt-1">•</span>
-                            <span class="text-navy/80">{{ pain_points_section.pain_point_3|default:"Weak screening that lets in problem tenants." }}</span>
+                            <span class="text-red-400 mt-1">•</span>
+                            <span class="text-white/90">{{ pain_points_section.pain_point_3|default:"Weak screening that lets in problem tenants." }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-red-600 mt-1">•</span>
-                            <span class="text-navy/80">{{ pain_points_section.pain_point_4|default:"Generic, one-size-fits-all service." }}</span>
+                            <span class="text-red-400 mt-1">•</span>
+                            <span class="text-white/90">{{ pain_points_section.pain_point_4|default:"Generic, one-size-fits-all service." }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-red-600 mt-1">•</span>
-                            <span class="text-navy/80">{{ pain_points_section.pain_point_5|default:"Unapproved expenses with zero transparency." }}</span>
+                            <span class="text-red-400 mt-1">•</span>
+                            <span class="text-white/90">{{ pain_points_section.pain_point_5|default:"Unapproved expenses with zero transparency." }}</span>
                         </li>
                     </ul>
                 </div>
@@ -47,32 +50,37 @@
             
             <!-- Right: Solutions -->
             <div class="relative fade-in-right flex">
-                <div class="absolute inset-0 bg-gold/10 rounded-lg"></div>
-                <div class="relative bg-white p-8 rounded-lg shadow-sm border-2 border-gold/30 card-hover w-full flex flex-col">
-                    <h3 class="text-2xl font-display font-semibold text-navy mb-6 flex items-center gap-3">
-                        <i class="fas fa-check-circle text-gold"></i>
+                <div class="absolute inset-0 bg-[#3B82F6]/20 rounded-lg"></div>
+                <div class="relative bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg border-2 border-[#3B82F6]/40 card-hover w-full flex flex-col solutions-section">
+                    <style>
+                        .solutions-section strong {
+                            color: white !important;
+                        }
+                    </style>
+                    <h3 class="text-2xl font-display font-semibold text-white mb-6 flex items-center gap-3">
+                        <i class="fas fa-check-circle text-white"></i>
                         How We're Different:
                     </h3>
                     <ul class="space-y-4 flex-grow">
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-check text-gold mt-1"></i>
-                            <span class="text-navy/80">{{ pain_points_section.solution_1|default:"<strong class=\"text-gold italic\">Immediate Access</strong> — You call. I answer. Same day."|safe }}</span>
+                            <i class="fas fa-check text-white mt-1"></i>
+                            <span class="text-white/90">{{ pain_points_section.solution_1|default:"<strong class=\"text-white italic\">Immediate Access</strong> — You call. I answer. Same day."|safe }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-check text-gold mt-1"></i>
-                            <span class="text-navy/80">{{ pain_points_section.solution_2|default:"<strong class=\"text-gold italic\">Transparent Pricing</strong> — You review every estimate before work begins."|safe }}</span>
+                            <i class="fas fa-check text-white mt-1"></i>
+                            <span class="text-white/90">{{ pain_points_section.solution_2|default:"<strong class=\"text-white italic\">Transparent Pricing</strong> — You review every estimate before work begins."|safe }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-check text-gold mt-1"></i>
-                            <span class="text-navy/80">{{ pain_points_section.solution_3|default:"<strong class=\"text-gold italic\">Rigorous Screening</strong> — Every tenant meets me personally before approval."|safe }}</span>
+                            <i class="fas fa-check text-white mt-1"></i>
+                            <span class="text-white/90">{{ pain_points_section.solution_3|default:"<strong class=\"text-white italic\">Rigorous Screening</strong> — Every tenant meets me personally before approval."|safe }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-check text-gold mt-1"></i>
-                            <span class="text-navy/80">{{ pain_points_section.solution_4|default:"<strong class=\"text-gold italic\">Customized Management</strong> — Your goals, your preferences, your plan."|safe }}</span>
+                            <i class="fas fa-check text-white mt-1"></i>
+                            <span class="text-white/90">{{ pain_points_section.solution_4|default:"<strong class=\"text-white italic\">Customized Management</strong> — Your goals, your preferences, your plan."|safe }}</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-check text-gold mt-1"></i>
-                            <span class="text-navy/80">{{ pain_points_section.solution_5|default:"<strong class=\"text-gold italic\">Total Transparency</strong> — You're informed before money moves. Always."|safe }}</span>
+                            <i class="fas fa-check text-white mt-1"></i>
+                            <span class="text-white/90">{{ pain_points_section.solution_5|default:"<strong class=\"text-white italic\">Total Transparency</strong> — You're informed before money moves. Always."|safe }}</span>
                         </li>
                     </ul>
                 </div>
@@ -80,7 +88,7 @@
         </div>
         
         <div class="text-center mt-12">
-            <a href="{{ pain_points_section.cta_link|default:'#consultation' }}" class="inline-flex items-center gap-2 px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
+            <a href="{{ pain_points_section.cta_link|default:'#consultation' }}" class="inline-flex items-center gap-2 px-8 py-4 rounded-md font-semibold text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);">
                 {{ pain_points_section.cta_text|default:"Turn Frustrations Into Results" }}
                 <i class="fas fa-arrow-right"></i>
             </a>

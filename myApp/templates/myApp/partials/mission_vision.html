@@ -1,31 +1,24 @@
 <!-- Mission & Vision Section -->
-<section class="relative py-20 md:py-28 bg-white overflow-hidden">
-    <!-- Luxury background layers -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute inset-0 bg-gradient-to-b from-[#654321]/[0.03] via-transparent to-[#654321]/[0.02]"></div>
-      <div class="absolute -top-28 -left-28 w-[34rem] h-[34rem] rounded-full bg-gold/15 blur-3xl"></div>
-      <div class="absolute -bottom-32 -right-28 w-[36rem] h-[36rem] rounded-full bg-[#654321]/10 blur-3xl"></div>
-    </div>
-  
-    <div class="relative max-w-7xl mx-auto px-6">
+<section class="relative py-20 md:py-28 overflow-hidden" style="background-image: url('https://res.cloudinary.com/dcuswyfur/image/upload/v1766133959/garden_gate/high-angle-view-trees-buildings-town%202.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="relative max-w-7xl mx-auto px-6 z-10">
       <!-- Section Header (makes it feel premium + intentional) -->
       <div class="text-center mb-12 md:mb-16 fade-in">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#654321]/10 bg-white/60 backdrop-blur-sm text-[#654321] text-xs md:text-sm tracking-wide">
-          <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-white text-xs md:text-sm tracking-wide">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#3B82F6]"></span>
           The standard we operate by
         </div>
   
-        <h2 class="mt-5 text-3xl md:text-4xl lg:text-5xl font-display font-bold text-[#654321] leading-tight">
+        <h2 class="mt-5 text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white leading-tight">
           Built for landlords who expect clarity,<br>control, and calm.
         </h2>
   
         <div class="mt-6 flex items-center justify-center gap-3">
-          <span class="h-px w-10 bg-[#654321]/20"></span>
-          <span class="h-1 w-20 rounded-full bg-gold"></span>
-          <span class="h-px w-10 bg-[#654321]/20"></span>
+          <span class="h-px w-10 bg-white/30"></span>
+          <span class="h-1 w-20 rounded-full bg-[#3B82F6]"></span>
+          <span class="h-px w-10 bg-white/30"></span>
         </div>
   
-        <p class="mt-6 text-base md:text-lg text-navy/70 max-w-3xl mx-auto leading-relaxed">
+        <p class="mt-6 text-base md:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">
           A boutique approach that protects your asset, respects your time, and keeps communication human.
         </p>
       </div>
@@ -33,64 +26,54 @@
       <!-- Cards -->
       <div class="grid md:grid-cols-2 gap-6 md:gap-8">
         <!-- Mission Card -->
-        <div class="group relative rounded-3xl border border-[#654321]/10 bg-white/70 backdrop-blur-md p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(0,0,0,0.10)] fade-in-left">
-          <!-- Top gold accent -->
-          <div class="absolute inset-x-8 top-0 h-[2px] bg-gradient-to-r from-transparent via-gold/90 to-transparent opacity-70"></div>
+        <div class="group relative rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(0,0,0,0.3)] fade-in-left">
+          <!-- Top accent -->
+          <div class="absolute inset-x-8 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#3B82F6]/90 to-transparent opacity-70"></div>
   
           <div class="flex items-start gap-5">
-            <div class="shrink-0 w-14 h-14 rounded-2xl border border-[#654321]/10 bg-white/70 flex items-center justify-center">
-              <i class="fas fa-bullseye text-gold text-2xl"></i>
+            <div class="shrink-0 w-14 h-14 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center">
+              <i class="fas fa-bullseye text-[#3B82F6] text-2xl"></i>
             </div>
   
             <div class="text-left">
-              <div class="text-xs uppercase tracking-widest text-[#654321]/70">
+              <div class="text-xs uppercase tracking-widest text-white/80">
                 {{ mission_vision_section.mission_title|default:"Our Mission" }}
               </div>
   
-              <h3 class="mt-3 text-2xl md:text-3xl font-display font-bold text-navy leading-tight">
+              <h3 class="mt-3 text-2xl md:text-3xl font-display font-bold text-white leading-tight">
                 {{ mission_vision_section.mission_subtitle|default:"Deliver What Corporate Management Can't." }}
               </h3>
   
-              <p class="mt-4 text-navy/80 leading-relaxed text-base md:text-lg">
+              <p class="mt-4 text-white/90 leading-relaxed text-base md:text-lg">
                 {{ mission_vision_section.mission_description|default:"We exist because landlords deserve better — direct access, transparent pricing, and genuine partnership. Garden Gate gives you clarity, control, and confidence in your investment." }}
               </p>
             </div>
           </div>
-  
-          <!-- subtle hover glow -->
-          <div class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-               style="background: radial-gradient(900px circle at 10% 10%, rgba(212,175,55,0.18), transparent 55%);">
-          </div>
         </div>
   
         <!-- Vision Card -->
-        <div class="group relative rounded-3xl border border-[#654321]/10 bg-white/70 backdrop-blur-md p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(0,0,0,0.10)] fade-in-right">
-          <!-- Top gold accent -->
-          <div class="absolute inset-x-8 top-0 h-[2px] bg-gradient-to-r from-transparent via-gold/90 to-transparent opacity-70"></div>
+        <div class="group relative rounded-3xl border border-white/20 bg-white/10 backdrop-blur-md p-8 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_55px_rgba(0,0,0,0.3)] fade-in-right">
+          <!-- Top accent -->
+          <div class="absolute inset-x-8 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#3B82F6]/90 to-transparent opacity-70"></div>
   
           <div class="flex items-start gap-5">
-            <div class="shrink-0 w-14 h-14 rounded-2xl border border-[#654321]/10 bg-white/70 flex items-center justify-center">
-              <i class="fas fa-eye text-gold text-2xl"></i>
+            <div class="shrink-0 w-14 h-14 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center">
+              <i class="fas fa-eye text-[#3B82F6] text-2xl"></i>
             </div>
   
             <div class="text-left">
-              <div class="text-xs uppercase tracking-widest text-[#654321]/70">
+              <div class="text-xs uppercase tracking-widest text-white/80">
                 {{ mission_vision_section.vision_title|default:"Our Vision" }}
               </div>
   
-              <h3 class="mt-3 text-2xl md:text-3xl font-display font-bold text-navy leading-tight">
+              <h3 class="mt-3 text-2xl md:text-3xl font-display font-bold text-white leading-tight">
                 {{ mission_vision_section.vision_subtitle|default:"Boutique Management That Puts Landlords First." }}
               </h3>
   
-              <p class="mt-4 text-navy/80 leading-relaxed text-base md:text-lg">
+              <p class="mt-4 text-white/90 leading-relaxed text-base md:text-lg">
                 {{ mission_vision_section.vision_description|default:"We're building Northern Virginia's most trusted boutique property management firm — where landlords enjoy ownership, not endure it." }}
               </p>
             </div>
-          </div>
-  
-          <!-- subtle hover glow -->
-          <div class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-               style="background: radial-gradient(900px circle at 10% 10%, rgba(101,67,33,0.14), transparent 55%);">
           </div>
         </div>
       </div>
@@ -100,14 +83,14 @@
         <a
           href="{{ mission_vision_section.cta_link|default:'#consultation' }}"
           class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-2xl font-semibold text-white shadow-[0_12px_30px_rgba(101,67,33,0.20)] hover:shadow-[0_18px_45px_rgba(101,67,33,0.28)] transition-all duration-300 hover:-translate-y-[2px]"
-          style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);"
+          style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);"
         >
           {{ mission_vision_section.cta_text|default:"Join Us" }}
           <i class="fas fa-arrow-right"></i>
         </a>
   
-        <div class="mt-4 text-sm text-navy/60">
-          No pressure — just a quick conversation to see if we’re the right fit.
+        <div class="mt-4 text-sm text-white/80">
+          No pressure — just a quick conversation to see if we're the right fit.
         </div>
       </div>
     </div>

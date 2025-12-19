@@ -22,10 +22,13 @@
                 extend: {
                     colors: {
                         'navy': '#0F1A2A',
-                        'gold': '#C9A46A',
-                        'beige': '#F4EFE8',
-                        'warm-grey': '#E5E1DA',
-                        'sage': '#A7B2A2',
+                        'blue': '#1E3A8A',
+                        'blue-light': '#3B82F6',
+                        'blue-dark': '#1E40AF',
+                        'gold': '#3B82F6',
+                        'beige': '#FFFFFF',
+                        'warm-grey': '#F8FAFC',
+                        'sage': '#E0E7FF',
                     },
                     fontFamily: {
                         'display': ['Raleway', 'sans-serif'],
@@ -166,7 +169,7 @@
             height: 2px;
             bottom: -4px;
             left: 50%;
-            background: linear-gradient(90deg, #C19A6B, #C9A46A);
+            background: linear-gradient(90deg, #3B82F6, #1E40AF);
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                         left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(-50%);
@@ -373,7 +376,7 @@
         }
     </style>
 </head>
-<body class="bg-beige">
+<body class="bg-white">
     {% block content %}{% endblock %}
 </body>
 </html>

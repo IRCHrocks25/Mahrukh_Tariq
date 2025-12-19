@@ -14,6 +14,7 @@ from .models import (
 )
 from .utils.cloudinary_utils import upload_to_cloudinary
 import json
+import os
 
 # Login view
 def dashboard_login(request):
@@ -81,6 +82,13 @@ def upload_image(request):
         image_file = request.FILES['image']
         folder = request.POST.get('folder', 'garden_gate')
         
+        # Validate Cloudinary config
+        cloudinary_cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME', '')
+        if not cloudinary_cloud_name:
+            return JsonResponse({
+                'error': 'Cloudinary not configured. Please set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET environment variables in your .env file.'
+            }, status=500)
+        
         # Upload to Cloudinary
         result = upload_to_cloudinary(image_file, folder=folder)
         
@@ -103,7 +111,14 @@ def upload_image(request):
             'id': media_asset.id
         })
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        import traceback
+        error_details = traceback.format_exc()
+        print(f"Upload error: {str(e)}")
+        print(f"Traceback: {error_details}")
+        return JsonResponse({
+            'error': str(e),
+            'error_type': type(e).__name__
+        }, status=500)
 
 # Edit all methodology icons at once
 @login_required

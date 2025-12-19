@@ -1,5 +1,5 @@
 <!-- Free Lead Magnet Section -->
-<section class="w-full py-16 md:py-24 bg-beige">
+<section class="w-full py-16 md:py-24 bg-white">
     <!-- Centered Container -->
     <div class="max-w-5xl mx-auto px-4 md:px-6">
         <!-- Main Card Container -->
@@ -10,35 +10,35 @@
                 <!-- Left Column: Text Content (60-65% width on desktop) -->
                 <div class="flex-1 md:flex-[0.62] flex flex-col items-start">
                     <!-- Heading -->
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-[#654321] mb-4 leading-tight">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-[#1E3A8A] mb-4 leading-tight">
                         {{ lead_magnet_section.title|default:"Free 15 Minute Property<br>Assessment"|safe }}
                     </h2>
                     
                     <!-- Subheading -->
-                    <p class="text-base md:text-lg text-[#654321]/80 mb-6 leading-relaxed">
+                    <p class="text-base md:text-lg text-[#1E3A8A]/80 mb-6 leading-relaxed">
                         {{ lead_magnet_section.subtitle|default:"No sales pitch. Just straight answers to:" }}
                     </p>
                     
                     <!-- Bullet List -->
                     <ul class="space-y-3 md:space-y-4 mb-6 list-disc pl-6">
-                        <li class="text-base md:text-lg text-[#654321] font-bold leading-relaxed">
+                        <li class="text-base md:text-lg text-[#1E3A8A] font-bold leading-relaxed">
                             {{ lead_magnet_section.bullet_1|default:"What your property should actually rent for" }}
                         </li>
-                        <li class="text-base md:text-lg text-[#654321] font-bold leading-relaxed">
+                        <li class="text-base md:text-lg text-[#1E3A8A] font-bold leading-relaxed">
                             {{ lead_magnet_section.bullet_2|default:"Where you're currently losing money" }}
                         </li>
-                        <li class="text-base md:text-lg text-[#654321] font-bold leading-relaxed">
+                        <li class="text-base md:text-lg text-[#1E3A8A] font-bold leading-relaxed">
                             {{ lead_magnet_section.bullet_3|default:"Whether we're a good fit (honest answer)" }}
                         </li>
                     </ul>
                     
                     <!-- Paragraph -->
-                    <p class="text-sm md:text-base text-[#654321]/80 mb-8 leading-relaxed">
+                    <p class="text-sm md:text-base text-[#1E3A8A]/80 mb-8 leading-relaxed">
                         {{ lead_magnet_section.description|default:"If we're not right for you, I'll tell you. If we are, you'll know exactly what happens next." }}
                     </p>
                     
                     <!-- Button -->
-                    <a href="{{ lead_magnet_section.cta_link|default:'#consultation' }}" class="inline-block px-12 py-5 rounded-lg font-semibold text-xl text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #654321 0%, #C19A6B 100%);">
+                    <a href="{{ lead_magnet_section.cta_link|default:'#consultation' }}" class="inline-block px-12 py-5 rounded-lg font-semibold text-xl text-white hover:opacity-90 btn-transition scale-hover" style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);">
                         {{ lead_magnet_section.cta_text|default:"Show Me How This Actually Works" }}
                     </a>
                 </div>
