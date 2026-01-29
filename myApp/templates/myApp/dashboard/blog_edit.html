@@ -1,0 +1,114 @@
+{% extends "myApp/dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Edit Blog Section{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+    <h2 class="text-3xl font-bold text-navy mb-2">Blog Section</h2>
+    <p class="text-gray-600">Edit blog section header and manage blog posts</p>
+</div>
+
+<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-8 mb-8">
+    {% csrf_token %}
+    
+    <!-- Section Header -->
+    <div class="border-b border-gray-200 pb-6">
+        <h3 class="text-xl font-semibold text-navy mb-4">Section Header</h3>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Title</label>
+                <input type="text" name="title" value="{{ blog_section.title|default:'' }}" 
+                       placeholder="Insights & Expertise"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Subtitle</label>
+                <textarea name="subtitle" rows="2" 
+                          placeholder="Learn from our experience managing properties..."
+                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ blog_section.subtitle|default:'' }}</textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Text</label>
+                    <input type="text" name="cta_text" value="{{ blog_section.cta_text|default:'View All Posts' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Link</label>
+                    <input type="text" name="cta_link" value="{{ blog_section.cta_link|default:'#blog' }}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex justify-end">
+        <button type="submit" class="px-8 py-3 bg-navy text-white rounded-xl hover:bg-blue-dark transition-colors font-semibold">
+            Save Section Header
+        </button>
+    </div>
+</form>
+
+<!-- Blog Posts List -->
+<div class="bg-white rounded-xl shadow-sm p-8">
+    <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-semibold text-navy">Blog Posts</h3>
+        <a href="{% url 'dashboard:blog_post_new' %}" class="px-6 py-3 bg-gold text-white rounded-xl hover:bg-blue transition-colors font-semibold">
+            <i class="fas fa-plus mr-2"></i> New Post
+        </a>
+    </div>
+    
+    {% if blog_posts %}
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="border-b border-gray-200">
+                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Title</th>
+                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Author</th>
+                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Published</th>
+                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>
+                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in blog_posts %}
+                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-4 px-4">
+                        <div class="font-semibold text-navy">{{ post.title|truncatewords:8 }}</div>
+                        <div class="text-sm text-gray-500">{{ post.published_date|date:"M d, Y" }}</div>
+                    </td>
+                    <td class="py-4 px-4 text-gray-700">{{ post.author_name }}</td>
+                    <td class="py-4 px-4 text-gray-700">{{ post.published_date|date:"M d, Y" }}</td>
+                    <td class="py-4 px-4">
+                        {% if post.is_published %}
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Published</span>
+                        {% else %}
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-semibold">Draft</span>
+                        {% endif %}
+                        {% if post.is_featured %}
+                        <span class="px-3 py-1 bg-gold text-white rounded-full text-xs font-semibold ml-2">Featured</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-4 px-4">
+                        <a href="{% url 'dashboard:blog_post_edit' post.id %}" class="text-blue hover:text-blue-dark font-semibold">
+                            <i class="fas fa-edit mr-1"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center py-12 text-gray-500">
+        <i class="fas fa-newspaper text-4xl mb-4"></i>
+        <p>No blog posts yet. Create your first post!</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+

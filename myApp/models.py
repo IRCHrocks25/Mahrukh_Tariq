@@ -406,3 +406,57 @@ class FinalCTASection(models.Model):
     def get_instance(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
+
+# Model to store Blog section header
+class BlogSection(models.Model):
+    title = models.CharField(max_length=200, default="Insights & Expertise")
+    subtitle = models.CharField(max_length=300, default="Learn from our experience managing properties and building successful landlord relationships.")
+    cta_text = models.CharField(max_length=100, default="View All Posts")
+    cta_link = models.CharField(max_length=200, default="#blog")
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Blog Section"
+        verbose_name_plural = "Blog Section"
+    
+    def __str__(self):
+        return "Blog Section"
+    
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    @classmethod
+    def get_instance(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+# Model to store Blog Posts
+class BlogPost(models.Model):
+    title = models.CharField(max_length=300, help_text="Blog post title")
+    slug = models.SlugField(max_length=300, unique=True, help_text="URL-friendly version of title")
+    excerpt = models.TextField(max_length=500, help_text="Short excerpt/preview text")
+    content = models.TextField(help_text="Full blog post content")
+    featured_image_url = models.URLField(blank=True, null=True, help_text="Featured image URL")
+    featured_image_alt = models.CharField(max_length=200, blank=True, help_text="Featured image alt text")
+    author_name = models.CharField(max_length=100, default="Mahrukh Tariq", help_text="Author name")
+    published_date = models.DateTimeField(auto_now_add=True, help_text="Publication date")
+    updated_date = models.DateTimeField(auto_now=True, help_text="Last update date")
+    is_featured = models.BooleanField(default=False, help_text="Show in featured section")
+    is_published = models.BooleanField(default=True, help_text="Published status")
+    view_count = models.IntegerField(default=0, help_text="Number of views")
+    order = models.IntegerField(default=0, help_text="Display order (lower numbers first)")
+    
+    class Meta:
+        ordering = ['-published_date', 'order']
+        verbose_name = "Blog Post"
+        verbose_name_plural = "Blog Posts"
+    
+    def __str__(self):
+        return self.title
+    
+    def get_excerpt(self):
+        """Return excerpt or first 200 chars of content"""
+        if self.excerpt:
+            return self.excerpt
+        return self.content[:200] + "..." if len(self.content) > 200 else self.content

@@ -10,7 +10,8 @@ from .models import (
     HeroSection, CredibilitySection, CredibilityCard,
     TestimonialsSection, Testimonial, StatisticsSection,
     PainPointsSection, MethodologySection, MethodologyStep,
-    AboutSection, MissionVisionSection, LeadMagnetSection, FinalCTASection
+    AboutSection, MissionVisionSection, LeadMagnetSection, FinalCTASection,
+    BlogSection, BlogPost
 )
 from .utils.cloudinary_utils import upload_to_cloudinary
 import json
@@ -492,5 +493,62 @@ def final_cta_edit(request):
     
     return render(request, 'myApp/dashboard/final_cta_edit.html', {
         'final_cta': final_cta
+    })
+
+# Edit Blog section
+@login_required
+def blog_edit(request):
+    blog_section = BlogSection.get_instance()
+    blog_posts = BlogPost.objects.all().order_by('-published_date')
+    
+    if request.method == 'POST':
+        blog_section.title = request.POST.get('title', '')
+        blog_section.subtitle = request.POST.get('subtitle', '')
+        blog_section.cta_text = request.POST.get('cta_text', 'View All Posts')
+        blog_section.cta_link = request.POST.get('cta_link', '#blog')
+        blog_section.save()
+        return redirect('dashboard:index')
+    
+    return render(request, 'myApp/dashboard/blog_edit.html', {
+        'blog_section': blog_section,
+        'blog_posts': blog_posts
+    })
+
+# Edit individual blog post
+@login_required
+def blog_post_edit(request, post_id=None):
+    if post_id:
+        post = get_object_or_404(BlogPost, id=post_id)
+    else:
+        # Create new post
+        post = BlogPost.objects.create(
+            title='New Blog Post',
+            slug='new-blog-post',
+            excerpt='',
+            content='',
+            is_published=False
+        )
+    
+    if request.method == 'POST':
+        from django.utils.text import slugify
+        post.title = request.POST.get('title', '')
+        post.slug = request.POST.get('slug', slugify(post.title))
+        post.excerpt = request.POST.get('excerpt', '')
+        post.content = request.POST.get('content', '')
+        post.featured_image_url = request.POST.get('featured_image_url', '')
+        post.featured_image_alt = request.POST.get('featured_image_alt', '')
+        post.author_name = request.POST.get('author_name', 'Mahrukh Tariq')
+        post.is_featured = request.POST.get('is_featured') == 'on'
+        post.is_published = request.POST.get('is_published') == 'on'
+        order = request.POST.get('order', '0')
+        try:
+            post.order = int(order)
+        except ValueError:
+            post.order = 0
+        post.save()
+        return redirect('dashboard:blog_edit')
+    
+    return render(request, 'myApp/dashboard/blog_post_edit.html', {
+        'post': post
     })
 

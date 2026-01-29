@@ -1,0 +1,130 @@
+<!-- Blog Section -->
+<section id="blog" class="py-24 bg-gradient-to-b from-warm-grey to-white relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-gold rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <!-- Section Header -->
+        <div class="text-center mb-20 fade-in">
+            <h2 class="text-5xl md:text-6xl font-display font-normal text-navy mb-6 prevent-orphans">
+                {{ blog_section.title|default:"Insights & Expertise" }}
+            </h2>
+            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"></div>
+            <p class="text-xl text-navy/70 max-w-3xl mx-auto leading-relaxed">
+                {{ blog_section.subtitle|default:"Learn from our experience managing properties and building successful landlord relationships." }}
+            </p>
+        </div>
+        
+        <!-- Blog Posts Grid -->
+        {% if blog_posts %}
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {% for post in blog_posts %}
+            <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover group fade-in stagger-{{ forloop.counter }}">
+                <!-- Featured Image -->
+                <div class="relative h-64 overflow-hidden bg-gradient-to-br from-navy via-blue to-gold">
+                    {% if post.featured_image_url %}
+                    <img src="{{ post.featured_image_url }}" 
+                         alt="{{ post.featured_image_alt|default:post.title }}" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 img-transition">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <div class="text-white text-6xl opacity-30">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <!-- Category Badge -->
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-gold text-white px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide shadow-lg">
+                            Property Management
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="p-8">
+                    <!-- Date & Author -->
+                    <div class="flex items-center gap-4 mb-4 text-sm text-navy/60">
+                        <span class="flex items-center gap-2">
+                            <i class="fas fa-calendar-alt text-gold"></i>
+                            {{ post.published_date|date:"M d, Y" }}
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <i class="fas fa-user text-gold"></i>
+                            {{ post.author_name }}
+                        </span>
+                    </div>
+                    
+                    <!-- Title -->
+                    <h3 class="text-2xl font-display font-normal text-navy mb-4 leading-tight group-hover:text-blue transition-colors duration-300 prevent-orphans">
+                        {{ post.title }}
+                    </h3>
+                    
+                    <!-- Excerpt -->
+                    <p class="text-navy/70 mb-6 leading-relaxed line-clamp-3">
+                        {{ post.get_excerpt }}
+                    </p>
+                    
+                    <!-- Read More Link -->
+                    <a href="{% url 'blog_post_detail' post.slug %}" class="inline-flex items-center gap-2 text-gold font-semibold hover:text-blue transition-all duration-300 group/link">
+                        Read More
+                        <i class="fas fa-arrow-right transform group-hover/link:translate-x-2 transition-transform duration-300"></i>
+                    </a>
+                </div>
+                
+                <!-- Hover Effect Border -->
+                <div class="h-1 bg-gradient-to-r from-gold via-blue to-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <!-- View All CTA -->
+        <div class="text-center fade-in">
+            <a href="{{ blog_section.cta_link|default:'#blog' }}" class="inline-flex items-center gap-3 px-10 py-5 rounded-lg font-semibold text-white hover:opacity-90 btn-transition scale-hover text-lg shadow-xl" style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);">
+                {{ blog_section.cta_text|default:"View All Posts" }}
+                <i class="fas fa-arrow-right transform group-hover:translate-x-2 transition-transform duration-300"></i>
+            </a>
+        </div>
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-20 fade-in">
+            <div class="text-6xl text-navy/20 mb-6">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <h3 class="text-2xl font-display text-navy mb-4">No Blog Posts Yet</h3>
+            <p class="text-navy/60 max-w-md mx-auto">Check back soon for expert insights and property management tips.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    /* Line clamp utility for excerpt truncation */
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Enhanced card hover with 3D effect */
+    .card-hover {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-12px) rotateX(2deg);
+    }
+    
+    /* Smooth image zoom on hover */
+    .group:hover img {
+        transform: scale(1.1);
+    }
+</style>
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SectionImage, MediaAsset
+from .models import SectionImage, MediaAsset, BlogSection, BlogPost
 
 @admin.register(SectionImage)
 class SectionImageAdmin(admin.ModelAdmin):
@@ -29,3 +29,17 @@ class MediaAssetAdmin(admin.ModelAdmin):
     list_filter = ['folder', 'uploaded_at']
     search_fields = ['filename', 'public_id', 'alt_text']
     readonly_fields = ['url', 'secure_url', 'public_id', 'uploaded_at']
+
+@admin.register(BlogSection)
+class BlogSectionAdmin(admin.ModelAdmin):
+    list_display = ['title', 'updated_at']
+    readonly_fields = ['updated_at']
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ['title', 'author_name', 'is_published', 'is_featured', 'published_date', 'order']
+    list_filter = ['is_published', 'is_featured', 'published_date']
+    search_fields = ['title', 'excerpt', 'content', 'author_name']
+    readonly_fields = ['published_date', 'updated_date', 'view_count']
+    prepopulated_fields = {'slug': ('title',)}
+    ordering = ['-published_date', 'order']

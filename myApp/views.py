@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .image_helpers import get_all_section_images
 from .models import (
     ServiceCard, ServicesSection, HeroSection, CredibilitySection, CredibilityCard,
     TestimonialsSection, Testimonial, StatisticsSection, PainPointsSection,
     MethodologySection, MethodologyStep, AboutSection, MissionVisionSection,
-    LeadMagnetSection, FinalCTASection
+    LeadMagnetSection, FinalCTASection, BlogSection, BlogPost
 )
 
 def home(request):
@@ -27,6 +27,8 @@ def home(request):
     mission_vision_section = MissionVisionSection.get_instance()
     lead_magnet_section = LeadMagnetSection.get_instance()
     final_cta_section = FinalCTASection.get_instance()
+    blog_section = BlogSection.get_instance()
+    blog_posts = BlogPost.objects.filter(is_published=True).order_by('-published_date')[:6]
     
     context = {
         'section_images': section_images,
@@ -45,5 +47,28 @@ def home(request):
         'mission_vision_section': mission_vision_section,
         'lead_magnet_section': lead_magnet_section,
         'final_cta_section': final_cta_section,
+        'blog_section': blog_section,
+        'blog_posts': blog_posts,
     }
     return render(request, 'myApp/home.html', context)
+
+def blog_post_detail(request, slug):
+    """View individual blog post"""
+    post = get_object_or_404(BlogPost, slug=slug, is_published=True)
+    
+    # Increment view count
+    post.view_count += 1
+    post.save(update_fields=['view_count'])
+    
+    # Get related posts (exclude current post)
+    related_posts = BlogPost.objects.filter(is_published=True).exclude(id=post.id).order_by('-published_date')[:3]
+    
+    # Get all section images for header/footer
+    section_images = get_all_section_images()
+    
+    context = {
+        'post': post,
+        'related_posts': related_posts,
+        'section_images': section_images,
+    }
+    return render(request, 'myApp/blog_post_detail.html', context)

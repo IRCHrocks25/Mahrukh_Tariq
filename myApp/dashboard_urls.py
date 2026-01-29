@@ -27,5 +27,8 @@ urlpatterns = [
     path('mission-vision/', dashboard_views.mission_vision_edit, name='mission_vision_edit'),
     path('lead-magnet/', dashboard_views.lead_magnet_edit, name='lead_magnet_edit'),
     path('final-cta/', dashboard_views.final_cta_edit, name='final_cta_edit'),
+    path('blog/', dashboard_views.blog_edit, name='blog_edit'),
+    path('blog-post/<int:post_id>/edit/', dashboard_views.blog_post_edit, name='blog_post_edit'),
+    path('blog-post/new/', dashboard_views.blog_post_edit, name='blog_post_new'),
 ]
 
