@@ -132,11 +132,12 @@
                       prose-strong:text-navy prose-strong:font-semibold
                       prose-em:text-navy/70 prose-em:italic
                       prose-ul:my-6 prose-ul:space-y-3
-                      prose-li:text-navy/80 prose-li:text-lg prose-li:leading-relaxed prose-li:pl-2
-                      prose-li:marker:text-gold prose-li:marker:font-bold
+                      prose-ol:my-6 prose-ol:space-y-3
+                      prose-li:text-navy/80 prose-li:text-lg prose-li:leading-relaxed
+                      prose-li:marker:text-gold
                       prose-blockquote:border-l-4 prose-blockquote:border-gold/30 prose-blockquote:pl-6 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:bg-gold/5 prose-blockquote:rounded-r-lg
                       prose-blockquote:text-navy/70 prose-blockquote:italic prose-blockquote:text-lg">
-            {{ post.content|linebreaks }}
+            {{ post.content|safe|linebreaks }}
           </div>
         </div>
 
@@ -380,20 +381,135 @@
     letter-spacing: -0.01em;
   }
   
-  .prose ul, .prose ol {
-    margin: 2rem 0;
-    padding-left: 2rem;
+  /* List indentation and styling - Force override Tailwind with maximum specificity */
+  article div.prose ul,
+  article div.prose ol,
+  article .prose ul,
+  article .prose ol,
+  div.prose ul, 
+  div.prose ol,
+  .prose ul, 
+  .prose ol {
+    margin: 2rem 0 !important;
+    padding-left: 3rem !important;
+    padding-right: 0 !important;
+    list-style-position: outside !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
   
+  article div.prose li,
+  article .prose li,
+  div.prose li,
   .prose li {
-    margin-bottom: 1rem;
-    line-height: 1.9;
-    position: relative;
+    margin-bottom: 1rem !important;
+    line-height: 1.9 !important;
+    position: relative !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-indent: 0 !important;
   }
   
-  .prose li::marker {
-    color: #3B82F6;
-    font-weight: bold;
+  /* Bullet point styling - Gold markers with proper indentation */
+  article div.prose ul li,
+  article .prose ul li,
+  div.prose ul li,
+  .prose ul li {
+    list-style-type: disc !important;
+    padding-left: 0.75rem !important;
+    margin-left: 0 !important;
+    display: list-item !important;
+  }
+  
+  article div.prose ul li::marker,
+  article .prose ul li::marker,
+  div.prose ul li::marker,
+  .prose ul li::marker {
+    color: #D4AF37 !important;
+    font-weight: bold !important;
+    font-size: 1.5rem !important;
+  }
+  
+  /* Numbered list styling - make numbers bold */
+  article div.prose ol,
+  article .prose ol,
+  div.prose ol,
+  .prose ol {
+    list-style-type: decimal !important;
+    padding-left: 3rem !important;
+  }
+  
+  article div.prose ol li,
+  article .prose ol li,
+  div.prose ol li,
+  .prose ol li {
+    list-style-type: decimal !important;
+    padding-left: 0.75rem !important;
+    margin-left: 0 !important;
+    display: list-item !important;
+  }
+  
+  article div.prose ol li::marker,
+  article .prose ol li::marker,
+  div.prose ol li::marker,
+  .prose ol li::marker {
+    font-weight: 900 !important;
+    font-size: 1.125rem !important;
+    color: #0F1A2A !important;
+  }
+  
+  /* Ensure paragraphs don't have unwanted indentation */
+  .prose p {
+    text-indent: 0;
+  }
+  
+  /* Style headings that might contain numbers */
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    text-indent: 0;
+  }
+  
+  /* Make numbered headings and paragraphs bold - high specificity */
+  article .prose h1.numbered-heading,
+  article .prose h2.numbered-heading,
+  article .prose h3.numbered-heading,
+  article .prose h4.numbered-heading,
+  article .prose h5.numbered-heading,
+  article .prose h6.numbered-heading,
+  article .prose p.numbered-heading,
+  .prose h1.numbered-heading,
+  .prose h2.numbered-heading,
+  .prose h3.numbered-heading,
+  .prose h4.numbered-heading,
+  .prose h5.numbered-heading,
+  .prose h6.numbered-heading,
+  .prose p.numbered-heading {
+    font-weight: 800 !important;
+  }
+  
+  /* Style paragraphs that are numbered headings */
+  article .prose p.numbered-heading {
+    font-size: 1.5rem !important;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Additional specificity for nested lists */
+  article .prose ul ul,
+  article .prose ol ol,
+  article .prose ul ol,
+  article .prose ol ul,
+  div.prose ul ul,
+  div.prose ol ol,
+  div.prose ul ol,
+  div.prose ol ul,
+  .prose ul ul,
+  .prose ol ol,
+  .prose ul ol,
+  .prose ol ul {
+    margin: 1rem 0 !important;
+    padding-left: 2.5rem !important;
   }
   
   .prose strong {
@@ -455,6 +571,164 @@
       transform: scale(1.1);
     }
   }
+  
+  /* Final override for list indentation - highest priority */
+  article .prose ul,
+  article .prose ol {
+    padding-left: 3rem !important;
+    margin-left: 0 !important;
+  }
+  
+  article .prose ul li,
+  article .prose ol li {
+    padding-left: 0.75rem !important;
+    margin-left: 0 !important;
+  }
 </style>
+
+<script>
+  // Make numbered headings/paragraphs bold and ensure list indentation
+  document.addEventListener('DOMContentLoaded', function() {
+    const prose = document.querySelector('article .prose') || document.querySelector('.prose');
+    if (!prose) return;
+    
+    // Process headings (h1-h6) - make entire heading bold if it starts with a number
+    const headings = prose.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach(heading => {
+      const text = (heading.textContent || heading.innerText || '').trim();
+      // Match patterns like "1. ", "2. ", "10. ", "1.1. " at the start
+      if (/^\d+(\.\d+)*[.)]\s+/.test(text)) {
+        heading.classList.add('numbered-heading');
+        heading.style.setProperty('font-weight', '800', 'important');
+        heading.style.fontWeight = '800';
+      }
+    });
+    
+    // Process paragraphs - make paragraphs that start with numbers bold
+    const paragraphs = prose.querySelectorAll('p');
+    paragraphs.forEach(p => {
+      const text = (p.textContent || p.innerText || '').trim();
+      // Match patterns like "1. ", "2. ", "10. " at the start of paragraph
+      if (/^\d+(\.\d+)*[.)]\s+/.test(text)) {
+        p.classList.add('numbered-heading');
+        p.style.setProperty('font-weight', '800', 'important');
+        p.style.fontWeight = '800';
+        p.style.fontSize = '1.5rem';
+        p.style.marginTop = '2rem';
+        p.style.marginBottom = '1rem';
+      }
+    });
+    
+    // Convert bullet character (●) to proper HTML lists
+    // Process all paragraphs to find ones with bullets
+    paragraphs.forEach(p => {
+      const text = p.textContent || p.innerText || '';
+      const html = p.innerHTML;
+      
+      // Check if paragraph contains bullet character
+      if (text.includes('●')) {
+        // Split by <br> tags or line breaks
+        const parts = html.split(/<br\s*\/?>/i);
+        let hasBullets = false;
+        let listItems = [];
+        let beforeList = [];
+        let afterList = [];
+        let currentSection = beforeList;
+        
+        parts.forEach(part => {
+          const trimmed = part.trim();
+          if (trimmed.startsWith('●') || trimmed.includes('●')) {
+            hasBullets = true;
+            currentSection = listItems;
+            // Extract text after bullet
+            const itemText = trimmed.replace(/^●\s*/, '').trim();
+            if (itemText) {
+              listItems.push(`<li style="padding-left: 0.75rem !important; margin-bottom: 1rem !important; list-style-type: disc !important;">${itemText}</li>`);
+            }
+          } else if (trimmed && hasBullets && listItems.length > 0) {
+            // We've moved past the list
+            currentSection = afterList;
+            afterList.push(part);
+          } else if (trimmed && !hasBullets) {
+            beforeList.push(part);
+          }
+        });
+        
+        // If we found bullets, replace the paragraph content
+        if (hasBullets && listItems.length > 0) {
+          let newHTML = '';
+          if (beforeList.length > 0) {
+            newHTML += beforeList.join('<br>') + '<br>';
+          }
+          newHTML += `<ul style="padding-left: 3rem !important; margin: 2rem 0 !important; list-style-position: outside !important;">${listItems.join('')}</ul>`;
+          if (afterList.length > 0) {
+            newHTML += '<br>' + afterList.join('<br>');
+          }
+          p.innerHTML = newHTML;
+        }
+      }
+    });
+    
+    // Force list indentation - be very aggressive
+    const lists = prose.querySelectorAll('ul, ol');
+    lists.forEach(list => {
+      // Remove any conflicting styles first
+      list.style.removeProperty('padding');
+      list.style.removeProperty('margin');
+      // Apply indentation
+      list.style.setProperty('padding-left', '3rem', 'important');
+      list.style.setProperty('padding-right', '0', 'important');
+      list.style.setProperty('list-style-position', 'outside', 'important');
+      list.style.setProperty('margin-left', '0', 'important');
+      list.style.setProperty('margin-right', '0', 'important');
+      list.style.setProperty('margin-top', '2rem', 'important');
+      list.style.setProperty('margin-bottom', '2rem', 'important');
+    });
+    
+    // Ensure list items have proper spacing
+    const listItems = prose.querySelectorAll('li');
+    listItems.forEach(li => {
+      li.style.removeProperty('padding');
+      li.style.removeProperty('margin');
+      li.style.setProperty('padding-left', '0.75rem', 'important');
+      li.style.setProperty('padding-right', '0', 'important');
+      li.style.setProperty('margin-left', '0', 'important');
+      li.style.setProperty('margin-right', '0', 'important');
+      li.style.setProperty('margin-bottom', '1rem', 'important');
+      li.style.setProperty('text-indent', '0', 'important');
+    });
+    
+    // Make sure ul markers are gold and bold
+    const ulItems = prose.querySelectorAll('ul li');
+    ulItems.forEach(li => {
+      li.style.setProperty('list-style-type', 'disc', 'important');
+      li.style.setProperty('display', 'list-item', 'important');
+    });
+    
+    // Style ul markers with gold color via injected style
+    let markerStyle = document.getElementById('bullet-marker-style');
+    if (!markerStyle) {
+      markerStyle = document.createElement('style');
+      markerStyle.id = 'bullet-marker-style';
+      markerStyle.textContent = `
+        article .prose ul li::marker,
+        .prose ul li::marker,
+        div.prose ul li::marker {
+          color: #D4AF37 !important;
+          font-weight: bold !important;
+          font-size: 1.5rem !important;
+        }
+      `;
+      document.head.appendChild(markerStyle);
+    }
+    
+    // Make sure ol markers are bold
+    const olItems = prose.querySelectorAll('ol li');
+    olItems.forEach(li => {
+      li.style.setProperty('list-style-type', 'decimal', 'important');
+      li.style.setProperty('display', 'list-item', 'important');
+    });
+  });
+</script>
 
 {% endblock %}
