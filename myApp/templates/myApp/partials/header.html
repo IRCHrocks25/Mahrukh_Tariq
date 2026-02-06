@@ -1,20 +1,28 @@
 <!-- Header Navigation -->
 <header class="relative z-50 bg-white/95 backdrop-blur-md shadow-sm">
-    <nav class="max-w-7xl mx-auto px-6 py-4">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center">
+    <nav class="w-full px-4 lg:px-8 py-4">
+        <div class="flex items-center justify-between gap-8 max-w-7xl mx-auto">
+            <div class="flex items-center flex-shrink-0">
                 {% if section_images.header_logo.image_url %}
-                    <img src="{{ section_images.header_logo.image_url }}" 
-                         alt="{{ section_images.header_logo.image_alt|default:'Garden Gate Property Management Logo' }}" 
-                         class="h-12 md:h-24 lg:h-28 w-auto object-contain">
+                    <a href="{% url 'home' %}" class="inline-flex items-center">
+                        <img src="{{ section_images.header_logo.image_url }}" 
+                             alt="{{ section_images.header_logo.image_alt|default:'Garden Gate Property Management Logo' }}" 
+                             class="h-10 md:h-16 lg:h-20 w-auto object-contain">
+                    </a>
                 {% endif %}
             </div>
-            <div class="hidden md:flex items-center space-x-8 font-display">
+            <!-- Center nav links -->
+            <div class="hidden md:flex flex-1 items-center justify-center space-x-10 font-display">
                 <a href="#services" class="text-[#1E3A8A] hover:text-[#3B82F6] link-transition font-medium relative px-2 py-1">Services</a>
                 <a href="#testimonials" class="text-[#1E3A8A] hover:text-[#3B82F6] link-transition font-medium relative px-2 py-1">Testimonials</a>
                 <a href="#method" class="text-[#1E3A8A] hover:text-[#3B82F6] link-transition font-medium relative px-2 py-1">Method</a>
                 <a href="#about" class="text-[#1E3A8A] hover:text-[#3B82F6] link-transition font-medium relative px-2 py-1">About</a>
-                <a href="#contact" class="px-4 py-2 border border-[#3B82F6] text-[#1E3A8A] hover:bg-[#3B82F6]/10 hover:border-[#1E3A8A] link-transition font-medium rounded transition-all duration-300 hover:scale-105">Schedule a Free Owner Consultation</a>
+            </div>
+            <!-- Right CTA -->
+            <div class="hidden md:flex flex-shrink-0">
+                <a href="#contact" class="px-6 py-3 rounded-full text-white font-semibold bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#1E3A8A] btn-transition scale-hover shadow-lg whitespace-nowrap">
+                    Schedule a Free Owner Consultation
+                </a>
             </div>
             <button id="mobileMenuButton" class="md:hidden text-navy hover:text-[#3B82F6] transition-colors duration-300">
                 <i class="fas fa-bars text-2xl"></i>
@@ -27,7 +35,7 @@
                     <a href="#testimonials" class="text-[#1E3A8A] hover:text-white link-transition font-medium py-2 border-b border-[#1E3A8A]/20">Testimonials</a>
                     <a href="#method" class="text-[#1E3A8A] hover:text-white link-transition font-medium py-2 border-b border-[#1E3A8A]/20">Method</a>
                     <a href="#about" class="text-[#1E3A8A] hover:text-white link-transition font-medium py-2 border-b border-[#1E3A8A]/20">About</a>
-                    <a href="#contact" class="px-4 py-2 border border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white link-transition font-medium rounded text-center mt-2">Schedule a Free Owner Consultation</a>
+                    <a href="#contact" class="px-6 py-3 rounded-full text-white font-semibold bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#1E3A8A] shadow-lg text-center mt-2">Schedule a Free Owner Consultation</a>
                 </div>
             </div>
         </div>

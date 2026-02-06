@@ -1,21 +1,27 @@
 <!-- About Section -->
 {% with bg_url=section_images.about_background.background_image_url|default:'' %}
-<section id="about" class="py-20 relative overflow-hidden min-h-[800px] flex items-center"{% if bg_url %} style="background-image: url('{{ bg_url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% else %} style="background-image: url('YOUR_BACKGROUND_IMAGE_URL_HERE'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+<section id="about" class="py-24 md:py-28 relative overflow-visible min-h-[800px] flex items-center"{% if bg_url %} style="background-image: url('{{ bg_url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% else %} style="background-image: url('YOUR_BACKGROUND_IMAGE_URL_HERE'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/90 via-white/85 to-[#E0ECFF]/70"></div>
+        <div class="absolute -top-24 -left-10 w-[22rem] h-[22rem] rounded-full bg-gold/10 blur-3xl"></div>
+        <div class="absolute -bottom-24 -right-10 w-[28rem] h-[28rem] rounded-full bg-[#1E3A8A]/8 blur-3xl"></div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <!-- Left: Empty space for image -->
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <!-- Left: Empty column reserved for image -->
             <div class="hidden md:block"></div>
             
-            <!-- Right: Narrative -->
-            <div class="fade-in-right">
-                <h2 class="text-4xl md:text-5xl font-display font-bold text-[#1E3A8A] mb-6 prevent-orphans">
+            <!-- Right: Narrative (no container card) -->
+            <div class="fade-in-right max-w-xl md:max-w-2xl lg:max-w-3xl">
+                <h2 class="text-4xl md:text-5xl font-display font-normal text-[#1E3A8A] mb-6 leading-tight prevent-orphans">
                     {% if about_section.title %}
                         {{ about_section.title|linebreaks }}
                     {% else %}
                         I Built This Because<br>I Was You
                     {% endif %}
                 </h2>
-                <div class="space-y-6 text-navy/80 leading-relaxed">
+                <div class="space-y-5 text-navy/80 leading-relaxed">
                     {% for paragraph in about_section.get_content_paragraphs %}
                     <p{% if forloop.counter == 3 or forloop.counter == 4 %} class="font-semibold text-navy"{% endif %}>
                         {{ paragraph }}
@@ -30,24 +36,31 @@
                     <p>Every dollar I save you, I'm saving myself somewhere else. Every system that works for you, I depend on for my own financial freedom.</p>
                     <p>This isn't a franchise. This isn't corporate training. This is 13 years of figuring out what actually works when your own money is on the line.</p>
                     {% endfor %}
-                    <div class="border-l-4 border-gold pl-6 my-8">
-                        <p class="font-serif text-xl italic text-navy">
+                    <div class="mt-8 mb-6 rounded-2xl bg-[#0F172A] text-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.45)] border border-white/10">
+                        <p class="font-serif text-xl md:text-2xl italic">
                             "{{ about_section.quote_text|default:"I don't lock clients in. I earn their trust, one transparent decision at a time." }}"
                         </p>
-                        <p class="text-navy/70 mt-2">{{ about_section.quote_author|default:"— Mahrukh Tariq" }}</p>
+                        <p class="text-white/70 mt-3">{{ about_section.quote_author|default:"— Mahrukh Tariq" }}</p>
                     </div>
-                    <a href="{{ about_section.cta_link|default:'#consultation' }}" class="inline-flex items-center gap-2 text-gold font-semibold hover:underline link-transition">
-                        {{ about_section.cta_text|default:"See If We're a Fit" }} <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="pt-2">
+                        <a href="{{ about_section.cta_link|default:'#consultation' }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold bg-gradient-to-r from-[#1E3A8A] via-[#3B82F6] to-[#1E3A8A] btn-transition scale-hover shadow-lg">
+                            {{ about_section.cta_text|default:"Find Out If We’re the Right Fit" }}
+                            <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
+                        <p class="mt-2 text-xs md:text-sm text-navy/60">
+                            No obligation. Clear answers within 24 hours.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Image positioned absolutely to touch left edge and bottom -->
-    {% if section_images.about_image.image_url %}
-    <div class="hidden md:flex items-end justify-start absolute left-0 bottom-0 z-10" style="height: 100%; margin: 0; padding: 0;">
-        <img src="{{ section_images.about_image.image_url }}" alt="{{ section_images.about_image.image_alt|default:'Mahrukh Tariq' }}" class="h-auto max-h-full w-auto object-contain" style="background: transparent; border: none; outline: none; margin: 0; padding: 0; display: block;">
+    <!-- Image positioned absolutely on left with soft shadow -->
+    <div class="hidden md:flex items-end justify-start absolute left-24 md:left-32 bottom-0 z-10" style="height: 100%; margin: 0; padding: 0;">
+        <img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1770372721/Aragon-Headshot-Mahrukh-Tariq-58_copy_1_lf4vli.png"
+             alt="{{ section_images.about_image.image_alt|default:'Mahrukh Tariq' }}"
+             class="h-auto max-h-full w-auto object-contain drop-shadow-[0_28px_55px_rgba(15,23,42,0.35)]"
+             style="background: transparent; border: none; outline: none; margin: 0; padding: 0; display: block;">
     </div>
-    {% endif %}
 </section>
 {% endwith %}
