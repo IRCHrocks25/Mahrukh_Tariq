@@ -159,7 +159,7 @@ class CredibilityCard(models.Model):
 # Model to store Testimonials section header
 class TestimonialsSection(models.Model):
     title = models.CharField(max_length=200, default="Why Landlords Stop Looking After Finding Us")
-    cta_text = models.CharField(max_length=100, default="See What We Can Do")
+    cta_text = models.CharField(max_length=100, default="Find Out If We're the Right Fit")
     cta_link = models.CharField(max_length=200, default="#consultation")
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -237,7 +237,7 @@ class PainPointsSection(models.Model):
     solution_3 = models.CharField(max_length=300, default="<strong class=\"text-gold italic\">Rigorous Screening</strong> — Every tenant meets me personally before approval.")
     solution_4 = models.CharField(max_length=300, default="<strong class=\"text-gold italic\">Customized Management</strong> — Your goals, your preferences, your plan.")
     solution_5 = models.CharField(max_length=300, default="<strong class=\"text-gold italic\">Total Transparency</strong> — You're informed before money moves. Always.")
-    cta_text = models.CharField(max_length=100, default="Turn Frustrations Into Results")
+    cta_text = models.CharField(max_length=100, default="Get a Free Rental Analysis")
     cta_link = models.CharField(max_length=200, default="#consultation")
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -466,7 +466,7 @@ class PricingSection(models.Model):
     title = models.CharField(max_length=200, default="Our Packages & Rates")
     subtitle = models.CharField(max_length=300, default="NO HIDDEN FEES, CLEAR PRICING, EXCEPTIONAL SERVICE.")
     disclaimer = models.CharField(max_length=300, default="No hidden fees. Professional management you can count on.")
-    cta_text = models.CharField(max_length=100, default="Get Started Today")
+    cta_text = models.CharField(max_length=100, default="Request Management Pricing")
     cta_link = models.CharField(max_length=200, default="#contact")
     updated_at = models.DateTimeField(auto_now=True)
     

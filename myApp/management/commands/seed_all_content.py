@@ -18,7 +18,7 @@ class Command(BaseCommand):
         hero.title = "Stop Losing Money to Property Managers Who Don't Care."
         hero.subtitle = "Your Investment Deserves an Owner's Standard."
         hero.description = "Most property management firms treat you like another number. At Garden Gate, you work directly with me – Mahrukh Tariq. I manage your property with the same standards I apply to my own 90-unit portfolio: honest pricing, rigorous tenant screening, and personal attention that corporations can't replicate."
-        hero.cta_text = "Show Me How This Actually Works"
+        hero.cta_text = "Find Out If We're the Right Fit"
         hero.cta_link = "#consultation"
         hero.save()
         self.stdout.write(self.style.SUCCESS('✓ Seeded: Hero Section'))
@@ -66,7 +66,7 @@ class Command(BaseCommand):
         # 3. Testimonials Section
         testimonials_section = TestimonialsSection.get_instance()
         testimonials_section.title = "Why Landlords Stop Looking After Finding Us"
-        testimonials_section.cta_text = "See What We Can Do"
+        testimonials_section.cta_text = "Find Out If We're the Right Fit"
         testimonials_section.cta_link = "#consultation"
         testimonials_section.save()
         self.stdout.write(self.style.SUCCESS('✓ Seeded: Testimonials Section Header'))
@@ -133,7 +133,7 @@ class Command(BaseCommand):
         pain_points.solution_3 = "<strong class=\"text-gold italic\">Rigorous Screening</strong> — Every tenant meets me personally before approval."
         pain_points.solution_4 = "<strong class=\"text-gold italic\">Customized Management</strong> — Your goals, your preferences, your plan."
         pain_points.solution_5 = "<strong class=\"text-gold italic\">Total Transparency</strong> — You're informed before money moves. Always."
-        pain_points.cta_text = "Turn Frustrations Into Results"
+        pain_points.cta_text = "Get a Free Rental Analysis"
         pain_points.cta_link = "#consultation"
         pain_points.save()
         self.stdout.write(self.style.SUCCESS('✓ Seeded: Pain Points Section'))
@@ -142,7 +142,7 @@ class Command(BaseCommand):
         methodology = MethodologySection.get_instance()
         methodology.title = "The Garden Gate Framework"
         methodology.description = "Most companies chase volume. We build relationships. Every property receives personalized attention, open communication, and proactive care."
-        methodology.cta_text = "See the Framework in Action"
+        methodology.cta_text = "Get a Free Rental Analysis"
         methodology.cta_link = "#consultation"
         methodology.save()
         self.stdout.write(self.style.SUCCESS('✓ Seeded: Methodology Section Header'))
@@ -206,7 +206,7 @@ Every dollar I save you, I'm saving myself somewhere else. Every system that wor
 This isn't a franchise. This isn't corporate training. This is 13 years of figuring out what actually works when your own money is on the line."""
         about.quote_text = "I don't lock clients in. I earn their trust, one transparent decision at a time."
         about.quote_author = "— Mahrukh Tariq"
-        about.cta_text = "See If We're a Fit"
+        about.cta_text = "Talk to a Property Manager Today"
         about.cta_link = "#consultation"
         about.save()
         self.stdout.write(self.style.SUCCESS('✓ Seeded: About Section'))
@@ -232,7 +232,7 @@ This isn't a franchise. This isn't corporate training. This is 13 years of figur
         lead_magnet.bullet_2 = "Where you're currently losing money"
         lead_magnet.bullet_3 = "Whether we're a good fit (honest answer)"
         lead_magnet.description = "If we're not right for you, I'll tell you. If we are, you'll know exactly what happens next."
-        lead_magnet.cta_text = "Show Me How This Actually Works"
+        lead_magnet.cta_text = "Find Out If We're the Right Fit"
         lead_magnet.cta_link = "#consultation"
         lead_magnet.save()
         self.stdout.write(self.style.SUCCESS('✓ Seeded: Lead Magnet Section'))
@@ -241,7 +241,7 @@ This isn't a franchise. This isn't corporate training. This is 13 years of figur
         final_cta = FinalCTASection.get_instance()
         final_cta.title = "Stop Settling. Start Succeeding."
         final_cta.description = "While others chase unresponsive managers and inflated repair bills, you can work with someone who treats your property like her own."
-        final_cta.cta_text = "Show Me How This Actually Works"
+        final_cta.cta_text = "Find Out If We're the Right Fit"
         final_cta.cta_link = "#contact"
         final_cta.save()
         self.stdout.write(self.style.SUCCESS('✓ Seeded: Final CTA Section'))

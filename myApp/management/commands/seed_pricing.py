@@ -10,7 +10,7 @@ class Command(BaseCommand):
         pricing_section.title = "Our Packages & Rates"
         pricing_section.subtitle = "NO HIDDEN FEES, CLEAR PRICING, EXCEPTIONAL SERVICE."
         pricing_section.disclaimer = "No hidden fees. Professional management you can count on."
-        pricing_section.cta_text = "Get Started Today"
+        pricing_section.cta_text = "Request Management Pricing"
         pricing_section.cta_link = "#contact"
         pricing_section.save()
         self.stdout.write(self.style.SUCCESS(f'Updated: Pricing Section Header'))
