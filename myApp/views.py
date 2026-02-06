@@ -4,7 +4,8 @@ from .models import (
     ServiceCard, ServicesSection, HeroSection, CredibilitySection, CredibilityCard,
     TestimonialsSection, Testimonial, StatisticsSection, PainPointsSection,
     MethodologySection, MethodologyStep, AboutSection, MissionVisionSection,
-    LeadMagnetSection, FinalCTASection, BlogSection, BlogPost
+    LeadMagnetSection, FinalCTASection, BlogSection, BlogPost,
+    PricingSection, PricingPackage
 )
 
 def home(request):
@@ -29,6 +30,8 @@ def home(request):
     final_cta_section = FinalCTASection.get_instance()
     blog_section = BlogSection.get_instance()
     blog_posts = BlogPost.objects.filter(is_published=True).order_by('-published_date')[:6]
+    pricing_section = PricingSection.get_instance()
+    pricing_packages = PricingPackage.objects.all().order_by('package_number')
     
     context = {
         'section_images': section_images,
@@ -49,6 +52,8 @@ def home(request):
         'final_cta_section': final_cta_section,
         'blog_section': blog_section,
         'blog_posts': blog_posts,
+        'pricing_section': pricing_section,
+        'pricing_packages': pricing_packages,
     }
     return render(request, 'myApp/home.html', context)
 

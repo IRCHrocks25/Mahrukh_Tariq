@@ -460,3 +460,48 @@ class BlogPost(models.Model):
         if self.excerpt:
             return self.excerpt
         return self.content[:200] + "..." if len(self.content) > 200 else self.content
+
+# Model to store Pricing section content
+class PricingSection(models.Model):
+    title = models.CharField(max_length=200, default="Our Packages & Rates")
+    subtitle = models.CharField(max_length=300, default="NO HIDDEN FEES, CLEAR PRICING, EXCEPTIONAL SERVICE.")
+    disclaimer = models.CharField(max_length=300, default="No hidden fees. Professional management you can count on.")
+    cta_text = models.CharField(max_length=100, default="Get Started Today")
+    cta_link = models.CharField(max_length=200, default="#contact")
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Pricing Section"
+        verbose_name_plural = "Pricing Section"
+    
+    def __str__(self):
+        return "Pricing Section"
+    
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    @classmethod
+    def get_instance(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+# Model to store Pricing Packages
+class PricingPackage(models.Model):
+    package_number = models.IntegerField(unique=True, help_text="Package number (1 or 2)")
+    title = models.CharField(max_length=200, help_text="Package title (e.g., 'Rental Condominium Up to 2 Bedrooms')")
+    price = models.DecimalField(max_digits=10, decimal_places=2, help_text="Monthly price")
+    services = models.TextField(help_text="Services included (one per line)")
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['package_number']
+        verbose_name = "Pricing Package"
+        verbose_name_plural = "Pricing Packages"
+    
+    def __str__(self):
+        return f"Package {self.package_number}: {self.title}"
+    
+    def get_services_list(self):
+        """Return services as a list"""
+        return [s.strip() for s in self.services.split('\n') if s.strip()]
