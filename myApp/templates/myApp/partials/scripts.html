@@ -1,7 +1,7 @@
 <!-- Smooth Scroll & Animations Script -->
 <script>
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Smooth scrolling for anchor links (exclude modal buttons)
+    document.querySelectorAll('a[href^="#"]:not([data-open-modal])').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
@@ -170,5 +170,58 @@
             }
         });
     }
+    
+    // Contact Form Modal
+    const contactFormModal = document.getElementById('contactFormModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const openModalButtons = document.querySelectorAll('[data-open-modal="contact"]');
+    
+    function openContactModal() {
+        if (contactFormModal) {
+            contactFormModal.classList.remove('hidden');
+            contactFormModal.classList.add('flex');
+            document.body.classList.add('modal-open');
+            // Prevent scrolling
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeContactModal() {
+        if (contactFormModal) {
+            contactFormModal.classList.add('hidden');
+            contactFormModal.classList.remove('flex');
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    // Open modal when buttons are clicked
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            openContactModal();
+        });
+    });
+    
+    // Close modal when close button is clicked
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeContactModal);
+    }
+    
+    // Close modal when clicking outside the modal content
+    if (contactFormModal) {
+        contactFormModal.addEventListener('click', (e) => {
+            if (e.target === contactFormModal) {
+                closeContactModal();
+            }
+        });
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && contactFormModal && !contactFormModal.classList.contains('hidden')) {
+            closeContactModal();
+        }
+    });
 </script>
 
