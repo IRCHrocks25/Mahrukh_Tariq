@@ -30,11 +30,19 @@ SECRET_KEY = 'django-insecure-%^*vb(@7$ciww61n_tmat7=q-5asjt)q+&9xek7y_eurs%=&u^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mahrukhtariq-production.up.railway.app']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'mahrukhtariq-production.up.railway.app',
+    'mahrukhtariq.com',
+    'www.mahrukhtariq.com',
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'https://mahrukhtariq-production.up.railway.app',
+    'https://mahrukhtariq.com',
+    'https://www.mahrukhtariq.com',
 ]
 
 # Application definition
