@@ -36,6 +36,8 @@ ALLOWED_HOSTS = [
     'mahrukhtariq-production.up.railway.app',
     'mahrukhtariq.com',
     'www.mahrukhtariq.com',
+    'gardengatepropertymanagement.com',
+    'www.gardengatepropertymanagement.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -43,6 +45,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://mahrukhtariq-production.up.railway.app',
     'https://mahrukhtariq.com',
     'https://www.mahrukhtariq.com',
+    'https://gardengatepropertymanagement.com',
+    'https://www.gardengatepropertymanagement.com',
 ]
 
 # Application definition
