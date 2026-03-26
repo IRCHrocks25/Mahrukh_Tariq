@@ -1,13 +1,14 @@
 <!-- About Section -->
 {% with bg_url=section_images.about_background.background_image_url|default:'' %}
 <section id="about" class="py-24 md:py-28 relative overflow-visible min-h-[800px] flex items-center"{% if bg_url %} style="background-image: url('{{ bg_url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% else %} style="background-image: url('YOUR_BACKGROUND_IMAGE_URL_HERE'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+    <div class="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat z-0" style="background-image: url('https://res.cloudinary.com/dcuswyfur/image/upload/v1774553311/Block_8_1_r9139b.png');"></div>
     <div class="absolute inset-0 pointer-events-none">
         <div class="absolute inset-0 bg-gradient-to-br from-white/90 via-white/85 to-[#E0ECFF]/70"></div>
         <div class="absolute -top-24 -left-10 w-[22rem] h-[22rem] rounded-full bg-gold/10 blur-3xl"></div>
         <div class="absolute -bottom-24 -right-10 w-[28rem] h-[28rem] rounded-full bg-[#1E3A8A]/8 blur-3xl"></div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 pb-72 md:pb-0 relative z-10">
         <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
             <!-- Left: Empty column reserved for image -->
             <div class="hidden md:block"></div>
@@ -54,6 +55,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="md:hidden absolute bottom-0 left-1/2 -translate-x-1/2 z-[5] w-full flex justify-center pointer-events-none">
+        <img src="https://res.cloudinary.com/dcuswyfur/image/upload/v1774553318/image_9_v3zl4j.png"
+             alt="Mahrukh Tariq"
+             class="w-full max-w-[12rem] h-auto object-contain block">
     </div>
     <!-- Image positioned absolutely on left with soft shadow -->
     <div class="hidden md:flex items-end justify-start absolute left-24 md:left-32 bottom-0 z-10" style="height: 100%; margin: 0; padding: 0;">
