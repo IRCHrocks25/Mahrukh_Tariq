@@ -113,7 +113,7 @@ The right property manager allows owners to grow their portfolios, protect their
                 'is_published': True,
                 'order': 1,
                 'published_date': timezone.now() - timedelta(days=5),
-                'featured_image_url': 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109528/1_dkuiqy.jpg',
+                'featured_image_url': 'https://cdn.katalyst-crm.com/t1/cloudinary/1_dkuiqy.jpg',
                 'featured_image_alt': "What a Property Manager Really Does - Property Management Services"
             }
         )
@@ -124,7 +124,7 @@ The right property manager allows owners to grow their portfolios, protect their
             post1.is_featured = True
             post1.is_published = True
             post1.order = 1
-            post1.featured_image_url = 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109528/1_dkuiqy.jpg'
+            post1.featured_image_url = 'https://cdn.katalyst-crm.com/t1/cloudinary/1_dkuiqy.jpg'
             post1.featured_image_alt = "What a Property Manager Really Does - Property Management Services"
             post1.save()
         self.stdout.write(self.style.SUCCESS(f'{"Created" if created1 else "Updated"}: Blog Post 1'))
@@ -225,7 +225,7 @@ A strong screening process reduces stress, protects income, and sets the tone fo
                 'is_published': True,
                 'order': 2,
                 'published_date': timezone.now() - timedelta(days=4),
-                'featured_image_url': 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/2_ygmcyf.jpg',
+                'featured_image_url': 'https://cdn.katalyst-crm.com/t1/cloudinary/2_ygmcyf.jpg',
                 'featured_image_alt': "How to Find and Screen the Right Tenant - Tenant Screening Guide"
             }
         )
@@ -236,7 +236,7 @@ A strong screening process reduces stress, protects income, and sets the tone fo
             post2.is_featured = True
             post2.is_published = True
             post2.order = 2
-            post2.featured_image_url = 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/2_ygmcyf.jpg'
+            post2.featured_image_url = 'https://cdn.katalyst-crm.com/t1/cloudinary/2_ygmcyf.jpg'
             post2.featured_image_alt = "How to Find and Screen the Right Tenant - Tenant Screening Guide"
             post2.save()
         self.stdout.write(self.style.SUCCESS(f'{"Created" if created2 else "Updated"}: Blog Post 2'))
@@ -343,7 +343,7 @@ Recognizing these common mistakes is the first step toward protecting your inves
                 'is_published': True,
                 'order': 3,
                 'published_date': timezone.now() - timedelta(days=3),
-                'featured_image_url': 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109531/3_nprxhp.jpg',
+                'featured_image_url': 'https://cdn.katalyst-crm.com/t1/cloudinary/3_nprxhp.jpg',
                 'featured_image_alt': "Top Mistakes Landlords Make When Self-Managing Their Rental"
             }
         )
@@ -354,7 +354,7 @@ Recognizing these common mistakes is the first step toward protecting your inves
             post3.is_featured = False
             post3.is_published = True
             post3.order = 3
-            post3.featured_image_url = 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109531/3_nprxhp.jpg'
+            post3.featured_image_url = 'https://cdn.katalyst-crm.com/t1/cloudinary/3_nprxhp.jpg'
             post3.featured_image_alt = "Top Mistakes Landlords Make When Self-Managing Their Rental"
             post3.save()
         self.stdout.write(self.style.SUCCESS(f'{"Created" if created3 else "Updated"}: Blog Post 3'))
@@ -466,7 +466,7 @@ When in doubt, professional guidance, whether from a property manager or legal p
                 'is_published': True,
                 'order': 4,
                 'published_date': timezone.now() - timedelta(days=2),
-                'featured_image_url': 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/4_v8zmfg.jpg',
+                'featured_image_url': 'https://cdn.katalyst-crm.com/t1/cloudinary/4_v8zmfg.jpg',
                 'featured_image_alt': "Understanding Landlord-Tenant Laws - Legal Guide for Property Owners"
             }
         )
@@ -477,7 +477,7 @@ When in doubt, professional guidance, whether from a property manager or legal p
             post4.is_featured = False
             post4.is_published = True
             post4.order = 4
-            post4.featured_image_url = 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/4_v8zmfg.jpg'
+            post4.featured_image_url = 'https://cdn.katalyst-crm.com/t1/cloudinary/4_v8zmfg.jpg'
             post4.featured_image_alt = "Understanding Landlord-Tenant Laws - Legal Guide for Property Owners"
             post4.save()
         self.stdout.write(self.style.SUCCESS(f'{"Created" if created4 else "Updated"}: Blog Post 4'))
@@ -575,7 +575,7 @@ When done well, professional management transforms a rental property from a pass
                 'is_published': True,
                 'order': 5,
                 'published_date': timezone.now() - timedelta(days=1),
-                'featured_image_url': 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/5_cbbn3r.jpg',
+                'featured_image_url': 'https://cdn.katalyst-crm.com/t1/cloudinary/5_cbbn3r.jpg',
                 'featured_image_alt': "How Professional Property Management Increases Your Rental ROI"
             }
         )
@@ -586,7 +586,7 @@ When done well, professional management transforms a rental property from a pass
             post5.is_featured = True
             post5.is_published = True
             post5.order = 5
-            post5.featured_image_url = 'https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/5_cbbn3r.jpg'
+            post5.featured_image_url = 'https://cdn.katalyst-crm.com/t1/cloudinary/5_cbbn3r.jpg'
             post5.featured_image_alt = "How Professional Property Management Increases Your Rental ROI"
             post5.save()
         self.stdout.write(self.style.SUCCESS(f'{"Created" if created5 else "Updated"}: Blog Post 5'))
