@@ -1,0 +1,1119 @@
+[
+{
+  "model": "myApp.sectionimage",
+  "pk": 1,
+  "fields": {
+    "section_name": "hero_background",
+    "display_name": "Hero Section - Background Image",
+    "image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965912/garden_gate/hero%20section%20%28and%20typoand%20button%20style%20for%20other%20sections%29.webp",
+    "image_alt": "",
+    "icon_url": "",
+    "background_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766132644/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202.webp",
+    "updated_at": "2025-12-19T08:25:22.739Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 2,
+  "fields": {
+    "section_name": "hero_image",
+    "display_name": "Hero Section - Main Image",
+    "image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766132755/garden_gate/Aragon-Headshot-Mahrukh-Tariq-97%202.webp",
+    "image_alt": "",
+    "icon_url": "",
+    "background_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965912/garden_gate/hero%20section%20%28and%20typoand%20button%20style%20for%20other%20sections%29.webp",
+    "updated_at": "2025-12-19T08:26:12.526Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 3,
+  "fields": {
+    "section_name": "about_image",
+    "display_name": "About Section - Image",
+    "image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765201869/garden_gate/Aragon-Headshot-Mahrukh-Tariq-1%202.webp",
+    "image_alt": "",
+    "icon_url": null,
+    "background_image_url": null,
+    "updated_at": "2025-12-08T13:51:10.275Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 4,
+  "fields": {
+    "section_name": "about_background",
+    "display_name": "About Section - Background Image",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": null,
+    "background_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765201832/garden_gate/Group%208.webp",
+    "updated_at": "2025-12-08T13:51:27.849Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 5,
+  "fields": {
+    "section_name": "statistics_background",
+    "display_name": "Statistics Section - Background Image",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": null,
+    "background_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965919/garden_gate/bg.webp",
+    "updated_at": "2025-12-05T20:28:27.684Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 6,
+  "fields": {
+    "section_name": "methodology_icon_1",
+    "display_name": "Methodology - Icon 1 (Assessment)",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967418/garden_gate/Group%203.webp",
+    "background_image_url": null,
+    "updated_at": "2025-12-05T20:44:19.690Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 7,
+  "fields": {
+    "section_name": "methodology_icon_2",
+    "display_name": "Methodology - Icon 2 (Protection)",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967413/garden_gate/Group%206.webp",
+    "background_image_url": null,
+    "updated_at": "2025-12-05T20:44:19.791Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 8,
+  "fields": {
+    "section_name": "methodology_icon_3",
+    "display_name": "Methodology - Icon 3 (Management)",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967416/garden_gate/Group%207.webp",
+    "background_image_url": null,
+    "updated_at": "2025-12-05T20:44:19.899Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 9,
+  "fields": {
+    "section_name": "methodology_icon_4",
+    "display_name": "Methodology - Icon 4 (Communication)",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967407/garden_gate/Group%204.webp",
+    "background_image_url": null,
+    "updated_at": "2025-12-05T20:44:19.995Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 10,
+  "fields": {
+    "section_name": "methodology_icon_5",
+    "display_name": "Methodology - Icon 5 (Optimization)",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967411/garden_gate/Group%205.webp",
+    "background_image_url": null,
+    "updated_at": "2025-12-05T20:44:20.090Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 11,
+  "fields": {
+    "section_name": "lead_magnet_tablet",
+    "display_name": "Lead Magnet - Tablet Image",
+    "image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765209217/garden_gate/tablet.webp",
+    "image_alt": "",
+    "icon_url": "",
+    "background_image_url": "",
+    "updated_at": "2025-12-08T16:04:09.623Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 12,
+  "fields": {
+    "section_name": "final_cta_background",
+    "display_name": "Final CTA - Background Image",
+    "image_url": null,
+    "image_alt": "",
+    "icon_url": null,
+    "background_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766134240/garden_gate/high-angle-view-trees-buildings-town%202-1.webp",
+    "updated_at": "2025-12-19T08:51:16.364Z"
+  }
+},
+{
+  "model": "myApp.sectionimage",
+  "pk": 13,
+  "fields": {
+    "section_name": "header_logo",
+    "display_name": "Header - Logo",
+    "image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764968706/garden_gate/tmp6zruiq9f%201.webp",
+    "image_alt": "",
+    "icon_url": null,
+    "background_image_url": null,
+    "updated_at": "2025-12-05T21:05:17.004Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 1,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965892/garden_gate/Frame%2016.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965892/garden_gate/Frame%2016.webp",
+    "public_id": "garden_gate/Frame 16",
+    "folder": "garden_gate",
+    "filename": "Frame 16.png",
+    "alt_text": "Frame 16.png",
+    "uploaded_at": "2025-12-05T20:18:13.557Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 2,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965894/garden_gate/Frame.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965894/garden_gate/Frame.webp",
+    "public_id": "garden_gate/Frame",
+    "folder": "garden_gate",
+    "filename": "Frame.png",
+    "alt_text": "Frame.png",
+    "uploaded_at": "2025-12-05T20:18:16.390Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 3,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965900/garden_gate/Group%202.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965900/garden_gate/Group%202.webp",
+    "public_id": "garden_gate/Group 2",
+    "folder": "garden_gate",
+    "filename": "Group 2.png",
+    "alt_text": "Group 2.png",
+    "uploaded_at": "2025-12-05T20:18:22.102Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 4,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965903/garden_gate/Group%203.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965903/garden_gate/Group%203.webp",
+    "public_id": "garden_gate/Group 3",
+    "folder": "garden_gate",
+    "filename": "Group 3.png",
+    "alt_text": "Group 3.png",
+    "uploaded_at": "2025-12-05T20:18:24.585Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 5,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965905/garden_gate/Group%204.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965905/garden_gate/Group%204.webp",
+    "public_id": "garden_gate/Group 4",
+    "folder": "garden_gate",
+    "filename": "Group 4.png",
+    "alt_text": "Group 4.png",
+    "uploaded_at": "2025-12-05T20:18:26.795Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 6,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965907/garden_gate/Group%205.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965907/garden_gate/Group%205.webp",
+    "public_id": "garden_gate/Group 5",
+    "folder": "garden_gate",
+    "filename": "Group 5.png",
+    "alt_text": "Group 5.png",
+    "uploaded_at": "2025-12-05T20:18:28.330Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 7,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965909/garden_gate/Group%206.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965909/garden_gate/Group%206.webp",
+    "public_id": "garden_gate/Group 6",
+    "folder": "garden_gate",
+    "filename": "Group 6.png",
+    "alt_text": "Group 6.png",
+    "uploaded_at": "2025-12-05T20:18:30.149Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 8,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965910/garden_gate/Group%207.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965910/garden_gate/Group%207.webp",
+    "public_id": "garden_gate/Group 7",
+    "folder": "garden_gate",
+    "filename": "Group 7.png",
+    "alt_text": "Group 7.png",
+    "uploaded_at": "2025-12-05T20:18:31.516Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 9,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965912/garden_gate/hero%20section%20%28and%20typoand%20button%20style%20for%20other%20sections%29.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965912/garden_gate/hero%20section%20%28and%20typoand%20button%20style%20for%20other%20sections%29.webp",
+    "public_id": "garden_gate/hero section (and typoand button style for other sections)",
+    "folder": "garden_gate",
+    "filename": "hero section (and typoand button style for other sections).png",
+    "alt_text": "hero section (and typoand button style for other sections).png",
+    "uploaded_at": "2025-12-05T20:18:34.250Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 10,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965915/garden_gate/bg%20%281%29.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965915/garden_gate/bg%20%281%29.webp",
+    "public_id": "garden_gate/bg (1)",
+    "folder": "garden_gate",
+    "filename": "bg (1).png",
+    "alt_text": "bg (1).png",
+    "uploaded_at": "2025-12-05T20:18:36.218Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 11,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965917/garden_gate/bg%20%282%29.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965917/garden_gate/bg%20%282%29.webp",
+    "public_id": "garden_gate/bg (2)",
+    "folder": "garden_gate",
+    "filename": "bg (2).png",
+    "alt_text": "bg (2).png",
+    "uploaded_at": "2025-12-05T20:18:38.570Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 12,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965919/garden_gate/bg.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965919/garden_gate/bg.webp",
+    "public_id": "garden_gate/bg",
+    "folder": "garden_gate",
+    "filename": "bg.png",
+    "alt_text": "bg.png",
+    "uploaded_at": "2025-12-05T20:18:41.362Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 13,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965922/garden_gate/Frame%2014.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965922/garden_gate/Frame%2014.webp",
+    "public_id": "garden_gate/Frame 14",
+    "folder": "garden_gate",
+    "filename": "Frame 14.png",
+    "alt_text": "Frame 14.png",
+    "uploaded_at": "2025-12-05T20:18:42.945Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 14,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764965923/garden_gate/Frame%2015.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764965923/garden_gate/Frame%2015.webp",
+    "public_id": "garden_gate/Frame 15",
+    "folder": "garden_gate",
+    "filename": "Frame 15.png",
+    "alt_text": "Frame 15.png",
+    "uploaded_at": "2025-12-05T20:18:45.112Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 15,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764967407/garden_gate/Group%204.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967407/garden_gate/Group%204.webp",
+    "public_id": "garden_gate/Group 4",
+    "folder": "garden_gate",
+    "filename": "Group 4.png",
+    "alt_text": "Group 4.png",
+    "uploaded_at": "2025-12-05T20:43:29.261Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 16,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764967411/garden_gate/Group%205.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967411/garden_gate/Group%205.webp",
+    "public_id": "garden_gate/Group 5",
+    "folder": "garden_gate",
+    "filename": "Group 5.png",
+    "alt_text": "Group 5.png",
+    "uploaded_at": "2025-12-05T20:43:31.660Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 17,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764967413/garden_gate/Group%206.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967413/garden_gate/Group%206.webp",
+    "public_id": "garden_gate/Group 6",
+    "folder": "garden_gate",
+    "filename": "Group 6.png",
+    "alt_text": "Group 6.png",
+    "uploaded_at": "2025-12-05T20:43:34.247Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 18,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764967416/garden_gate/Group%207.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967416/garden_gate/Group%207.webp",
+    "public_id": "garden_gate/Group 7",
+    "folder": "garden_gate",
+    "filename": "Group 7.png",
+    "alt_text": "Group 7.png",
+    "uploaded_at": "2025-12-05T20:43:36.775Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 19,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764967418/garden_gate/Group%203.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764967418/garden_gate/Group%203.webp",
+    "public_id": "garden_gate/Group 3",
+    "folder": "garden_gate",
+    "filename": "Group 3.png",
+    "alt_text": "Group 3.png",
+    "uploaded_at": "2025-12-05T20:43:39.423Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 20,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1764968706/garden_gate/tmp6zruiq9f%201.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1764968706/garden_gate/tmp6zruiq9f%201.webp",
+    "public_id": "garden_gate/tmp6zruiq9f 1",
+    "folder": "garden_gate",
+    "filename": "tmp6zruiq9f 1.png",
+    "alt_text": "tmp6zruiq9f 1.png",
+    "uploaded_at": "2025-12-05T21:05:07.684Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 21,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765200880/garden_gate/fuzzy-view-building-s-stairs%201.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765200880/garden_gate/fuzzy-view-building-s-stairs%201.webp",
+    "public_id": "garden_gate/fuzzy-view-building-s-stairs 1",
+    "folder": "garden_gate",
+    "filename": "fuzzy-view-building-s-stairs 1.png",
+    "alt_text": "fuzzy-view-building-s-stairs 1.png",
+    "uploaded_at": "2025-12-08T13:34:40.401Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 22,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765200964/garden_gate/Aragon-Headshot-Mahrukh-Tariq-100%201.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765200964/garden_gate/Aragon-Headshot-Mahrukh-Tariq-100%201.webp",
+    "public_id": "garden_gate/Aragon-Headshot-Mahrukh-Tariq-100 1",
+    "folder": "garden_gate",
+    "filename": "Aragon-Headshot-Mahrukh-Tariq-100 1.png",
+    "alt_text": "Aragon-Headshot-Mahrukh-Tariq-100 1.png",
+    "uploaded_at": "2025-12-08T13:36:03.637Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 23,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765201832/garden_gate/Group%208.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765201832/garden_gate/Group%208.webp",
+    "public_id": "garden_gate/Group 8",
+    "folder": "garden_gate",
+    "filename": "Group 8.png",
+    "alt_text": "Group 8.png",
+    "uploaded_at": "2025-12-08T13:50:32.705Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 24,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765201869/garden_gate/Aragon-Headshot-Mahrukh-Tariq-1%202.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765201869/garden_gate/Aragon-Headshot-Mahrukh-Tariq-1%202.webp",
+    "public_id": "garden_gate/Aragon-Headshot-Mahrukh-Tariq-1 2",
+    "folder": "garden_gate",
+    "filename": "Aragon-Headshot-Mahrukh-Tariq-1 2.png",
+    "alt_text": "Aragon-Headshot-Mahrukh-Tariq-1 2.png",
+    "uploaded_at": "2025-12-08T13:51:08.823Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 25,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765207350/garden_gate/tenant_placement_only.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765207350/garden_gate/tenant_placement_only.webp",
+    "public_id": "garden_gate/tenant_placement_only",
+    "folder": "garden_gate",
+    "filename": "tenant_placement_only.png",
+    "alt_text": "tenant_placement_only.png",
+    "uploaded_at": "2025-12-08T15:22:29.270Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 26,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765207352/garden_gate/portfolio_building_and_investment_guidance.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765207352/garden_gate/portfolio_building_and_investment_guidance.webp",
+    "public_id": "garden_gate/portfolio_building_and_investment_guidance",
+    "folder": "garden_gate",
+    "filename": "portfolio_building_and_investment_guidance.png",
+    "alt_text": "portfolio_building_and_investment_guidance.png",
+    "uploaded_at": "2025-12-08T15:22:31.355Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 27,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765207353/garden_gate/full_service_management.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765207353/garden_gate/full_service_management.webp",
+    "public_id": "garden_gate/full_service_management",
+    "folder": "garden_gate",
+    "filename": "full_service_management.png",
+    "alt_text": "full_service_management.png",
+    "uploaded_at": "2025-12-08T15:22:33.331Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 28,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765209217/garden_gate/tablet.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765209217/garden_gate/tablet.webp",
+    "public_id": "garden_gate/tablet",
+    "folder": "garden_gate",
+    "filename": "tablet.png",
+    "alt_text": "tablet.png",
+    "uploaded_at": "2025-12-08T15:53:36.997Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 29,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765209478/garden_gate/tablet_2.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765209478/garden_gate/tablet_2.webp",
+    "public_id": "garden_gate/tablet_2",
+    "folder": "garden_gate",
+    "filename": "tablet_2.png",
+    "alt_text": "tablet_2.png",
+    "uploaded_at": "2025-12-08T15:57:57.459Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 30,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1765209217/garden_gate/tablet.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1765209217/garden_gate/tablet.webp",
+    "public_id": "garden_gate/tablet",
+    "folder": "garden_gate",
+    "filename": "tablet.png",
+    "alt_text": "tablet.png",
+    "uploaded_at": "2025-12-08T16:03:22.042Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 31,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1766132641/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202-3.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766132641/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202-3.webp",
+    "public_id": "garden_gate/luxury-apartments-with-stunning-city-views-dusk (1) 2-3",
+    "folder": "garden_gate",
+    "filename": "luxury-apartments-with-stunning-city-views-dusk (1) 2-3.png",
+    "alt_text": "luxury-apartments-with-stunning-city-views-dusk (1) 2-3.png",
+    "uploaded_at": "2025-12-19T08:24:02.526Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 32,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1766132644/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766132644/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202.webp",
+    "public_id": "garden_gate/luxury-apartments-with-stunning-city-views-dusk (1) 2",
+    "folder": "garden_gate",
+    "filename": "luxury-apartments-with-stunning-city-views-dusk (1) 2.png",
+    "alt_text": "luxury-apartments-with-stunning-city-views-dusk (1) 2.png",
+    "uploaded_at": "2025-12-19T08:24:04.664Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 33,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1766132645/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202-1.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766132645/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202-1.webp",
+    "public_id": "garden_gate/luxury-apartments-with-stunning-city-views-dusk (1) 2-1",
+    "folder": "garden_gate",
+    "filename": "luxury-apartments-with-stunning-city-views-dusk (1) 2-1.png",
+    "alt_text": "luxury-apartments-with-stunning-city-views-dusk (1) 2-1.png",
+    "uploaded_at": "2025-12-19T08:24:06.130Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 34,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1766132647/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202-2.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766132647/garden_gate/luxury-apartments-with-stunning-city-views-dusk%20%281%29%202-2.webp",
+    "public_id": "garden_gate/luxury-apartments-with-stunning-city-views-dusk (1) 2-2",
+    "folder": "garden_gate",
+    "filename": "luxury-apartments-with-stunning-city-views-dusk (1) 2-2.png",
+    "alt_text": "luxury-apartments-with-stunning-city-views-dusk (1) 2-2.png",
+    "uploaded_at": "2025-12-19T08:24:07.948Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 35,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1766132755/garden_gate/Aragon-Headshot-Mahrukh-Tariq-97%202.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766132755/garden_gate/Aragon-Headshot-Mahrukh-Tariq-97%202.webp",
+    "public_id": "garden_gate/Aragon-Headshot-Mahrukh-Tariq-97 2",
+    "folder": "garden_gate",
+    "filename": "Aragon-Headshot-Mahrukh-Tariq-97 2.png",
+    "alt_text": "Aragon-Headshot-Mahrukh-Tariq-97 2.png",
+    "uploaded_at": "2025-12-19T08:25:55.883Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 36,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1766133959/garden_gate/high-angle-view-trees-buildings-town%202.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766133959/garden_gate/high-angle-view-trees-buildings-town%202.webp",
+    "public_id": "garden_gate/high-angle-view-trees-buildings-town 2",
+    "folder": "garden_gate",
+    "filename": "high-angle-view-trees-buildings-town 2.png",
+    "alt_text": "high-angle-view-trees-buildings-town 2.png",
+    "uploaded_at": "2025-12-19T08:46:00.347Z"
+  }
+},
+{
+  "model": "myApp.mediaasset",
+  "pk": 37,
+  "fields": {
+    "url": "http://res.cloudinary.com/dcuswyfur/image/upload/v1766134240/garden_gate/high-angle-view-trees-buildings-town%202-1.webp",
+    "secure_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1766134240/garden_gate/high-angle-view-trees-buildings-town%202-1.webp",
+    "public_id": "garden_gate/high-angle-view-trees-buildings-town 2-1",
+    "folder": "garden_gate",
+    "filename": "high-angle-view-trees-buildings-town 2-1.png",
+    "alt_text": "high-angle-view-trees-buildings-town 2-1.png",
+    "uploaded_at": "2025-12-19T08:50:40.806Z"
+  }
+},
+{
+  "model": "myApp.servicecard",
+  "pk": 1,
+  "fields": {
+    "card_number": 1,
+    "title": "Full-Service Management",
+    "subtitle": "For landlords who want zero hassle.",
+    "image_url": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop&q=80",
+    "image_alt": "Full-Service Property Management",
+    "features": "Tenant placement and screening\nLease management and rent collection\n24/7 maintenance coordination\nFinancial reporting and inspections",
+    "result_text": "Result: Steady income, no stress, full trust.",
+    "cta_text": "Get a Free Rental Analysis",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T14:57:52.594Z"
+  }
+},
+{
+  "model": "myApp.servicecard",
+  "pk": 2,
+  "fields": {
+    "card_number": 2,
+    "title": "Tenant Placement Only",
+    "subtitle": "We'll find your tenant — you take it from there.",
+    "image_url": "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=300&fit=crop&q=80",
+    "image_alt": "Tenant Placement",
+    "features": "Professional marketing and showings\nThorough pre-qualification and screening\nLease prep and move-in coordination",
+    "result_text": "Result: Quality tenants, fast occupancy.",
+    "cta_text": "Get a Free Rental Analysis",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T14:57:52.601Z"
+  }
+},
+{
+  "model": "myApp.servicecard",
+  "pk": 3,
+  "fields": {
+    "card_number": 3,
+    "title": "Portfolio Building & Investment Guidance",
+    "subtitle": "For investors growing wealth long-term.",
+    "image_url": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop&q=80",
+    "image_alt": "Portfolio Building",
+    "features": "Market analysis and property selection\nFinancing and acquisition support\nPost-purchase management and optimization",
+    "result_text": "Result: Profitable portfolios built with strategy and care.",
+    "cta_text": "Get a Free Rental Analysis",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T14:57:52.607Z"
+  }
+},
+{
+  "model": "myApp.servicessection",
+  "pk": 1,
+  "fields": {
+    "title": "Management That Fits Your Goals.",
+    "description": "Every landlord is different. Some want complete freedom. Others prefer involvement. We tailor our service to fit you.",
+    "cta_text": "Find Out If We're the Right Fit",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T14:57:52.587Z"
+  }
+},
+{
+  "model": "myApp.herosection",
+  "pk": 1,
+  "fields": {
+    "title": "Stop Losing Money to Property Managers Who Don't Care.",
+    "subtitle": "Your Investment Deserves an Owner's Standard.",
+    "description": "Most property management firms treat you like another number. At Garden Gate, you work directly with me – Mahrukh Tariq. I manage your property with the same standards I apply to my own 90-unit portfolio: honest pricing, rigorous tenant screening, and personal attention that corporations can't replicate.",
+    "cta_text": "Find Out If We're the Right Fit",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T15:50:54.248Z"
+  }
+},
+{
+  "model": "myApp.credibilitysection",
+  "pk": 1,
+  "fields": {
+    "title": "Proven Experience. Personal Commitment.<br>Real Results.",
+    "description": "Garden Gate is not a franchise or volume-driven agency. It's a boutique property management firm built on 13 years of hands-on real estate experience — backed by a personal portfolio that proves its systems deliver results.",
+    "subtitle": "Why Landlords Choose Garden Gate",
+    "subtitle_description": "Most property managers have never been landlords. Mahrukh Tariq is both. Here's why that matters to your bottom line:",
+    "updated_at": "2025-12-09T10:06:34.710Z"
+  }
+},
+{
+  "model": "myApp.credibilitycard",
+  "pk": 1,
+  "fields": {
+    "card_number": 1,
+    "title": "Personal Tenant Screening",
+    "description": "With an average 4-day placement time, vacancies are filled faster than competitors who sit empty for weeks. Experience as a landlord ensures speed without compromising quality.",
+    "updated_at": "2025-12-09T10:06:34.813Z"
+  }
+},
+{
+  "model": "myApp.credibilitycard",
+  "pk": 2,
+  "fields": {
+    "card_number": 2,
+    "title": "Real Repair Costs, Not Markups",
+    "description": "Garden Gate's trusted contractors also maintain Mahrukh's own units, which means no unnecessary add-ons or inflated pricing. While many managers allow vendors to tack on up to 25% markups, Garden Gate clients pay the same fair rates she pays herself.",
+    "updated_at": "2025-12-09T10:06:34.919Z"
+  }
+},
+{
+  "model": "myApp.credibilitycard",
+  "pk": 3,
+  "fields": {
+    "card_number": 3,
+    "title": "Direct Access, No Call Centers",
+    "description": "Clients communicate directly with the decision-maker managing their property, not a rotating staff member or automated system.",
+    "updated_at": "2025-12-09T10:06:35.012Z"
+  }
+},
+{
+  "model": "myApp.credibilitycard",
+  "pk": 4,
+  "fields": {
+    "card_number": 4,
+    "title": "Proven Systems Backed by 90 Units",
+    "description": "Every process at Garden Gate is field-tested through the management of Mahrukh's own 90-unit portfolio, ensuring efficiency, reliability, and real-world results.",
+    "updated_at": "2025-12-09T10:06:35.095Z"
+  }
+},
+{
+  "model": "myApp.testimonialssection",
+  "pk": 1,
+  "fields": {
+    "title": "Why Landlords Stop Looking After Finding Us",
+    "cta_text": "Find Out If We're the Right Fit",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T15:42:47.564Z"
+  }
+},
+{
+  "model": "myApp.testimonial",
+  "pk": 1,
+  "fields": {
+    "testimonial_number": 1,
+    "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&q=80",
+    "avatar_alt": "Tom R.",
+    "quote_short": "After three property managers, I finally found someone who answers the phone.",
+    "quote_long": "I wasted two years with managers who'd take 3 days to return a call if they called back at all. With Mahrukh, if something comes up at 8 PM, she responds. That level of access is exactly what I needed.",
+    "author_name": "Tom R.",
+    "author_title": "3 properties in Alexandria",
+    "updated_at": "2025-12-09T06:56:06.042Z"
+  }
+},
+{
+  "model": "myApp.testimonial",
+  "pk": 2,
+  "fields": {
+    "testimonial_number": 2,
+    "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&q=80",
+    "avatar_alt": "Jennifer M.",
+    "quote_short": "She rented my vacant property in 4 days. Others took 6 weeks.",
+    "quote_long": "I had five comparable units listed at the same time through different managers. Mine was the only one that rented fast, because Mahrukh prices right and pre-screens aggressively. Every day vacant was costing me $120. She just made me $3,360.",
+    "author_name": "Jennifer M.",
+    "author_title": "Fairfax investor",
+    "updated_at": "2025-12-09T06:56:06.141Z"
+  }
+},
+{
+  "model": "myApp.testimonial",
+  "pk": 3,
+  "fields": {
+    "testimonial_number": 3,
+    "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&q=80",
+    "avatar_alt": "David K.",
+    "quote_short": "No more surprise $800 invoices I never approved.",
+    "quote_long": "My last manager would just bill me for work I didn't authorize. Mahrukh sends estimates for everything over $200. I approve it, THEN the work happens. That's how it should have worked all along.",
+    "author_name": "David K.",
+    "author_title": "Arlington landlord",
+    "updated_at": "2025-12-09T06:56:06.233Z"
+  }
+},
+{
+  "model": "myApp.statisticssection",
+  "pk": 1,
+  "fields": {
+    "title": "Why Quality Management Matters",
+    "subtitle": "The Cost of Poor Management:",
+    "point_1": "Long vacancies that cost thousands in lost rent.",
+    "point_2": "Vendor markups of 10–25% on maintenance invoices.",
+    "point_3": "Unresponsive managers — 29% of tenants report landlords are \"slow to get things done.\"",
+    "updated_at": "2025-12-09T06:56:06.334Z"
+  }
+},
+{
+  "model": "myApp.painpointssection",
+  "pk": 1,
+  "fields": {
+    "title": "Common Problems.<br>Clear Solutions.",
+    "description": "Owning rental property shouldn't mean chasing managers or worrying about surprise bills. But too often, landlords deal with:",
+    "pain_point_1": "Managers who disappear when you need answers.",
+    "pain_point_2": "Inflated maintenance costs and hidden markups.",
+    "pain_point_3": "Weak screening that lets in problem tenants.",
+    "pain_point_4": "Generic, one-size-fits-all service.",
+    "pain_point_5": "Unapproved expenses with zero transparency.",
+    "solution_1": "<strong class=\"text-gold italic\">Immediate Access</strong> — You call. I answer. Same day.",
+    "solution_2": "<strong class=\"text-gold italic\">Transparent Pricing</strong> — You review every estimate before work begins.",
+    "solution_3": "<strong class=\"text-gold italic\">Rigorous Screening</strong> — Every tenant meets me personally before approval.",
+    "solution_4": "<strong class=\"text-gold italic\">Customized Management</strong> — Your goals, your preferences, your plan.",
+    "solution_5": "<strong class=\"text-gold italic\">Total Transparency</strong> — You're informed before money moves. Always.",
+    "cta_text": "Get a Free Rental Analysis",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T15:32:40.385Z"
+  }
+},
+{
+  "model": "myApp.methodologysection",
+  "pk": 1,
+  "fields": {
+    "title": "The Garden Gate Framework",
+    "description": "Most companies chase volume. We build relationships. Every property receives personalized attention, open communication, and proactive care.",
+    "cta_text": "Get a Free Rental Analysis",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T15:23:49.432Z"
+  }
+},
+{
+  "model": "myApp.methodologystep",
+  "pk": 1,
+  "fields": {
+    "step_number": 1,
+    "title": "Assessment",
+    "description": "We start with your goals — returns, concerns, and preferences.",
+    "result_text": "Result: A plan that fits you, not a template.",
+    "updated_at": "2025-12-09T06:56:06.599Z"
+  }
+},
+{
+  "model": "myApp.methodologystep",
+  "pk": 2,
+  "fields": {
+    "step_number": 2,
+    "title": "Protection",
+    "description": "Thorough screening and in-person showings ensure only the right tenants move in.",
+    "result_text": "Result: Fewer turnovers, more stability.",
+    "updated_at": "2025-12-09T06:56:06.692Z"
+  }
+},
+{
+  "model": "myApp.methodologystep",
+  "pk": 3,
+  "fields": {
+    "step_number": 3,
+    "title": "Management",
+    "description": "Rent collection, maintenance, inspections — done right, not rushed.",
+    "result_text": "Result: Lower costs, faster resolutions, lasting peace of mind.",
+    "updated_at": "2025-12-09T06:56:06.781Z"
+  }
+},
+{
+  "model": "myApp.methodologystep",
+  "pk": 4,
+  "fields": {
+    "step_number": 4,
+    "title": "Communication",
+    "description": "You always reach me directly, no forms, no waiting.",
+    "result_text": "Result: Clear answers. Real accountability.",
+    "updated_at": "2025-12-09T06:56:06.882Z"
+  }
+},
+{
+  "model": "myApp.methodologystep",
+  "pk": 5,
+  "fields": {
+    "step_number": 5,
+    "title": "Optimization",
+    "description": "We don't just manage; we help your property grow in value.",
+    "result_text": "Result: Competitive rent, increased returns, confident ownership.",
+    "updated_at": "2025-12-09T06:56:06.965Z"
+  }
+},
+{
+  "model": "myApp.aboutsection",
+  "pk": 1,
+  "fields": {
+    "title": "I Built This Because I Was You",
+    "content": "Fourteen years ago, I stepped off a plane with no car, limited English, and an arranged marriage that dropped me in Northern Virginia with zero network.\n\nI started managing rentals for $300 commissions. I watched landlords get overcharged. Ignored. Misled. I watched property managers treat people's life savings like paperwork.\n\nAnd I thought: \"There has to be a better way.\"\n\nSo I built one.\n\nToday, I manage 90 units using the same systems I use for Garden Gate clients. When I tell you \"I treat your property like my own,\" it's not marketing. It's literally true. The toilets in my units? Same contractors who fix yours. The tenants I screen? Same process you get. The pricing I negotiate? Same hustle I use for my own portfolio.\n\nEvery dollar I save you, I'm saving myself somewhere else. Every system that works for you, I depend on for my own financial freedom.\n\nThis isn't a franchise. This isn't corporate training. This is 13 years of figuring out what actually works when your own money is on the line.",
+    "quote_text": "I don't lock clients in. I earn their trust, one transparent decision at a time.",
+    "quote_author": "— Mahrukh Tariq",
+    "cta_text": "Talk to a Property Manager Today",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T15:19:52.471Z"
+  }
+},
+{
+  "model": "myApp.missionvisionsection",
+  "pk": 1,
+  "fields": {
+    "mission_title": "Our Mission",
+    "mission_subtitle": "Deliver What Corporate Management Can't.",
+    "mission_description": "We exist because landlords deserve better — direct access, transparent pricing, and genuine partnership. Garden Gate gives you clarity, control, and confidence in your investment.",
+    "vision_title": "Our Vision",
+    "vision_subtitle": "Boutique Management That Puts Landlords First.",
+    "vision_description": "We're building Northern Virginia's most trusted boutique property management firm — where landlords enjoy ownership, not endure it.",
+    "cta_text": "Join Us",
+    "cta_link": "#consultation",
+    "updated_at": "2025-12-09T06:56:07.163Z"
+  }
+},
+{
+  "model": "myApp.leadmagnetsection",
+  "pk": 1,
+  "fields": {
+    "title": "Free 15 Minute Property<br>Assessment",
+    "subtitle": "No sales pitch. Just straight answers to:",
+    "bullet_1": "What your property should actually rent for",
+    "bullet_2": "Where you're currently losing money",
+    "bullet_3": "Whether we're a good fit (honest answer)",
+    "description": "If we're not right for you, I'll tell you. If we are, you'll know exactly what happens next.",
+    "cta_text": "Find Out If We're the Right Fit",
+    "cta_link": "#consultation",
+    "updated_at": "2026-02-06T15:49:51.184Z"
+  }
+},
+{
+  "model": "myApp.finalctasection",
+  "pk": 1,
+  "fields": {
+    "title": "Stop Settling. Start Succeeding.",
+    "description": "While others chase unresponsive managers and inflated repair bills, you can work with someone who treats your property like her own.",
+    "cta_text": "Find Out If We're the Right Fit",
+    "cta_link": "#contact",
+    "updated_at": "2026-02-06T15:50:43.966Z"
+  }
+},
+{
+  "model": "myApp.blogsection",
+  "pk": 1,
+  "fields": {
+    "title": "Insights & Expertise",
+    "subtitle": "Learn from our experience managing properties and building successful landlord relationships.",
+    "cta_text": "View All Posts",
+    "cta_link": "#blog",
+    "updated_at": "2026-02-03T09:21:47.375Z"
+  }
+},
+{
+  "model": "myApp.blogpost",
+  "pk": 1,
+  "fields": {
+    "title": "What a Property Manager Really Does (and Why It's Worth the Cost)",
+    "slug": "what-property-manager-really-does-worth-cost",
+    "excerpt": "Many property owners see property management as a line item on a spreadsheet. A percentage that feels optional. In reality, a good property manager is not an added expense; they are often the reason a rental stays profitable, compliant, and far less stressful to own.",
+    "content": "Many property owners see property management as a line item on a spreadsheet. A percentage that feels optional. In reality, a good property manager is not an added expense; they are often the reason a rental stays profitable, compliant, and far less stressful to own. Here is what property managers actually do, and why their cost often pays for itself.\n\nLeasing Is More Than Filling a Vacancy\nLeasing is not just about getting someone in the unit quickly. It is about getting the right tenant.\n\nA property manager handles:\n● Market-based rent pricing\n● Professional marketing and showings\n● Thorough tenant screening, including credit, income, and rental history\n● Lease preparation that complies with local laws\n\nOne bad tenant can erase months of profit. Strong screening alone can justify the management fee.\n\nRent Collection and Cash Flow Protection\nCollecting rent sounds simple, until it is not.\n\nProperty managers:\n● Enforce consistent rent collection policies\n● Handle late payments and notices professionally\n● Remove emotion from financial conversations\n● Maintain predictable cash flow\n\nOwners who self-manage often hesitate to enforce policies. Property managers do not, and that consistency matters.\n\nMaintenance Without the Headaches\nMaintenance is one of the biggest stress points for property owners.\n\nA property manager:\n● Coordinates repairs using vetted vendors\n● Handles emergency calls at all hours\n● Prioritizes preventive maintenance to avoid costly breakdowns\n● Documents work to protect the owner\n\nThis protects both the property and the owner's time.\n\nLegal and Compliance Protection\nRental laws are not optional, and they change often.\n\nProperty managers stay current on:\n● Fair housing requirements\n● Local rental ordinances\n● Proper notice and eviction procedures\n● Lease enforcement standards\n\nMistakes in these areas can be far more expensive than any monthly fee.\n\nTenant Communication and Retention\nTenants do not leave properties; they leave poor management.\n\nA property manager:\n● Acts as the main point of contact\n● Resolves issues before they escalate\n● Sets professional expectations on both sides\n● Improves tenant satisfaction and retention\n\nLower turnover means fewer vacancies and lower costs over time.\n\nFinancial Reporting and Oversight\nProperty managers provide owners with clarity, not just convenience.\n\nThis includes:\n● Monthly financial statements\n● Expense tracking\n● Year-end reports for tax preparation\n● Performance insights\n\nOwners can make better decisions when they have clean, consistent data.\n\nSo, Is a Property Manager Worth the Cost?\nFor many owners, the real question is not the fee; it is the risk of not having professional management.\n\nA property manager helps protect:\n● Income\n● Time\n● Legal standing\n● Long-term property value\n\nWhen you account for fewer vacancies, better tenants, reduced legal exposure, and less stress, the cost of property management often becomes a smart investment rather than an expense.\n\nFinal Thought\nProperty management is not about doing less as an owner. It is about doing better.\n\nThe right property manager allows owners to grow their portfolios, protect their assets, and enjoy the benefits of ownership without being consumed by daily operations.",
+    "featured_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1770109528/1_dkuiqy.jpg",
+    "featured_image_alt": "What a Property Manager Really Does - Property Management Services",
+    "author_name": "Mahrukh Tariq",
+    "published_date": "2026-01-29T10:21:01.479Z",
+    "updated_date": "2026-02-03T09:21:47.463Z",
+    "is_featured": true,
+    "is_published": true,
+    "view_count": 0,
+    "order": 1
+  }
+},
+{
+  "model": "myApp.blogpost",
+  "pk": 2,
+  "fields": {
+    "title": "How to Find and Screen the Right Tenant (Avoid Costly Mistakes)",
+    "slug": "how-find-screen-right-tenant-avoid-costly-mistakes",
+    "excerpt": "A rental property is only as strong as the tenant living in it. The most costly problems landlords face, unpaid rent, property damage, and legal disputes, start with poor tenant selection. Finding the right tenant is not about speed; it is about process.",
+    "content": "A rental property is only as strong as the tenant living in it. The most costly problems landlords face, unpaid rent, property damage, and legal disputes, start with poor tenant selection. Finding the right tenant is not about speed; it is about process.\n\nHere is how successful property owners reduce risk and avoid expensive mistakes.\n\nStart With the Right Marketing\nTenant quality begins before the first showing.\n\nEffective marketing:\n● Price the property accurately for the local market\n● Uses clear, honest descriptions and professional photos\n● Sets expectations about income requirements, lease terms, and policies\n\nOverpricing leads to longer vacancies. Underpricing often attracts unqualified applicants. The goal is balance.\n\nPre-Screen Before You Show\nPre-screening saves time and filters out poor matches early.\n\nBefore scheduling a showing, confirm:\n● Monthly income meets your requirement\n● The number of occupants aligns with the property\n● Move-in timeline is realistic\n● Pets, if any, comply with your policy\n\nThis step alone can eliminate many future issues.\n\nUse Consistent Screening Criteria\nOne of the most common and costly mistakes is inconsistency.\n\nStrong screening criteria should include:\n● Verifiable income, typically two to three times the rent\n● Credit history review, not just the score, but the pattern\n● Rental history and landlord references\n● Criminal background checks, where legally permitted\n\nApply the same criteria to every applicant. Consistency protects both your property and your legal standing.\n\nVerify, Do Not Assume\nDocuments can look legitimate and still be misleading.\n\nBest practices:\n● Verify employment directly, not just pay stubs\n● Call previous landlords, not just current ones\n● Confirm identity and documentation authenticity\n\nAssumptions are expensive. Verification is protection.\n\nWatch for Common Red Flags\nSome warning signs appear early if you know what to look for.\n\nCommon red flags include:\n● Pressure to move in immediately without screening\n● Incomplete or inconsistent application information\n● Reluctance to provide documentation\n● A pattern of short-term rentals\n\nRed flags do not always mean rejection, but they should trigger a deeper review.\n\nFollow Fair Housing Laws at Every Step\nScreening mistakes are not only financial, but they can also be legal.\n\nAlways:\n● Use objective, written criteria\n● Avoid personal opinions or gut decisions\n● Document application decisions\n● Treat every applicant equally\n\nFair housing compliance is not optional, and mistakes can be costly.\n\nWhy Many Owners Rely on Professional Screening\nTenant screening requires time, systems, and experience.\n\nProperty managers:\n● Use professional screening tools\n● Stay compliant with changing regulations\n● Remove emotion from decisions\n● Protect owners from costly missteps\n\nOne bad tenant can cost far more than a year of management fees.\n\nFinal Thoughts\nFinding the right tenant is not about luck. It is about discipline, consistency, and attention to detail.\n\nA strong screening process reduces stress, protects income, and sets the tone for a successful tenancy from day one. When done correctly, tenant selection becomes one of the most powerful tools a property owner has.",
+    "featured_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/2_ygmcyf.jpg",
+    "featured_image_alt": "How to Find and Screen the Right Tenant - Tenant Screening Guide",
+    "author_name": "Mahrukh Tariq",
+    "published_date": "2026-01-29T10:21:01.556Z",
+    "updated_date": "2026-02-03T09:21:47.581Z",
+    "is_featured": true,
+    "is_published": true,
+    "view_count": 0,
+    "order": 2
+  }
+},
+{
+  "model": "myApp.blogpost",
+  "pk": 3,
+  "fields": {
+    "title": "Top Mistakes Landlords Make When Self-Managing Their Rental",
+    "slug": "top-mistakes-landlords-make-self-managing-rental",
+    "excerpt": "Self-managing a rental property can seem straightforward, especially at the beginning. Many landlords start with good intentions and a desire to save money. Over time, however, small missteps can turn into expensive problems.",
+    "content": "Self-managing a rental property can seem straightforward, especially at the beginning. Many landlords start with good intentions and a desire to save money. Over time, however, small missteps can turn into expensive problems.\n\nHere are the most common mistakes landlords make when managing their own rental, and why they often cost more than expected.\n\nTreating the Rental Like a Side Project\nA rental property is a business, even if it is only one unit.\n\nCommon issues include:\n● Delayed responses to tenant concerns\n● Inconsistent rent collection\n● Poor recordkeeping\n\nTenants notice when management feels casual. This often leads to more problems, not fewer.\n\nPricing the Property Incorrectly\nSetting rent too high can leave a unit vacant for months. Setting it too low can attract the wrong tenants and reduce long-term returns.\n\nMany self-managing landlords:\n● Rely on outdated comps\n● Ignore seasonal demand shifts\n● Avoid rent increases due to discomfort\n\nAccurate pricing requires regular market analysis, not guesswork.\n\nWeak Tenant Screening\nThis is one of the most expensive mistakes a landlord can make.\n\nCommon screening errors:\n● Rushing the process to fill a vacancy\n● Skipping background or income verification\n● Trusting personal impressions over data\n\nOne poorly screened tenant can lead to unpaid rent, damage, and legal trouble.\n\nLetting Emotions Drive Decisions\nPersonal relationships often complicate landlord-tenant interactions.\n\nExamples include:\n● Allowing late rent without consequences\n● Making exceptions without documentation\n● Avoiding difficult conversations\n\nProfessional distance protects both the landlord and the tenant.\n\nFalling Behind on Legal and Compliance Requirements\nRental laws change frequently and vary by location.\n\nSelf-managing landlords often struggle with:\n● Fair housing compliance\n● Proper notice requirements\n● Lease enforcement mistakes\n● Incorrect handling of security deposits\n\nLegal mistakes are rarely cheap to fix.\n\nReactive Maintenance Instead of Preventive Care\nWaiting until something breaks usually costs more.\n\nCommon outcomes:\n● Emergency repair premiums\n● Property damage from delayed action\n● Frustrated tenants\n\nPreventive maintenance protects the property and improves tenant retention.\n\nPoor Documentation and Recordkeeping\nWhen disputes arise, documentation matters.\n\nSelf-managing landlords may lack:\n● Clear maintenance records\n● Written communication logs\n● Proper inspection reports\n\nWithout documentation, even good decisions can be hard to defend.\n\nTrying to Do Everything Alone\nManaging a rental requires availability, knowledge, and systems.\n\nMany landlords underestimate:\n● Time demands\n● After-hours emergencies\n● Administrative workload\n\nBurnout often leads to rushed decisions and costly mistakes.\n\nFinal Thoughts\nSelf-management can work for some landlords, but it requires discipline, structure, and ongoing education. For many, the real cost of self-managing is not visible on a spreadsheet; it shows up in lost time, stress, and preventable expenses.\n\nRecognizing these common mistakes is the first step toward protecting your investment and making smarter long-term decisions.",
+    "featured_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1770109531/3_nprxhp.jpg",
+    "featured_image_alt": "Top Mistakes Landlords Make When Self-Managing Their Rental",
+    "author_name": "Mahrukh Tariq",
+    "published_date": "2026-01-29T10:21:01.670Z",
+    "updated_date": "2026-02-03T09:21:47.674Z",
+    "is_featured": false,
+    "is_published": true,
+    "view_count": 0,
+    "order": 3
+  }
+},
+{
+  "model": "myApp.blogpost",
+  "pk": 4,
+  "fields": {
+    "title": "Understanding Landlord-Tenant Laws: What Every Property Owner Should Know",
+    "slug": "understanding-landlord-tenant-laws-what-every-property-owner-should-know",
+    "excerpt": "Owning a rental property comes with legal responsibilities that many landlords underestimate. Landlord-tenant laws are designed to protect both parties, but when owners misunderstand or ignore them, the consequences can be costly.",
+    "content": "Owning a rental property comes with legal responsibilities that many landlords underestimate. Landlord-tenant laws are designed to protect both parties, but when owners misunderstand or ignore them, the consequences can be costly.\n\nYou do not need to be a legal expert to be a successful landlord, but you do need a working understanding of the rules that govern your rental.\n\nWhy Landlord-Tenant Laws Matter\nLandlord-tenant laws exist to create clear expectations and fair treatment. When followed properly, they help prevent disputes and protect property owners from unnecessary risk.\n\nWhen ignored or misunderstood, they often result in:\n● Fines or penalties\n● Delayed or dismissed evictions\n● Lawsuits or complaints\n● Loss of rental income\n\nCompliance is not optional, even for small or first-time landlords.\n\nFair Housing and Anti-Discrimination Rules\nFair housing laws apply to most rental properties and cover every stage of the leasing process.\n\nProperty owners must:\n● Use consistent screening criteria\n● Avoid discriminatory language in advertising\n● Apply policies equally to all applicants\n● Document leasing decisions\n\nViolations can occur unintentionally, which is why consistency and documentation are critical.\n\nLease Agreements and Required Disclosures\nA lease is a legal contract, not a formality.\n\nStrong leases should:\n● Clearly outline rent terms and due dates\n● Define maintenance responsibilities\n● Include rules on occupancy, pets, and use of the property\n● Contain required local and state disclosures\n\nUsing outdated or generic lease templates is a common and risky mistake.\n\nSecurity Deposit Rules\nSecurity deposit laws vary by location and are often strict.\n\nProperty owners need to understand:\n● How much can be collected\n● Where deposits must be held\n● How and when deposits must be returned\n● What deductions are legally allowed\n\nImproper handling of security deposits is one of the most common sources of legal disputes.\n\nMaintenance and Habitability Standards\nLandlords are legally required to provide a safe and habitable living environment.\n\nThis includes:\n● Functioning plumbing, heating, and electrical systems\n● Timely response to maintenance issues\n● Addressing health and safety concerns\n\nFailure to meet habitability standards can lead to rent withholding, fines, or legal action.\n\nProper Notice and Eviction Procedures\nEvictions are highly regulated and must follow exact procedures.\n\nKey points include:\n● Using the correct notice type and timeframe\n● Avoiding self-help actions like lockouts or utility shutoffs\n● Filing evictions correctly through the court system\n\nEven when a tenant is clearly in violation, mistakes in the process can delay or derail the case.\n\nRecordkeeping and Documentation\nGood documentation protects landlords.\n\nImportant records include:\n● Lease agreements and addenda\n● Inspection reports\n● Maintenance requests and repairs\n● Written communication with tenants\n\nDocumentation can be the difference between winning and losing a dispute.\n\nWhen Professional Management Helps Reduce Legal Risk\nMany property owners turn to property managers for legal consistency.\n\nProperty managers:\n● Stay current on changing regulations\n● Use compliant leases and procedures\n● Handle notices and enforcement properly\n● Maintain thorough records\n\nThis reduces the likelihood of costly legal errors.\n\nFinal Thoughts\nLandlord-tenant laws are not meant to make rental ownership difficult. They exist to create structure and fairness. Owners who understand and respect these rules are better positioned to protect their income, their property, and their reputation.\n\nWhen in doubt, professional guidance, whether from a property manager or legal professional, can be a smart investment.",
+    "featured_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/4_v8zmfg.jpg",
+    "featured_image_alt": "Understanding Landlord-Tenant Laws - Legal Guide for Property Owners",
+    "author_name": "Mahrukh Tariq",
+    "published_date": "2026-01-29T10:21:01.774Z",
+    "updated_date": "2026-02-03T09:21:47.766Z",
+    "is_featured": false,
+    "is_published": true,
+    "view_count": 0,
+    "order": 4
+  }
+},
+{
+  "model": "myApp.blogpost",
+  "pk": 5,
+  "fields": {
+    "title": "How Professional Property Management Increases Your Rental ROI",
+    "slug": "how-professional-property-management-increases-rental-roi",
+    "excerpt": "Owning rental property can be profitable, but maximizing return on investment (ROI) is about more than collecting rent. Professional property management can be the difference between a property that barely breaks even and one that consistently delivers strong returns.",
+    "content": "Owning rental property can be profitable, but maximizing return on investment (ROI) is about more than collecting rent. Professional property management can be the difference between a property that barely breaks even and one that consistently delivers strong returns.\n\nHere's how working with experienced property managers can increase your rental ROI.\n\n1. Optimized Rent Pricing\nThe rent is too high, and your property sits vacant. Rent too low, and you leave money on the table.\n\nProfessional property managers:\n● Conduct a detailed market analysis\n● Track local trends and seasonal demand\n● Adjust pricing to maximize income while minimizing vacancy\n\nAccurate pricing means your property works harder for you from day one.\n\n2. Reduced Vacancies and Faster Leasing\nVacancies cost more than just lost rent—they can affect long-term ROI by increasing marketing, turnover, and administrative costs.\n\nProperty managers:\n● Maintain professional listings with high-quality photos and descriptions\n● Market to the right audience across multiple platforms\n● Pre-screen tenants to minimize rejection and re-leasing time\n\nFaster leasing cycles translate directly into more consistent income.\n\n3. High-Quality Tenant Screening\nOne bad tenant can negate months of profit.\n\nExperienced property managers:\n● Perform income, credit, and background checks\n● Verify employment and rental history\n● Apply consistent screening criteria to avoid legal risks\n\nBetter tenants pay on time, respect your property, and stay longer—reducing turnover costs.\n\n4. Efficient Maintenance and Cost Control\nMaintenance is unavoidable, but poor management can make it expensive.\n\nProperty managers:\n● Use vetted vendors for cost-effective, quality repairs\n● Track preventive maintenance to avoid emergencies\n● Handle after-hours issues without stress to the owner\n\nThis protects your property value and prevents small problems from becoming costly repairs.\n\n5. Legal and Regulatory Compliance\nRental laws are complex and vary by location. Mistakes can be expensive.\n\nProperty managers ensure:\n● Fair housing compliance\n● Proper lease enforcement\n● Correct handling of security deposits and evictions\n\nLegal compliance reduces the risk of fines, lawsuits, and lost rental income.\n\n6. Streamlined Financial Management\nManaging a rental involves more than collecting rent—it requires organization and reporting.\n\nProperty managers provide:\n● Monthly and annual financial statements\n● Expense tracking and tax-ready documentation\n● Insight into ROI and performance metrics\n\nClear financial oversight helps owners make smarter decisions for long-term profitability.\n\n7. Increased Tenant Retention\nRetaining tenants reduces turnover costs and keeps income steady.\n\nProperty managers:\n● Respond promptly to tenant needs\n● Maintain properties proactively\n● Foster positive tenant relationships\n\nHappy tenants stay longer, saving you money and improving ROI over time.\n\nFinal Thoughts\nProfessional property management is not just a convenience; it's an investment.\n\nFrom higher rents and better tenants to reduced vacancies, fewer legal risks, and lower maintenance costs, property managers create measurable value. For many owners, the management fee is more than covered by the increased income and reduced stress.\n\nWhen done well, professional management transforms a rental property from a passive asset into a consistently profitable investment.",
+    "featured_image_url": "https://res.cloudinary.com/dcuswyfur/image/upload/v1770109529/5_cbbn3r.jpg",
+    "featured_image_alt": "How Professional Property Management Increases Your Rental ROI",
+    "author_name": "Mahrukh Tariq",
+    "published_date": "2026-01-29T10:21:01.878Z",
+    "updated_date": "2026-02-03T09:21:47.874Z",
+    "is_featured": true,
+    "is_published": true,
+    "view_count": 20,
+    "order": 5
+  }
+},
+{
+  "model": "myApp.pricingsection",
+  "pk": 1,
+  "fields": {
+    "title": "Our Packages & Rates",
+    "subtitle": "NO HIDDEN FEES, CLEAR PRICING, EXCEPTIONAL SERVICE.",
+    "disclaimer": "No hidden fees. Professional management you can count on.",
+    "cta_text": "Request Management Pricing",
+    "cta_link": "#contact",
+    "updated_at": "2026-02-06T15:30:51.857Z"
+  }
+},
+{
+  "model": "myApp.pricingpackage",
+  "pk": 1,
+  "fields": {
+    "package_number": 1,
+    "title": "Rental Condominium Up to 2 Bedrooms",
+    "price": "150.00",
+    "services": "Marketing\nIn person Showing\nTenant Screening\nInterim Inspection\nSend Tax information\nMove-in, Move-out inspections\nOversee from warranty claims\nOversee insurance claims\nOn Boarding\nMonthly Statement\nMove in Inspection Report\nBackground Check\nJob Verification\n20% Lease Renewal\n75% Lease fee\nProfessional Pictures\nOversee all repairs during and after tenants move out",
+    "updated_at": "2026-02-06T15:30:51.863Z"
+  }
+},
+{
+  "model": "myApp.pricingpackage",
+  "pk": 2,
+  "fields": {
+    "package_number": 2,
+    "title": "Single-Family Homes and Townhomes",
+    "price": "225.00",
+    "services": "Marketing\nIn person Showing\nTenant Screening\nInterim Inspection\nSend Tax information\nMove-in, Move-out inspections\nOversee from warranty claims\nOversee insurance claims\nOn Boarding\nMonthly Statement\nMove in Inspection Report\nBackground Check\nJob Verification\n20% Lease Renewal\n75% Lease fee\nProfessional Pictures\nOversee all repairs during and after tenants move out",
+    "updated_at": "2026-02-06T15:30:51.871Z"
+  }
+}
+]
