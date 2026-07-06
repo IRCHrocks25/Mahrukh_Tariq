@@ -13,7 +13,7 @@ from .models import (
     AboutSection, MissionVisionSection, LeadMagnetSection, FinalCTASection,
     BlogSection, BlogPost
 )
-from .utils.cloudinary_utils import upload_to_cloudinary
+from .utils.iceberg_utils import upload_to_iceberg, is_configured as iceberg_configured
 import json
 import os
 
@@ -82,17 +82,16 @@ def upload_image(request):
         
         image_file = request.FILES['image']
         folder = request.POST.get('folder', 'garden_gate')
-        
-        # Validate Cloudinary config
-        cloudinary_cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME', '')
-        if not cloudinary_cloud_name:
+
+        # Validate Iceberg config
+        if not iceberg_configured():
             return JsonResponse({
-                'error': 'Cloudinary not configured. Please set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET environment variables in your .env file.'
+                'error': 'Image uploads are not configured. Please set ICEBERG_API_TOKEN in your .env file (mint an API token in the Katalyst dashboard).'
             }, status=500)
-        
-        # Upload to Cloudinary
-        result = upload_to_cloudinary(image_file, folder=folder)
-        
+
+        # Upload to Iceberg CDN
+        result = upload_to_iceberg(image_file, folder=folder)
+
         # Save to database
         media_asset = MediaAsset.objects.create(
             url=result['url'],
@@ -164,7 +163,7 @@ def gallery(request):
         assets_data = [{
             'id': asset.id,
             'url': asset.secure_url,
-            'thumb_url': asset.secure_url.replace('/upload/', '/upload/f_webp,q_80,w_400/'),
+            'thumb_url': asset.thumb_url,
             'filename': asset.filename or asset.public_id,
             'alt_text': asset.alt_text
         } for asset in assets]

@@ -35,8 +35,10 @@ class MediaAsset(models.Model):
     
     @property
     def thumb_url(self):
-        """Generate thumbnail URL"""
-        return self.secure_url.replace('/upload/', '/upload/f_webp,q_80,w_400/')
+        """Generate thumbnail URL (Cloudinary transform only applies to legacy Cloudinary assets)"""
+        if 'res.cloudinary.com' in self.secure_url:
+            return self.secure_url.replace('/upload/', '/upload/f_webp,q_80,w_400/')
+        return self.secure_url
     
     def __str__(self):
         return self.filename or self.public_id
