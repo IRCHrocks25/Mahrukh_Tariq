@@ -137,7 +137,7 @@
                       prose-li:marker:text-gold
                       prose-blockquote:border-l-4 prose-blockquote:border-gold/30 prose-blockquote:pl-6 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:bg-gold/5 prose-blockquote:rounded-r-lg
                       prose-blockquote:text-navy/70 prose-blockquote:italic prose-blockquote:text-lg">
-            {{ post.content|safe|linebreaks }}
+            {% if post.content_is_html %}{{ post.content|safe }}{% else %}{{ post.content|safe|linebreaks }}{% endif %}
           </div>
         </div>
 
@@ -553,6 +553,12 @@
     opacity: 0.8;
   }
   
+  /* Rich text editor alignment classes */
+  .prose .ql-align-center { text-align: center !important; }
+  .prose .ql-align-right { text-align: right !important; }
+  .prose .ql-align-justify { text-align: justify !important; }
+  .prose img { border-radius: 1rem; max-width: 100%; margin: 1.5rem 0; box-shadow: 0 10px 30px rgba(15,26,42,0.12); }
+
   /* Line clamp utility */
   .line-clamp-2 {
     display: -webkit-box;

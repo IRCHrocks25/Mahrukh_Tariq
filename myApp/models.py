@@ -456,10 +456,17 @@ class BlogPost(models.Model):
         return self.title
     
     def get_excerpt(self):
-        """Return excerpt or first 200 chars of content"""
+        """Return excerpt or first 200 chars of content (tags stripped)"""
         if self.excerpt:
             return self.excerpt
-        return self.content[:200] + "..." if len(self.content) > 200 else self.content
+        from django.utils.html import strip_tags
+        text = strip_tags(self.content)
+        return text[:200] + "..." if len(text) > 200 else text
+
+    @property
+    def content_is_html(self):
+        """True when content was written with the rich text editor (stored as HTML)"""
+        return self.content.lstrip().startswith('<')
 
 # Model to store Pricing section content
 class PricingSection(models.Model):

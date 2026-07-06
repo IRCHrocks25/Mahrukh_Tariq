@@ -30,5 +30,6 @@ urlpatterns = [
     path('blog/', dashboard_views.blog_edit, name='blog_edit'),
     path('blog-post/<int:post_id>/edit/', dashboard_views.blog_post_edit, name='blog_post_edit'),
     path('blog-post/new/', dashboard_views.blog_post_edit, name='blog_post_new'),
+    path('blog-post/<int:post_id>/delete/', dashboard_views.blog_post_delete, name='blog_post_delete'),
 ]
 

@@ -1,129 +1,626 @@
 {% extends "myApp/dashboard/base.html" %}
 {% load static %}
 
-{% block title %}{% if post.id %}Edit{% else %}New{% endif %} Blog Post{% endblock %}
+{% block title %}{% if post %}Edit{% else %}New{% endif %} Blog Post{% endblock %}
 
 {% block content %}
-<div class="mb-8">
-    <a href="{% url 'dashboard:blog_edit' %}" class="text-navy hover:underline mb-4 inline-block">
-        <i class="fas fa-arrow-left mr-2"></i> Back to Blog Section
-    </a>
-    <h2 class="text-3xl font-bold text-navy mb-2">{% if post.id %}Edit{% else %}New{% endif %} Blog Post</h2>
-</div>
+<!-- Fonts to match the live website + Quill rich text editor -->
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.min.js"></script>
 
-<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-8">
+<style>
+    /* ===== Editor chrome ===== */
+    #editor-wrap .ql-toolbar.ql-snow {
+        border: none;
+        border-bottom: 1px solid #e5e7eb;
+        border-radius: 0.75rem 0.75rem 0 0;
+        background: #fafaf8;
+        padding: 10px 12px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    #editor-wrap .ql-container.ql-snow {
+        border: none;
+        border-radius: 0 0 0.75rem 0.75rem;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.05rem;
+    }
+    #editor { min-height: 420px; }
+    #editor.ql-editor, #editor .ql-editor { min-height: 420px; padding: 24px 28px; }
+    #editor-wrap .ql-editor { line-height: 1.8; color: #1f2937; }
+    #editor-wrap .ql-editor.ql-blank::before { color: #9ca3af; font-style: normal; left: 28px; }
+    #editor-wrap .ql-editor h2 { font-family: 'Barlow Semi Condensed', sans-serif; font-size: 1.7rem; text-transform: uppercase; margin: 1.5rem 0 0.75rem; color: #0F1A2A; }
+    #editor-wrap .ql-editor h3 { font-family: 'Barlow Semi Condensed', sans-serif; font-size: 1.35rem; text-transform: uppercase; margin: 1.25rem 0 0.6rem; color: #0F1A2A; }
+    #editor-wrap .ql-editor blockquote { border-left: 4px solid rgba(201,164,106,0.5); background: rgba(201,164,106,0.07); padding: 0.75rem 1.25rem; border-radius: 0 0.5rem 0.5rem 0; font-style: italic; color: #374151; }
+    #editor-wrap .ql-editor a { color: #3B82F6; font-weight: 600; }
+    #editor-wrap .ql-editor img { border-radius: 0.75rem; max-width: 100%; margin: 0.5rem 0; }
+    #editor-wrap .ql-editor ul li::marker { color: #C9A46A; }
+    #editor-wrap .ql-snow .ql-picker { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* Bigger, friendlier toolbar buttons */
+    #editor-wrap .ql-toolbar button { width: 30px; height: 30px; border-radius: 6px; }
+    #editor-wrap .ql-toolbar button:hover { background: rgba(15,26,42,0.08); }
+    #editor-wrap .ql-toolbar button.ql-active { background: rgba(201,164,106,0.25); }
+
+    /* ===== Preview: replicates the live blog post page ===== */
+    .gg-preview-title {
+        font-family: 'Barlow Semi Condensed', sans-serif;
+        letter-spacing: -0.02em;
+        background: linear-gradient(to right, #0F1A2A, #0F1A2A, #3B82F6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .gg-prose { font-family: 'Plus Jakarta Sans', sans-serif; color: #0F1A2A; }
+    .gg-prose p { margin-bottom: 1.75rem; line-height: 1.9; font-size: 1.125rem; color: rgba(15,26,42,0.8); font-weight: 300; }
+    .gg-prose h1, .gg-prose h2 { font-family: 'Barlow Semi Condensed', sans-serif; font-size: 2.25rem; font-weight: 400; text-transform: uppercase; color: #0F1A2A; margin: 3rem 0 1.5rem; letter-spacing: -0.02em; line-height: 1.15; }
+    .gg-prose h3 { font-family: 'Barlow Semi Condensed', sans-serif; font-size: 1.75rem; font-weight: 400; text-transform: uppercase; color: #0F1A2A; margin: 2.5rem 0 1rem; letter-spacing: -0.01em; }
+    .gg-prose ul, .gg-prose ol { margin: 2rem 0; padding-left: 3rem; list-style-position: outside; }
+    .gg-prose li { margin-bottom: 1rem; line-height: 1.9; padding-left: 0.75rem; font-size: 1.125rem; color: rgba(15,26,42,0.8); }
+    .gg-prose ul li { list-style-type: disc; }
+    .gg-prose ul li::marker { color: #D4AF37; font-weight: bold; font-size: 1.5rem; }
+    .gg-prose ol li { list-style-type: decimal; }
+    .gg-prose ol li::marker { font-weight: 900; color: #0F1A2A; }
+    .gg-prose strong { font-weight: 600; color: #0F1A2A; }
+    .gg-prose em { font-style: italic; opacity: 0.85; }
+    .gg-prose a { color: #3B82F6; font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent; }
+    .gg-prose a:hover { border-bottom-color: #3B82F6; }
+    .gg-prose blockquote { border-left: 4px solid rgba(201,164,106,0.4); padding: 1rem 0 1rem 1.5rem; margin: 2rem 0; background: rgba(201,164,106,0.06); border-radius: 0 0.5rem 0.5rem 0; font-style: italic; color: rgba(15,26,42,0.75); }
+    .gg-prose blockquote p { margin-bottom: 0; }
+    .gg-prose img { border-radius: 1rem; max-width: 100%; margin: 1.5rem 0; box-shadow: 0 10px 30px rgba(15,26,42,0.12); }
+    /* Quill alignment classes so centered/right text previews correctly */
+    .gg-prose .ql-align-center { text-align: center; }
+    .gg-prose .ql-align-right { text-align: right; }
+    .gg-prose .ql-align-justify { text-align: justify; }
+
+    /* Toggle switch */
+    .gg-switch { position: relative; display: inline-flex; width: 46px; height: 26px; flex-shrink: 0; }
+    .gg-switch input { opacity: 0; width: 0; height: 0; }
+    .gg-switch .track { position: absolute; inset: 0; background: #d1d5db; border-radius: 9999px; transition: background .2s; cursor: pointer; }
+    .gg-switch .track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+    .gg-switch input:checked + .track { background: #16a34a; }
+    .gg-switch input:checked + .track::after { transform: translateX(20px); }
+    .gg-switch.gold input:checked + .track { background: #C9A46A; }
+</style>
+
+<form method="post" id="postForm" class="max-w-[1400px] mx-auto">
     {% csrf_token %}
-    
-    <!-- Basic Information -->
-    <div class="border-b border-gray-200 pb-6">
-        <h3 class="text-xl font-semibold text-navy mb-4">Basic Information</h3>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Title *</label>
-                <input type="text" name="title" value="{{ post.title|default:'' }}" 
-                       placeholder="Blog Post Title"
-                       required
-                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    <input type="hidden" name="content" id="contentField">
+
+    <!-- Top bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+            <a href="{% url 'dashboard:blog_edit' %}" class="text-navy/70 hover:text-navy text-sm font-semibold inline-flex items-center gap-2 mb-1">
+                <i class="fas fa-arrow-left"></i> All Blog Posts
+            </a>
+            <h2 class="text-3xl font-bold text-navy">{% if post %}Edit Post{% else %}Write a New Post{% endif %}</h2>
+        </div>
+        <div class="flex items-center gap-3">
+            <span id="saveStatus" class="text-sm text-gray-500 hidden sm:inline"></span>
+            <button type="submit" class="px-8 py-3.5 bg-navy text-white rounded-xl hover:bg-navy/90 transition-colors font-bold text-base shadow-lg shadow-navy/20 inline-flex items-center gap-2">
+                <i class="fas fa-check"></i> Save Post
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6 items-start">
+
+        <!-- ============ MAIN COLUMN ============ -->
+        <div class="space-y-5 min-w-0">
+
+            <!-- Title -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <label class="block text-sm font-bold text-navy mb-2">
+                    Post Title <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="title" id="titleField" value="{{ post.title|default:'' }}" required
+                       placeholder="e.g. 5 Things Every Landlord Should Know Before Renting"
+                       class="w-full px-4 py-3 text-xl font-semibold border border-gray-200 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15 placeholder:font-normal placeholder:text-gray-400">
+                <p class="text-xs text-gray-500 mt-2"><i class="fas fa-lightbulb text-gold mr-1"></i> This is the big headline readers see first.</p>
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">URL Slug *</label>
-                <input type="text" name="slug" value="{{ post.slug|default:'' }}" 
-                       placeholder="blog-post-url-slug"
-                       required
-                       pattern="[a-z0-9-]+"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
-                <p class="text-xs text-gray-500 mt-1">URL-friendly version (lowercase, hyphens only)</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Author Name</label>
-                    <input type="text" name="author_name" value="{{ post.author_name|default:'Mahrukh Tariq' }}" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+
+            <!-- Short summary -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="block text-sm font-bold text-navy">
+                        Short Summary <span class="text-red-500">*</span>
+                    </label>
+                    <span class="text-xs text-gray-400"><span id="excerptCount">0</span>/500</span>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Display Order</label>
-                    <input type="number" name="order" value="{{ post.order|default:0 }}" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
-                    <p class="text-xs text-gray-500 mt-1">Lower numbers appear first</p>
+                <textarea name="excerpt" id="excerptField" rows="3" required maxlength="500"
+                          placeholder="One or two sentences that make people want to read the full article..."
+                          class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15 placeholder:text-gray-400">{{ post.excerpt|default:'' }}</textarea>
+                <p class="text-xs text-gray-500 mt-2"><i class="fas fa-lightbulb text-gold mr-1"></i> Shown on the homepage blog cards and at the top of the article.</p>
+            </div>
+
+            <!-- Write / Preview tabs -->
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <div class="flex items-center justify-between border-b border-gray-100 px-6 pt-4">
+                    <div class="flex gap-1">
+                        <button type="button" id="tabWrite" onclick="showTab('write')"
+                                class="px-5 py-2.5 rounded-t-xl font-bold text-sm bg-navy text-white">
+                            <i class="fas fa-pen mr-2"></i>Write
+                        </button>
+                        <button type="button" id="tabPreview" onclick="showTab('preview')"
+                                class="px-5 py-2.5 rounded-t-xl font-bold text-sm text-gray-500 hover:text-navy">
+                            <i class="fas fa-eye mr-2"></i>Preview
+                        </button>
+                    </div>
+                    <span class="text-xs text-gray-400 hidden md:inline pb-2">
+                        <i class="fas fa-info-circle mr-1"></i>Preview shows exactly how it will look on your website
+                    </span>
+                </div>
+
+                <!-- WRITE panel -->
+                <div id="panelWrite">
+                    <div id="editor-wrap">
+                        <div id="editor"></div>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 px-6 py-3 border-t border-gray-100 bg-gray-50/60 text-xs text-gray-500">
+                        <span><i class="fas fa-font mr-1"></i><span id="wordCount">0</span> words &nbsp;•&nbsp; <i class="fas fa-clock mr-1"></i>~<span id="readTime">0</span> min read</span>
+                        <span class="hidden sm:inline">Select text to make it <b>bold</b>, <i>italic</i>, a heading, a list, a quote and more.</span>
+                    </div>
+                </div>
+
+                <!-- PREVIEW panel -->
+                <div id="panelPreview" class="hidden">
+                    <div class="bg-gradient-to-b from-[#f6f3ee] to-white p-4 md:p-10">
+                        <div class="max-w-3xl mx-auto">
+                            <!-- mimics the live article header -->
+                            <div class="flex flex-wrap items-center gap-3 mb-6">
+                                <span class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 text-gold px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold"></span> Property Management
+                                </span>
+                                <span class="text-sm text-navy/50">
+                                    <i class="fas fa-calendar-alt text-gold/70 mr-1"></i> {% if post %}{{ post.published_date|date:"F d, Y" }}{% else %}Today{% endif %}
+                                    &nbsp;•&nbsp; <i class="fas fa-user text-gold/70 mr-1"></i> <span id="pvAuthor">{{ post.author_name|default:'Mahrukh Tariq' }}</span>
+                                </span>
+                            </div>
+                            <h1 id="pvTitle" class="gg-preview-title text-4xl md:text-5xl leading-[1.1] mb-6">Your title appears here</h1>
+                            <p id="pvExcerpt" class="text-lg md:text-xl text-navy/70 leading-relaxed font-light italic border-l-4 border-gold/30 pl-5 py-1 mb-8 hidden"></p>
+                            <div id="pvImageWrap" class="hidden mb-10">
+                                <img id="pvImage" src="" alt="" class="w-full max-h-[420px] object-cover rounded-2xl shadow-xl border border-navy/5">
+                            </div>
+                            <div class="bg-white rounded-3xl border border-navy/10 shadow-xl p-6 md:p-12">
+                                <div id="pvContent" class="gg-prose">
+                                    <p class="text-gray-400">Start writing in the "Write" tab and your article will appear here…</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Featured Image -->
-    <div class="border-b border-gray-200 pb-6">
-        <h3 class="text-xl font-semibold text-navy mb-4">Featured Image</h3>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Image URL</label>
-                <input type="url" name="featured_image_url" value="{{ post.featured_image_url|default:'' }}" 
-                       placeholder="https://example.com/image.jpg"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
-                {% if post.featured_image_url %}
-                <div class="mt-4">
-                    <img src="{{ post.featured_image_url }}" alt="Featured Image Preview" class="max-w-md rounded-lg shadow-md">
+
+        <!-- ============ SIDEBAR ============ -->
+        <div class="space-y-5">
+
+            <!-- Publish settings -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h3 class="text-sm font-bold text-navy uppercase tracking-wide mb-4"><i class="fas fa-paper-plane text-gold mr-2"></i>Publishing</h3>
+
+                <label class="flex items-center justify-between gap-3 py-3 border-b border-gray-100 cursor-pointer">
+                    <span>
+                        <span class="block font-semibold text-navy text-sm">Publish on website</span>
+                        <span class="block text-xs text-gray-500 mt-0.5">Off = saved as a hidden draft</span>
+                    </span>
+                    <span class="gg-switch">
+                        <input type="checkbox" name="is_published" id="pubToggle" {% if post %}{% if post.is_published %}checked{% endif %}{% endif %}>
+                        <span class="track"></span>
+                    </span>
+                </label>
+
+                <label class="flex items-center justify-between gap-3 py-3 cursor-pointer">
+                    <span>
+                        <span class="block font-semibold text-navy text-sm">Feature this post</span>
+                        <span class="block text-xs text-gray-500 mt-0.5">Highlight it in the featured spot</span>
+                    </span>
+                    <span class="gg-switch gold">
+                        <input type="checkbox" name="is_featured" {% if post.is_featured %}checked{% endif %}>
+                        <span class="track"></span>
+                    </span>
+                </label>
+
+                <div id="pubHint" class="mt-3 text-xs rounded-lg px-3 py-2 {% if post and post.is_published %}bg-green-50 text-green-700{% else %}bg-amber-50 text-amber-700{% endif %}">
+                    {% if post and post.is_published %}<i class="fas fa-globe mr-1"></i> This post is live on your website.{% else %}<i class="fas fa-eye-slash mr-1"></i> This post is a draft — visitors can't see it yet.{% endif %}
                 </div>
+
+                {% if post and post.is_published %}
+                <a href="{% url 'blog_post_detail' post.slug %}" target="_blank"
+                   class="mt-3 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-navy/15 rounded-xl text-sm font-semibold text-navy hover:bg-navy hover:text-white transition-colors">
+                    <i class="fas fa-external-link-alt"></i> View Live Post
+                </a>
                 {% endif %}
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Image Alt Text</label>
-                <input type="text" name="featured_image_alt" value="{{ post.featured_image_alt|default:'' }}" 
-                       placeholder="Descriptive alt text for image"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+
+            <!-- Featured image -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h3 class="text-sm font-bold text-navy uppercase tracking-wide mb-1"><i class="fas fa-image text-gold mr-2"></i>Cover Photo</h3>
+                <p class="text-xs text-gray-500 mb-4">The big photo shown at the top of your article and on the blog card.</p>
+
+                <input type="hidden" name="featured_image_url" id="featuredUrl" value="{{ post.featured_image_url|default:'' }}">
+
+                <div id="featuredPreview" class="{% if not post.featured_image_url %}hidden{% endif %} mb-3 relative group">
+                    <img id="featuredImg" src="{{ post.featured_image_url|default:'' }}" alt="" class="w-full h-40 object-cover rounded-xl border border-gray-200">
+                    <button type="button" onclick="removeFeatured()"
+                            class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 text-red-500 shadow hover:bg-red-500 hover:text-white transition-colors"
+                            title="Remove photo">
+                        <i class="fas fa-trash-alt text-xs"></i>
+                    </button>
+                </div>
+
+                <div id="featuredEmpty" class="{% if post.featured_image_url %}hidden{% endif %} mb-3 border-2 border-dashed border-gray-200 rounded-xl py-8 text-center text-gray-400">
+                    <i class="fas fa-image text-3xl mb-2"></i>
+                    <p class="text-xs">No cover photo yet</p>
+                </div>
+
+                <button type="button" onclick="openImagePicker(setFeaturedImage)"
+                        class="w-full px-4 py-2.5 bg-gold/90 hover:bg-gold text-white rounded-xl text-sm font-bold transition-colors">
+                    <i class="fas fa-plus mr-1"></i> {% if post.featured_image_url %}Change Photo{% else %}Add Photo{% endif %}
+                </button>
+
+                <div class="mt-3">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Photo description (for accessibility)</label>
+                    <input type="text" name="featured_image_alt" value="{{ post.featured_image_alt|default:'' }}"
+                           placeholder="e.g. Front view of a rental townhouse"
+                           class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-navy focus:outline-none">
+                </div>
+            </div>
+
+            <!-- Advanced -->
+            <details class="bg-white rounded-2xl shadow-sm overflow-hidden group">
+                <summary class="px-6 py-4 cursor-pointer text-sm font-bold text-navy uppercase tracking-wide flex items-center justify-between hover:bg-gray-50">
+                    <span><i class="fas fa-sliders-h text-gold mr-2"></i>Advanced (optional)</span>
+                    <i class="fas fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div class="px-6 pb-6 space-y-4 border-t border-gray-100 pt-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Author name</label>
+                        <input type="text" name="author_name" id="authorField" value="{{ post.author_name|default:'Mahrukh Tariq' }}"
+                               class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-navy focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Web address (created automatically)</label>
+                        <input type="text" name="slug" id="slugField" value="{{ post.slug|default:'' }}"
+                               pattern="[a-z0-9\-]*"
+                               class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-navy focus:outline-none font-mono">
+                        <p class="text-[11px] text-gray-400 mt-1 break-all">Link: <span class="text-gray-600">{{ request.scheme }}://{{ request.get_host }}/blog/<span id="slugPreview">…</span>/</span></p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Display order</label>
+                        <input type="number" name="order" value="{{ post.order|default:0 }}"
+                               class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:border-navy focus:outline-none">
+                        <p class="text-[11px] text-gray-400 mt-1">Lower numbers appear first.</p>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Help card -->
+            <div class="rounded-2xl border border-gold/25 bg-gold/5 p-5 text-sm text-navy/80">
+                <p class="font-bold text-navy mb-2"><i class="fas fa-question-circle text-gold mr-1"></i> Quick tips</p>
+                <ul class="space-y-1.5 text-xs leading-relaxed list-disc pl-4">
+                    <li>Highlight text, then click <b>B</b> for bold or <i>I</i> for italic.</li>
+                    <li>Use <b>Heading</b> from the dropdown to break your article into sections.</li>
+                    <li>Click the <i class="fas fa-image"></i> icon to add photos inside the article.</li>
+                    <li>Check the <b>Preview</b> tab before saving.</li>
+                </ul>
             </div>
         </div>
-    </div>
-    
-    <!-- Content -->
-    <div class="border-b border-gray-200 pb-6">
-        <h3 class="text-xl font-semibold text-navy mb-4">Content</h3>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Excerpt *</label>
-                <textarea name="excerpt" rows="3" 
-                          placeholder="Short preview text (max 500 characters)"
-                          required
-                          maxlength="500"
-                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ post.excerpt|default:'' }}</textarea>
-                <p class="text-xs text-gray-500 mt-1">This appears in the blog listing</p>
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Full Content *</label>
-                <textarea name="content" rows="20" 
-                          placeholder="Full blog post content..."
-                          required
-                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20 font-mono text-sm">{{ post.content|default:'' }}</textarea>
-                <p class="text-xs text-gray-500 mt-1">Full blog post content. HTML is allowed.</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Settings -->
-    <div class="border-b border-gray-200 pb-6">
-        <h3 class="text-xl font-semibold text-navy mb-4">Settings</h3>
-        <div class="space-y-4">
-            <div class="flex items-center gap-3">
-                <input type="checkbox" name="is_featured" id="is_featured" {% if post.is_featured %}checked{% endif %} 
-                       class="w-5 h-5 text-navy border-gray-300 rounded focus:ring-navy">
-                <label for="is_featured" class="text-gray-700 font-semibold">Feature this post</label>
-            </div>
-            <div class="flex items-center gap-3">
-                <input type="checkbox" name="is_published" id="is_published" {% if post.is_published %}checked{% endif %} 
-                       class="w-5 h-5 text-navy border-gray-300 rounded focus:ring-navy">
-                <label for="is_published" class="text-gray-700 font-semibold">Publish this post</label>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Actions -->
-    <div class="flex justify-end gap-4">
-        <a href="{% url 'dashboard:blog_edit' %}" class="px-8 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors font-semibold">
-            Cancel
-        </a>
-        <button type="submit" class="px-8 py-3 bg-navy text-white rounded-xl hover:bg-blue-dark transition-colors font-semibold">
-            Save Post
-        </button>
     </div>
 </form>
-{% endblock %}
 
+<!-- ============ IMAGE PICKER MODAL ============ -->
+<div id="pickerModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[88vh] flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between px-6 py-4 border-b">
+            <h3 class="text-xl font-bold text-navy">Add a Photo</h3>
+            <button type="button" onclick="closeImagePicker()" class="w-9 h-9 rounded-full hover:bg-gray-100 text-gray-500"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex border-b">
+            <button type="button" id="pickTabUpload" onclick="pickerTab('upload')" class="px-6 py-3 font-bold text-sm text-navy border-b-2 border-navy">
+                <i class="fas fa-cloud-upload-alt mr-1"></i> Upload New
+            </button>
+            <button type="button" id="pickTabGallery" onclick="pickerTab('gallery')" class="px-6 py-3 font-bold text-sm text-gray-500 border-b-2 border-transparent hover:text-navy">
+                <i class="fas fa-images mr-1"></i> My Gallery
+            </button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6">
+            <!-- Upload tab -->
+            <div id="pickPanelUpload">
+                <div id="dropZone"
+                     class="border-2 border-dashed border-gray-300 rounded-2xl py-12 text-center cursor-pointer hover:border-gold hover:bg-gold/5 transition-colors"
+                     onclick="document.getElementById('pickFile').click()">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-gold mb-3"></i>
+                    <p class="font-bold text-navy">Click to choose a photo</p>
+                    <p class="text-xs text-gray-500 mt-1">or drag &amp; drop it here (JPG, PNG…)</p>
+                </div>
+                <input type="file" id="pickFile" accept="image/*" class="hidden">
+                <div id="uploadBusy" class="hidden mt-5 text-center">
+                    <i class="fas fa-spinner fa-spin text-2xl text-navy mb-2"></i>
+                    <p class="text-sm text-gray-600">Uploading your photo…</p>
+                </div>
+                <p id="uploadError" class="hidden mt-4 text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3"></p>
+            </div>
+            <!-- Gallery tab -->
+            <div id="pickPanelGallery" class="hidden">
+                <div id="pickGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    <p class="col-span-4 text-center text-gray-400 py-10"><i class="fas fa-spinner fa-spin mr-2"></i>Loading…</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/* =================== Rich text editor =================== */
+const BRAND_COLORS = ['#0F1A2A', '#C9A46A', '#3B82F6', '#6B7280', '#DC2626', '#16A34A'];
+
+const quill = new Quill('#editor', {
+    theme: 'snow',
+    placeholder: 'Start writing your article here…\n\nTip: use the buttons above to add headings, bold text, lists, quotes, links and photos.',
+    modules: {
+        toolbar: {
+            container: [
+                [{ header: [2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ color: BRAND_COLORS }],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['blockquote'],
+                [{ align: [] }],
+                ['link', 'image'],
+                ['clean']
+            ],
+            handlers: {
+                image: function () { openImagePicker(insertEditorImage); }
+            }
+        }
+    }
+});
+
+</script>
+{{ post.content|default:""|json_script:"initialContent" }}
+<script>
+// Load existing content (works for rich HTML and old plain-text posts)
+(function () {
+    const el = document.getElementById('initialContent');
+    if (!el) return;
+    let raw = JSON.parse(el.textContent);
+    if (!raw || !raw.trim()) return;
+    if (!raw.trim().startsWith('<')) {
+        // legacy plain-text post: convert line breaks into paragraphs
+        raw = raw.split(/\n\s*\n/).map(p => '<p>' + p.replace(/\n/g, '<br>') + '</p>').join('');
+    }
+    quill.clipboard.dangerouslyPasteHTML(raw);
+    quill.history.clear();
+})();
+
+/* Friendly tooltips on toolbar buttons */
+const TIPS = {
+    '.ql-bold': 'Bold', '.ql-italic': 'Italic', '.ql-underline': 'Underline', '.ql-strike': 'Strikethrough',
+    '.ql-blockquote': 'Quote', '.ql-link': 'Add a link', '.ql-image': 'Add a photo', '.ql-clean': 'Remove formatting',
+    '.ql-list[value="ordered"]': 'Numbered list', '.ql-list[value="bullet"]': 'Bullet list',
+    '.ql-header': 'Text size / headings', '.ql-color': 'Text color', '.ql-align': 'Alignment'
+};
+Object.entries(TIPS).forEach(([sel, tip]) => {
+    document.querySelectorAll('#editor-wrap .ql-toolbar ' + sel).forEach(b => b.setAttribute('title', tip));
+});
+
+/* =================== Counters =================== */
+const wordCountEl = document.getElementById('wordCount');
+const readTimeEl = document.getElementById('readTime');
+function updateCounts() {
+    const words = quill.getText().trim().split(/\s+/).filter(Boolean).length;
+    wordCountEl.textContent = words;
+    readTimeEl.textContent = Math.max(1, Math.ceil(words / 200));
+}
+quill.on('text-change', () => { updateCounts(); markDirty(); });
+updateCounts();
+
+const excerptField = document.getElementById('excerptField');
+const excerptCount = document.getElementById('excerptCount');
+function updateExcerptCount() { excerptCount.textContent = excerptField.value.length; }
+excerptField.addEventListener('input', updateExcerptCount);
+updateExcerptCount();
+
+/* =================== Auto slug =================== */
+const titleField = document.getElementById('titleField');
+const slugField = document.getElementById('slugField');
+const slugPreview = document.getElementById('slugPreview');
+let slugTouched = {{ post|yesno:"true,false" }};  // don't auto-change slug of an existing post
+
+function slugify(t) {
+    return t.toLowerCase().trim()
+        .replace(/['"’]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 80);
+}
+function refreshSlugPreview() { slugPreview.textContent = slugField.value || '…'; }
+titleField.addEventListener('input', () => {
+    if (!slugTouched) { slugField.value = slugify(titleField.value); }
+    refreshSlugPreview();
+});
+slugField.addEventListener('input', () => { slugTouched = true; slugField.value = slugify(slugField.value) || slugField.value.toLowerCase(); refreshSlugPreview(); });
+refreshSlugPreview();
+
+/* =================== Publish hint =================== */
+const pubToggle = document.getElementById('pubToggle');
+const pubHint = document.getElementById('pubHint');
+pubToggle.addEventListener('change', () => {
+    if (pubToggle.checked) {
+        pubHint.className = 'mt-3 text-xs rounded-lg px-3 py-2 bg-green-50 text-green-700';
+        pubHint.innerHTML = '<i class="fas fa-globe mr-1"></i> Will be visible on your website after you save.';
+    } else {
+        pubHint.className = 'mt-3 text-xs rounded-lg px-3 py-2 bg-amber-50 text-amber-700';
+        pubHint.innerHTML = '<i class="fas fa-eye-slash mr-1"></i> Will be saved as a hidden draft.';
+    }
+});
+
+/* =================== Write / Preview tabs =================== */
+function showTab(which) {
+    const write = which === 'write';
+    document.getElementById('panelWrite').classList.toggle('hidden', !write);
+    document.getElementById('panelPreview').classList.toggle('hidden', write);
+    const on = 'px-5 py-2.5 rounded-t-xl font-bold text-sm bg-navy text-white';
+    const off = 'px-5 py-2.5 rounded-t-xl font-bold text-sm text-gray-500 hover:text-navy';
+    document.getElementById('tabWrite').className = write ? on : off;
+    document.getElementById('tabPreview').className = write ? off : on;
+    if (!write) buildPreview();
+}
+function buildPreview() {
+    document.getElementById('pvTitle').textContent = titleField.value.trim() || 'Your title appears here';
+    document.getElementById('pvAuthor').textContent = document.getElementById('authorField').value.trim() || 'Mahrukh Tariq';
+
+    const ex = excerptField.value.trim();
+    const pvEx = document.getElementById('pvExcerpt');
+    pvEx.textContent = ex;
+    pvEx.classList.toggle('hidden', !ex);
+
+    const img = document.getElementById('featuredUrl').value.trim();
+    document.getElementById('pvImageWrap').classList.toggle('hidden', !img);
+    if (img) document.getElementById('pvImage').src = img;
+
+    const html = quill.getSemanticHTML ? quill.getSemanticHTML() : quill.root.innerHTML;
+    const empty = quill.getText().trim().length === 0;
+    document.getElementById('pvContent').innerHTML = empty
+        ? '<p class="text-gray-400">Start writing in the "Write" tab and your article will appear here…</p>'
+        : html;
+}
+
+/* =================== Featured image =================== */
+function setFeaturedImage(url) {
+    document.getElementById('featuredUrl').value = url;
+    document.getElementById('featuredImg').src = url;
+    document.getElementById('featuredPreview').classList.remove('hidden');
+    document.getElementById('featuredEmpty').classList.add('hidden');
+    markDirty();
+}
+function removeFeatured() {
+    document.getElementById('featuredUrl').value = '';
+    document.getElementById('featuredPreview').classList.add('hidden');
+    document.getElementById('featuredEmpty').classList.remove('hidden');
+    markDirty();
+}
+function insertEditorImage(url) {
+    const range = quill.getSelection(true);
+    quill.insertEmbed(range ? range.index : quill.getLength(), 'image', url, 'user');
+}
+
+/* =================== Image picker modal =================== */
+let pickerCallback = null;
+const pickerModal = document.getElementById('pickerModal');
+
+function openImagePicker(cb) {
+    pickerCallback = cb;
+    pickerModal.classList.remove('hidden');
+    document.getElementById('uploadError').classList.add('hidden');
+    pickerTab('upload');
+}
+function closeImagePicker() {
+    pickerModal.classList.add('hidden');
+    pickerCallback = null;
+}
+pickerModal.addEventListener('click', e => { if (e.target === pickerModal) closeImagePicker(); });
+
+function pickerTab(which) {
+    const upload = which === 'upload';
+    document.getElementById('pickPanelUpload').classList.toggle('hidden', !upload);
+    document.getElementById('pickPanelGallery').classList.toggle('hidden', upload);
+    document.getElementById('pickTabUpload').className = upload
+        ? 'px-6 py-3 font-bold text-sm text-navy border-b-2 border-navy'
+        : 'px-6 py-3 font-bold text-sm text-gray-500 border-b-2 border-transparent hover:text-navy';
+    document.getElementById('pickTabGallery').className = !upload
+        ? 'px-6 py-3 font-bold text-sm text-navy border-b-2 border-navy'
+        : 'px-6 py-3 font-bold text-sm text-gray-500 border-b-2 border-transparent hover:text-navy';
+    if (!upload) loadPickerGallery();
+}
+
+async function loadPickerGallery() {
+    const grid = document.getElementById('pickGrid');
+    grid.innerHTML = '<p class="col-span-4 text-center text-gray-400 py-10"><i class="fas fa-spinner fa-spin mr-2"></i>Loading…</p>';
+    try {
+        const res = await fetch('{% url "dashboard:gallery" %}', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+        const data = await res.json();
+        grid.innerHTML = '';
+        if (!data.assets || !data.assets.length) {
+            grid.innerHTML = '<p class="col-span-4 text-center text-gray-400 py-10">No photos yet — upload one in the "Upload New" tab.</p>';
+            return;
+        }
+        data.assets.forEach(a => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'group relative rounded-xl overflow-hidden border border-gray-200 hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold aspect-square';
+            btn.innerHTML = `<img src="${a.thumb_url || a.url}" alt="${a.alt_text || ''}" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                             <span class="absolute inset-0 bg-navy/0 group-hover:bg-navy/30 flex items-center justify-center transition-colors">
+                               <span class="opacity-0 group-hover:opacity-100 bg-white text-navy text-xs font-bold px-3 py-1.5 rounded-full shadow">Use this</span>
+                             </span>`;
+            btn.addEventListener('click', () => { if (pickerCallback) pickerCallback(a.url); closeImagePicker(); });
+            grid.appendChild(btn);
+        });
+    } catch (err) {
+        grid.innerHTML = '<p class="col-span-4 text-center text-red-500 py-10">Could not load the gallery. Please try again.</p>';
+    }
+}
+
+/* Upload: click or drag & drop */
+const pickFile = document.getElementById('pickFile');
+const dropZone = document.getElementById('dropZone');
+pickFile.addEventListener('change', () => { if (pickFile.files.length) uploadPickedFile(pickFile.files[0]); });
+['dragover', 'dragenter'].forEach(ev => dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.add('border-gold', 'bg-gold/5'); }));
+['dragleave', 'drop'].forEach(ev => dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.remove('border-gold', 'bg-gold/5'); }));
+dropZone.addEventListener('drop', e => {
+    if (e.dataTransfer.files.length) uploadPickedFile(e.dataTransfer.files[0]);
+});
+
+async function uploadPickedFile(file) {
+    const busy = document.getElementById('uploadBusy');
+    const errEl = document.getElementById('uploadError');
+    errEl.classList.add('hidden');
+    busy.classList.remove('hidden');
+    dropZone.classList.add('hidden');
+    try {
+        const fd = new FormData();
+        fd.append('image', file);
+        fd.append('folder', 'garden_gate/blog');
+        fd.append('alt_text', file.name);
+        const res = await fetch('{% url "dashboard:upload_image" %}', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': document.querySelector('#postForm [name=csrfmiddlewaretoken]').value },
+            body: fd
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Upload failed');
+        if (pickerCallback) pickerCallback(data.url);
+        closeImagePicker();
+    } catch (err) {
+        errEl.textContent = 'Sorry, the upload failed: ' + err.message;
+        errEl.classList.remove('hidden');
+    } finally {
+        busy.classList.add('hidden');
+        dropZone.classList.remove('hidden');
+        pickFile.value = '';
+    }
+}
+
+/* =================== Unsaved changes guard + submit =================== */
+let dirty = false, saving = false;
+function markDirty() {
+    dirty = true;
+    document.getElementById('saveStatus').textContent = 'Unsaved changes';
+}
+document.querySelectorAll('#postForm input, #postForm textarea').forEach(el =>
+    el.addEventListener('input', markDirty));
+window.addEventListener('beforeunload', e => {
+    if (dirty && !saving) { e.preventDefault(); e.returnValue = ''; }
+});
+
+document.getElementById('postForm').addEventListener('submit', function () {
+    saving = true;
+    const empty = quill.getText().trim().length === 0;
+    document.getElementById('contentField').value = empty ? '' :
+        (quill.getSemanticHTML ? quill.getSemanticHTML() : quill.root.innerHTML);
+});
+</script>
+{% endblock %}

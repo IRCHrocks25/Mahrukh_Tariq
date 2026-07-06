@@ -1,114 +1,245 @@
 {% extends "myApp/dashboard/base.html" %}
 {% load static %}
 
-{% block title %}Edit Blog Section{% endblock %}
+{% block title %}Blog Posts{% endblock %}
 
 {% block content %}
-<div class="mb-8">
-    <a href="{% url 'dashboard:index' %}" class="text-navy hover:underline mb-4 inline-block">
-        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
-    </a>
-    <h2 class="text-3xl font-bold text-navy mb-2">Blog Section</h2>
-    <p class="text-gray-600">Edit blog section header and manage blog posts</p>
-</div>
+<div class="max-w-6xl mx-auto">
 
-<form method="post" class="bg-white rounded-xl shadow-sm p-8 space-y-8 mb-8">
-    {% csrf_token %}
-    
-    <!-- Section Header -->
-    <div class="border-b border-gray-200 pb-6">
-        <h3 class="text-xl font-semibold text-navy mb-4">Section Header</h3>
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Title</label>
-                <input type="text" name="title" value="{{ blog_section.title|default:'' }}" 
-                       placeholder="Insights & Expertise"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Subtitle</label>
-                <textarea name="subtitle" rows="2" 
-                          placeholder="Learn from our experience managing properties..."
-                          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">{{ blog_section.subtitle|default:'' }}</textarea>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Text</label>
-                    <input type="text" name="cta_text" value="{{ blog_section.cta_text|default:'View All Posts' }}" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+    <!-- Header -->
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+        <div>
+            <a href="{% url 'dashboard:index' %}" class="text-navy/70 hover:text-navy text-sm font-semibold inline-flex items-center gap-2 mb-1">
+                <i class="fas fa-arrow-left"></i> Dashboard
+            </a>
+            <h2 class="text-3xl font-bold text-navy">Blog Posts</h2>
+            <p class="text-gray-500 text-sm mt-1">Write articles for your website — no technical knowledge needed.</p>
+        </div>
+        <a href="{% url 'dashboard:blog_post_new' %}"
+           class="px-7 py-3.5 bg-navy text-white rounded-xl hover:bg-navy/90 transition-colors font-bold shadow-lg shadow-navy/20 inline-flex items-center gap-2">
+            <i class="fas fa-pen"></i> Write New Post
+        </a>
+    </div>
+
+    <!-- Toast (after save/delete) -->
+    <div id="toast" class="hidden mb-6 rounded-xl px-5 py-4 text-sm font-semibold flex items-center gap-3"></div>
+
+    <!-- Search + filters -->
+    <div class="bg-white rounded-2xl shadow-sm p-4 mb-6 flex flex-wrap items-center gap-3">
+        <div class="relative flex-1 min-w-[220px]">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="text" id="searchBox" placeholder="Search your posts…"
+                   class="w-full pl-11 pr-4 py-2.5 border border-gray-200 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15 text-sm">
+        </div>
+        <div class="flex gap-2" id="filterBtns">
+            <button type="button" data-filter="all" class="filter-btn px-4 py-2 rounded-lg text-sm font-bold bg-navy text-white">All ({{ blog_posts|length }})</button>
+            <button type="button" data-filter="published" class="filter-btn px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 text-gray-600 hover:bg-gray-200">Published</button>
+            <button type="button" data-filter="draft" class="filter-btn px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 text-gray-600 hover:bg-gray-200">Drafts</button>
+        </div>
+    </div>
+
+    <!-- Posts grid -->
+    {% if blog_posts %}
+    <div id="postsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-10">
+        {% for post in blog_posts %}
+        <div class="post-card bg-white rounded-2xl shadow-sm overflow-hidden border border-transparent hover:border-gold/40 hover:shadow-md transition-all flex flex-col"
+             data-status="{% if post.is_published %}published{% else %}draft{% endif %}"
+             data-search="{{ post.title|lower }} {{ post.author_name|lower }}">
+            <!-- Thumbnail -->
+            <a href="{% url 'dashboard:blog_post_edit' post.id %}" class="block relative aspect-[16/9] bg-gray-100 overflow-hidden group">
+                {% if post.featured_image_url %}
+                <img src="{{ post.featured_image_url }}" alt="{{ post.featured_image_alt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center text-gray-300 bg-gradient-to-br from-gray-50 to-gray-200">
+                    <i class="fas fa-image text-4xl"></i>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">CTA Button Link</label>
-                    <input type="text" name="cta_link" value="{{ blog_section.cta_link|default:'#blog' }}" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20">
+                {% endif %}
+                <div class="absolute top-3 left-3 flex gap-2">
+                    {% if post.is_published %}
+                    <span class="px-3 py-1 bg-green-500/95 text-white rounded-full text-[11px] font-bold shadow"><i class="fas fa-globe mr-1"></i>Live</span>
+                    {% else %}
+                    <span class="px-3 py-1 bg-gray-700/90 text-white rounded-full text-[11px] font-bold shadow"><i class="fas fa-eye-slash mr-1"></i>Draft</span>
+                    {% endif %}
+                    {% if post.is_featured %}
+                    <span class="px-3 py-1 bg-gold text-white rounded-full text-[11px] font-bold shadow"><i class="fas fa-star mr-1"></i>Featured</span>
+                    {% endif %}
+                </div>
+            </a>
+            <!-- Body -->
+            <div class="p-5 flex-1 flex flex-col">
+                <p class="text-xs text-gray-400 mb-1.5">
+                    <i class="fas fa-calendar-alt mr-1"></i>{{ post.published_date|date:"M d, Y" }}
+                    &nbsp;•&nbsp; {{ post.author_name }}
+                    {% if post.view_count %}&nbsp;•&nbsp; <i class="fas fa-eye mr-0.5"></i>{{ post.view_count }}{% endif %}
+                </p>
+                <a href="{% url 'dashboard:blog_post_edit' post.id %}" class="font-bold text-navy leading-snug hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                    {{ post.title }}
+                </a>
+                <p class="text-sm text-gray-500 line-clamp-2 flex-1">{{ post.get_excerpt }}</p>
+                <!-- Actions -->
+                <div class="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
+                    <a href="{% url 'dashboard:blog_post_edit' post.id %}"
+                       class="flex-1 text-center px-3 py-2 bg-navy text-white rounded-lg text-sm font-bold hover:bg-navy/90 transition-colors">
+                        <i class="fas fa-pen mr-1"></i> Edit
+                    </a>
+                    {% if post.is_published %}
+                    <a href="{% url 'blog_post_detail' post.slug %}" target="_blank" title="See it on your website"
+                       class="px-3 py-2 border border-gray-200 text-navy rounded-lg text-sm font-bold hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    {% endif %}
+                    <button type="button" title="Delete this post"
+                            onclick="askDelete({{ post.id }}, '{{ post.title|escapejs }}')"
+                            class="px-3 py-2 border border-gray-200 text-red-500 rounded-lg text-sm font-bold hover:bg-red-50 hover:border-red-200 transition-colors">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    
-    <div class="flex justify-end">
-        <button type="submit" class="px-8 py-3 bg-navy text-white rounded-xl hover:bg-blue-dark transition-colors font-semibold">
-            Save Section Header
-        </button>
-    </div>
-</form>
-
-<!-- Blog Posts List -->
-<div class="bg-white rounded-xl shadow-sm p-8">
-    <div class="flex justify-between items-center mb-6">
-        <h3 class="text-xl font-semibold text-navy">Blog Posts</h3>
-        <a href="{% url 'dashboard:blog_post_new' %}" class="px-6 py-3 bg-gold text-white rounded-xl hover:bg-blue transition-colors font-semibold">
-            <i class="fas fa-plus mr-2"></i> New Post
+    <p id="noResults" class="hidden text-center text-gray-400 py-16"><i class="fas fa-search text-3xl block mb-3"></i>No posts match your search.</p>
+    {% else %}
+    <div class="bg-white rounded-2xl shadow-sm text-center py-20 mb-10">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gold/10 flex items-center justify-center mb-5">
+            <i class="fas fa-newspaper text-3xl text-gold"></i>
+        </div>
+        <h3 class="text-xl font-bold text-navy mb-2">No blog posts yet</h3>
+        <p class="text-gray-500 text-sm mb-6">Share your expertise with your visitors — write your first article.</p>
+        <a href="{% url 'dashboard:blog_post_new' %}"
+           class="px-8 py-3.5 bg-navy text-white rounded-xl hover:bg-navy/90 transition-colors font-bold inline-flex items-center gap-2">
+            <i class="fas fa-pen"></i> Write Your First Post
         </a>
     </div>
-    
-    {% if blog_posts %}
-    <div class="overflow-x-auto">
-        <table class="w-full">
-            <thead>
-                <tr class="border-b border-gray-200">
-                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Title</th>
-                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Author</th>
-                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Published</th>
-                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>
-                    <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for post in blog_posts %}
-                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                    <td class="py-4 px-4">
-                        <div class="font-semibold text-navy">{{ post.title|truncatewords:8 }}</div>
-                        <div class="text-sm text-gray-500">{{ post.published_date|date:"M d, Y" }}</div>
-                    </td>
-                    <td class="py-4 px-4 text-gray-700">{{ post.author_name }}</td>
-                    <td class="py-4 px-4 text-gray-700">{{ post.published_date|date:"M d, Y" }}</td>
-                    <td class="py-4 px-4">
-                        {% if post.is_published %}
-                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">Published</span>
-                        {% else %}
-                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-semibold">Draft</span>
-                        {% endif %}
-                        {% if post.is_featured %}
-                        <span class="px-3 py-1 bg-gold text-white rounded-full text-xs font-semibold ml-2">Featured</span>
-                        {% endif %}
-                    </td>
-                    <td class="py-4 px-4">
-                        <a href="{% url 'dashboard:blog_post_edit' post.id %}" class="text-blue hover:text-blue-dark font-semibold">
-                            <i class="fas fa-edit mr-1"></i> Edit
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-    <div class="text-center py-12 text-gray-500">
-        <i class="fas fa-newspaper text-4xl mb-4"></i>
-        <p>No blog posts yet. Create your first post!</p>
-    </div>
     {% endif %}
-</div>
-{% endblock %}
 
+    <!-- Blog section heading settings (collapsed by default) -->
+    <details class="bg-white rounded-2xl shadow-sm overflow-hidden group">
+        <summary class="px-6 py-5 cursor-pointer flex items-center justify-between hover:bg-gray-50">
+            <span>
+                <span class="block font-bold text-navy"><i class="fas fa-heading text-gold mr-2"></i>Blog Section Heading</span>
+                <span class="block text-xs text-gray-500 mt-0.5">The title and text shown above the blog cards on your homepage</span>
+            </span>
+            <i class="fas fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <form method="post" class="px-6 pb-6 pt-2 space-y-4 border-t border-gray-100">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Title</label>
+                <input type="text" name="title" value="{{ blog_section.title|default:'' }}"
+                       placeholder="Insights & Expertise"
+                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Section Subtitle</label>
+                <textarea name="subtitle" rows="2"
+                          placeholder="Learn from our experience managing properties..."
+                          class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15">{{ blog_section.subtitle|default:'' }}</textarea>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Button Text</label>
+                    <input type="text" name="cta_text" value="{{ blog_section.cta_text|default:'View All Posts' }}"
+                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Button Link</label>
+                    <input type="text" name="cta_link" value="{{ blog_section.cta_link|default:'#blog' }}"
+                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15">
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="px-8 py-3 bg-navy text-white rounded-xl hover:bg-navy/90 transition-colors font-semibold">
+                    Save Heading
+                </button>
+            </div>
+        </form>
+    </details>
+</div>
+
+<!-- Delete confirmation modal -->
+<div id="deleteModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-7 text-center">
+        <div class="w-14 h-14 mx-auto rounded-full bg-red-50 flex items-center justify-center mb-4">
+            <i class="fas fa-trash-alt text-xl text-red-500"></i>
+        </div>
+        <h3 class="text-lg font-bold text-navy mb-2">Delete this post?</h3>
+        <p class="text-sm text-gray-500 mb-1">"<span id="deleteTitle" class="font-semibold text-navy"></span>"</p>
+        <p class="text-sm text-gray-500 mb-6">It will be removed from your website permanently. This cannot be undone.</p>
+        <form method="post" id="deleteForm">
+            {% csrf_token %}
+            <div class="flex gap-3">
+                <button type="button" onclick="closeDelete()"
+                        class="flex-1 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition-colors">
+                    Keep It
+                </button>
+                <button type="submit"
+                        class="flex-1 px-4 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600 transition-colors">
+                    Yes, Delete
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
+
+<script>
+/* ---- Toast after save / delete ---- */
+(function () {
+    const params = new URLSearchParams(window.location.search);
+    const toast = document.getElementById('toast');
+    let msg = null;
+    if (params.get('saved')) msg = ['bg-green-50 text-green-700 border border-green-200', '<i class="fas fa-check-circle text-lg"></i> Your post was saved successfully.'];
+    if (params.get('deleted')) msg = ['bg-red-50 text-red-700 border border-red-200', '<i class="fas fa-trash-alt text-lg"></i> The post was deleted.'];
+    if (msg) {
+        toast.className = 'mb-6 rounded-xl px-5 py-4 text-sm font-semibold flex items-center gap-3 ' + msg[0];
+        toast.innerHTML = msg[1];
+        window.history.replaceState({}, '', window.location.pathname);
+        setTimeout(() => toast.classList.add('hidden'), 6000);
+    }
+})();
+
+/* ---- Search + status filter ---- */
+const searchBox = document.getElementById('searchBox');
+let activeFilter = 'all';
+
+function applyFilters() {
+    const q = (searchBox.value || '').toLowerCase().trim();
+    let visible = 0;
+    document.querySelectorAll('.post-card').forEach(card => {
+        const matchesSearch = !q || card.dataset.search.includes(q);
+        const matchesFilter = activeFilter === 'all' || card.dataset.status === activeFilter;
+        const show = matchesSearch && matchesFilter;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+    });
+    const noRes = document.getElementById('noResults');
+    if (noRes) noRes.classList.toggle('hidden', visible > 0);
+}
+if (searchBox) searchBox.addEventListener('input', applyFilters);
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        activeFilter = btn.dataset.filter;
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.className = 'filter-btn px-4 py-2 rounded-lg text-sm font-bold ' +
+                (b === btn ? 'bg-navy text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200');
+        });
+        applyFilters();
+    });
+});
+
+/* ---- Delete modal ---- */
+const deleteModal = document.getElementById('deleteModal');
+function askDelete(id, title) {
+    document.getElementById('deleteTitle').textContent = title;
+    document.getElementById('deleteForm').action = '{% url "dashboard:blog_post_delete" 0 %}'.replace('/0/', '/' + id + '/');
+    deleteModal.classList.remove('hidden');
+}
+function closeDelete() { deleteModal.classList.add('hidden'); }
+deleteModal.addEventListener('click', e => { if (e.target === deleteModal) closeDelete(); });
+</script>
+{% endblock %}

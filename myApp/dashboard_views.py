@@ -517,38 +517,54 @@ def blog_edit(request):
 # Edit individual blog post
 @login_required
 def blog_post_edit(request, post_id=None):
-    if post_id:
-        post = get_object_or_404(BlogPost, id=post_id)
-    else:
-        # Create new post
-        post = BlogPost.objects.create(
-            title='New Blog Post',
-            slug='new-blog-post',
-            excerpt='',
-            content='',
-            is_published=False
-        )
-    
+    from django.utils.text import slugify
+    from django.urls import reverse
+
+    post = get_object_or_404(BlogPost, id=post_id) if post_id else None
+
     if request.method == 'POST':
-        from django.utils.text import slugify
-        post.title = request.POST.get('title', '')
-        post.slug = request.POST.get('slug', slugify(post.title))
-        post.excerpt = request.POST.get('excerpt', '')
+        title = request.POST.get('title', '').strip() or 'Untitled Post'
+        slug = request.POST.get('slug', '').strip() or slugify(title) or 'post'
+        slug = slugify(slug) or 'post'
+
+        # Make sure the slug is unique (append -2, -3, ... if taken)
+        existing = BlogPost.objects.all()
+        if post:
+            existing = existing.exclude(pk=post.pk)
+        base_slug = slug
+        counter = 2
+        while existing.filter(slug=slug).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+
+        if post is None:
+            post = BlogPost(title=title, slug=slug)
+        post.title = title
+        post.slug = slug
+        post.excerpt = request.POST.get('excerpt', '').strip()
         post.content = request.POST.get('content', '')
-        post.featured_image_url = request.POST.get('featured_image_url', '')
-        post.featured_image_alt = request.POST.get('featured_image_alt', '')
-        post.author_name = request.POST.get('author_name', 'Mahrukh Tariq')
+        post.featured_image_url = request.POST.get('featured_image_url', '').strip()
+        post.featured_image_alt = request.POST.get('featured_image_alt', '').strip()
+        post.author_name = request.POST.get('author_name', '').strip() or 'Mahrukh Tariq'
         post.is_featured = request.POST.get('is_featured') == 'on'
         post.is_published = request.POST.get('is_published') == 'on'
-        order = request.POST.get('order', '0')
         try:
-            post.order = int(order)
+            post.order = int(request.POST.get('order', '0'))
         except ValueError:
             post.order = 0
         post.save()
-        return redirect('dashboard:blog_edit')
-    
+        return redirect(reverse('dashboard:blog_edit') + '?saved=1')
+
     return render(request, 'myApp/dashboard/blog_post_edit.html', {
         'post': post
     })
+
+# Delete blog post
+@login_required
+@require_http_methods(["POST"])
+def blog_post_delete(request, post_id):
+    from django.urls import reverse
+    post = get_object_or_404(BlogPost, id=post_id)
+    post.delete()
+    return redirect(reverse('dashboard:blog_edit') + '?deleted=1')
 
