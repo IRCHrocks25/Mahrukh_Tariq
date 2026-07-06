@@ -160,12 +160,21 @@ def upload_to_iceberg(image_file, folder='garden_gate'):
     except ValueError:
         pass
 
-    # Public URL: prefer what the API tells us, fall back to CDN base + key
+    # Public URL: prefer one from the API; otherwise build it as
+    # {CDN base}/{tenant id}/{key} — the tenant id comes back from both
+    # init-upload (tenant_id) and complete (TenantID).
     public_url = (
         _pick(complete_data, 'public_url', 'publicUrl', 'cdn_url', 'cdnUrl', 'url')
         or _pick(init_data, 'public_url', 'publicUrl', 'cdn_url', 'cdnUrl')
-        or f"{os.getenv('ICEBERG_CDN_BASE', DEFAULT_CDN_BASE).rstrip('/')}/{key}"
     )
+    if not public_url:
+        tenant = (
+            _pick(complete_data, 'TenantID', 'tenant_id', 'tenantId')
+            or _pick(init_data, 'tenant_id', 'TenantID', 'tenantId')
+            or os.getenv('ICEBERG_TENANT_SEGMENT', '')
+        ).strip('/')
+        cdn_base = os.getenv('ICEBERG_CDN_BASE', DEFAULT_CDN_BASE).rstrip('/')
+        public_url = '/'.join(p for p in [cdn_base, tenant, key] if p)
 
     return {
         'url': public_url,
