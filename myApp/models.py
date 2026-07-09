@@ -448,6 +448,8 @@ class BlogPost(models.Model):
     is_published = models.BooleanField(default=True, help_text="Published status")
     view_count = models.IntegerField(default=0, help_text="Number of views")
     order = models.IntegerField(default=0, help_text="Display order (lower numbers first)")
+    meta_title = models.CharField(max_length=70, blank=True, help_text="SEO title for search engines (leave blank to use post title)")
+    meta_description = models.CharField(max_length=160, blank=True, help_text="SEO description for search engines (leave blank to use excerpt)")
     
     class Meta:
         ordering = ['-published_date', 'order']
@@ -469,6 +471,18 @@ class BlogPost(models.Model):
     def content_is_html(self):
         """True when content was written with the rich text editor (stored as HTML)"""
         return self.content.lstrip().startswith('<')
+
+    def get_meta_title(self):
+        return self.meta_title.strip() or self.title
+
+    def get_meta_description(self):
+        if self.meta_description.strip():
+            return self.meta_description.strip()
+        if self.excerpt.strip():
+            return self.excerpt.strip()
+        from django.utils.html import strip_tags
+        text = strip_tags(self.content)
+        return text[:160] + "..." if len(text) > 160 else text
 
 # Model to store Pricing section content
 class PricingSection(models.Model):

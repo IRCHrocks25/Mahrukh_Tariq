@@ -42,4 +42,13 @@ class BlogPostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'excerpt', 'content', 'author_name']
     readonly_fields = ['published_date', 'updated_date', 'view_count']
     prepopulated_fields = {'slug': ('title',)}
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'excerpt', 'content', 'featured_image_url', 'featured_image_alt', 'author_name', 'is_featured', 'is_published', 'order')
+        }),
+        ('SEO', {
+            'fields': ('meta_title', 'meta_description'),
+            'classes': ('collapse',),
+        }),
+    )
     ordering = ['-published_date', 'order']

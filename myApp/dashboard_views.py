@@ -545,6 +545,8 @@ def blog_post_edit(request, post_id=None):
         post.featured_image_url = request.POST.get('featured_image_url', '').strip()
         post.featured_image_alt = request.POST.get('featured_image_alt', '').strip()
         post.author_name = request.POST.get('author_name', '').strip() or 'Mahrukh Tariq'
+        post.meta_title = request.POST.get('meta_title', '').strip()
+        post.meta_description = request.POST.get('meta_description', '').strip()
         post.is_featured = request.POST.get('is_featured') == 'on'
         post.is_published = request.POST.get('is_published') == 'on'
         try:

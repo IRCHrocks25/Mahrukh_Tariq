@@ -1,6 +1,19 @@
 {% extends 'myApp/base.html' %}
 
-{% block title %}{{ post.title }} - Garden Gate Property Management{% endblock %}
+{% block title %}{{ post.get_meta_title }} - Garden Gate Property Management{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ post.get_meta_description }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ post.get_meta_title }}">
+<meta property="og:description" content="{{ post.get_meta_description }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% if post.featured_image_url %}<meta property="og:image" content="{{ post.featured_image_url }}">{% endif %}
+<meta name="twitter:card" content="{% if post.featured_image_url %}summary_large_image{% else %}summary{% endif %}">
+<meta name="twitter:title" content="{{ post.get_meta_title }}">
+<meta name="twitter:description" content="{{ post.get_meta_description }}">
+{% if post.featured_image_url %}<meta name="twitter:image" content="{{ post.featured_image_url }}">{% endif %}
+{% endblock %}
 
 {% block content %}
 {% include 'myApp/partials/header.html' %}
@@ -49,7 +62,7 @@
     <!-- Premium Hero Section -->
     <header class="max-w-4xl mx-auto mb-12 lg:mb-16 fade-in">
       <!-- Category Badge with Premium Styling -->
-      <div class="flex items-center gap-4 mb-8">
+      <div class="flex flex-wrap items-center gap-4 mb-8">
         <span class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold/15 via-gold/10 to-gold/5 border border-gold/20 text-gold px-5 py-2.5 text-xs font-bold uppercase tracking-wider shadow-sm">
           <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
           Property Management
@@ -112,12 +125,12 @@
     {% endif %}
 
     <!-- Premium Content Layout -->
-    <div class="max-w-5xl mx-auto grid lg:grid-cols-[1fr_320px] gap-12 lg:gap-16">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,1fr)_260px] gap-8 lg:gap-10">
       
       <!-- Main Content Area -->
       <div class="min-w-0">
         <!-- Premium Content Card -->
-        <div class="relative rounded-3xl bg-white/90 backdrop-blur-sm border border-navy/10 shadow-xl p-8 md:p-12 lg:p-16 mb-12">
+        <div class="relative rounded-3xl bg-white/90 backdrop-blur-sm border border-navy/10 shadow-xl p-6 md:p-8 lg:p-10 mb-12">
           <!-- Decorative corner accent -->
           <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/10 to-transparent rounded-bl-full"></div>
           
@@ -352,6 +365,111 @@
   /* Premium Prose Styling */
   .prose {
     color: #0F1A2A;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
+    max-width: 100%;
+  }
+
+  .prose *:not(table):not(thead):not(tbody):not(tfoot):not(tr):not(th):not(td):not(col):not(colgroup) {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  /* Table styling */
+  .prose .table-responsive,
+  .prose-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    margin: 2rem 0;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(15, 26, 42, 0.12);
+    box-shadow: 0 4px 16px rgba(15, 26, 42, 0.06);
+  }
+
+  .prose table {
+    display: table;
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    background: #fff;
+  }
+
+  .prose table th,
+  .prose table td {
+    border: 1px solid rgba(15, 26, 42, 0.12);
+    padding: 0.875rem 1rem;
+    vertical-align: top;
+    text-align: left;
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: none;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(15, 26, 42, 0.85);
+  }
+
+  .prose table th {
+    background: rgba(15, 26, 42, 0.06);
+    font-weight: 600;
+    color: #0F1A2A;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 0.95rem;
+  }
+
+  .prose table tr:nth-child(even) td {
+    background: rgba(248, 250, 252, 0.9);
+  }
+
+  .prose table td:first-child,
+  .prose table th:first-child {
+    width: 26%;
+    font-weight: 600;
+    color: #0F1A2A;
+  }
+
+  .prose table ul,
+  .prose table ol {
+    margin: 0.5rem 0 !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+  }
+
+  .prose table ul > li,
+  .prose table ol > li {
+    padding-left: 1.25rem !important;
+    margin-bottom: 0.35rem !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  @media (max-width: 640px) {
+    .prose table {
+      min-width: 100%;
+      table-layout: auto;
+    }
+
+    .prose table th,
+    .prose table td {
+      padding: 0.75rem 0.65rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .prose pre,
+  .prose code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
   }
   
   .prose p {
@@ -382,83 +500,105 @@
     letter-spacing: -0.01em;
   }
   
-  /* List indentation and styling - Force override Tailwind with maximum specificity */
+  /* List styling — custom bullets */
   article div.prose ul,
-  article div.prose ol,
   article .prose ul,
-  article .prose ol,
-  div.prose ul, 
-  div.prose ol,
-  .prose ul, 
-  .prose ol {
-    margin: 2rem 0 !important;
-    padding-left: 3rem !important;
-    padding-right: 0 !important;
-    list-style-position: outside !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+  div.prose ul,
+  .prose ul {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin: 1.25rem 0 1.75rem !important;
   }
-  
-  article div.prose li,
-  article .prose li,
-  div.prose li,
-  .prose li {
-    margin-bottom: 1rem !important;
-    line-height: 1.9 !important;
+
+  article div.prose ul > li,
+  article .prose ul > li,
+  div.prose ul > li,
+  .prose ul > li {
     position: relative !important;
-    padding-left: 0.75rem !important;
+    padding-left: 1.5rem !important;
     padding-right: 0 !important;
+    margin-bottom: 0.75rem !important;
     margin-left: 0 !important;
-    margin-right: 0 !important;
+    list-style: none !important;
+    display: block !important;
+    line-height: 1.8 !important;
     text-indent: 0 !important;
   }
-  
-  /* Bullet point styling - Gold markers with proper indentation */
-  article div.prose ul li,
-  article .prose ul li,
-  div.prose ul li,
-  .prose ul li {
-    list-style-type: disc !important;
-    padding-left: 0.75rem !important;
-    margin-left: 0 !important;
-    display: list-item !important;
+
+  article div.prose ul > li::before,
+  article .prose ul > li::before,
+  div.prose ul > li::before,
+  .prose ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3B82F6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.18);
+    transform: translateY(-50%);
   }
-  
-  article div.prose ul li::marker,
-  article .prose ul li::marker,
-  div.prose ul li::marker,
-  .prose ul li::marker {
-    color: #D4AF37 !important;
-    font-weight: bold !important;
-    font-size: 1.5rem !important;
+
+  article div.prose ul ul,
+  article .prose ul ul,
+  div.prose ul ul,
+  .prose ul ul {
+    margin: 0.5rem 0 0.25rem !important;
+    padding-left: 0.5rem !important;
   }
-  
-  /* Numbered list styling - make numbers bold */
+
+  article div.prose ul ul > li::before,
+  article .prose ul ul > li::before,
+  div.prose ul ul > li::before,
+  .prose ul ul > li::before {
+    width: 5px;
+    height: 5px;
+    background: transparent;
+    border: 2px solid #3B82F6;
+    box-shadow: none;
+  }
+
+  /* Numbered lists */
   article div.prose ol,
   article .prose ol,
   div.prose ol,
   .prose ol {
-    list-style-type: decimal !important;
-    padding-left: 3rem !important;
+    list-style: none !important;
+    counter-reset: blog-ol;
+    padding-left: 0 !important;
+    margin: 1.25rem 0 1.75rem !important;
   }
-  
-  article div.prose ol li,
-  article .prose ol li,
-  div.prose ol li,
-  .prose ol li {
-    list-style-type: decimal !important;
-    padding-left: 0.75rem !important;
+
+  article div.prose ol > li,
+  article .prose ol > li,
+  div.prose ol > li,
+  .prose ol > li {
+    counter-increment: blog-ol;
+    position: relative !important;
+    padding-left: 2rem !important;
+    padding-right: 0 !important;
+    margin-bottom: 0.75rem !important;
     margin-left: 0 !important;
-    display: list-item !important;
+    list-style: none !important;
+    display: block !important;
+    line-height: 1.8 !important;
+    text-indent: 0 !important;
   }
-  
-  article div.prose ol li::marker,
-  article .prose ol li::marker,
-  div.prose ol li::marker,
-  .prose ol li::marker {
-    font-weight: 900 !important;
-    font-size: 1.125rem !important;
-    color: #0F1A2A !important;
+
+  article div.prose ol > li::before,
+  article .prose ol > li::before,
+  div.prose ol > li::before,
+  .prose ol > li::before {
+    content: counter(blog-ol) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+    color: #3B82F6;
+    font-size: 1rem;
+    line-height: 1.8;
   }
   
   /* Ensure paragraphs don't have unwanted indentation */
@@ -496,21 +636,12 @@
     margin-bottom: 1rem !important;
   }
   
-  /* Additional specificity for nested lists */
-  article .prose ul ul,
+  /* Nested ordered lists */
   article .prose ol ol,
-  article .prose ul ol,
-  article .prose ol ul,
-  div.prose ul ul,
   div.prose ol ol,
-  div.prose ul ol,
-  div.prose ol ul,
-  .prose ul ul,
-  .prose ol ol,
-  .prose ul ol,
-  .prose ol ul {
-    margin: 1rem 0 !important;
-    padding-left: 2.5rem !important;
+  .prose ol ol {
+    margin: 0.5rem 0 0.25rem !important;
+    padding-left: 0.5rem !important;
   }
   
   .prose strong {
@@ -578,19 +709,6 @@
       transform: scale(1.1);
     }
   }
-  
-  /* Final override for list indentation - highest priority */
-  article .prose ul,
-  article .prose ol {
-    padding-left: 3rem !important;
-    margin-left: 0 !important;
-  }
-  
-  article .prose ul li,
-  article .prose ol li {
-    padding-left: 0.75rem !important;
-    margin-left: 0 !important;
-  }
 </style>
 
 <script>
@@ -598,6 +716,25 @@
   document.addEventListener('DOMContentLoaded', function() {
     const prose = document.querySelector('article .prose') || document.querySelector('.prose');
     if (!prose) return;
+
+    // Wrap tables for horizontal scroll and proper layout on small screens
+    prose.querySelectorAll('table').forEach(table => {
+      if (table.parentElement && table.parentElement.classList.contains('prose-table-scroll')) return;
+      table.style.removeProperty('width');
+      table.style.removeProperty('min-width');
+      table.style.tableLayout = 'fixed';
+      table.style.width = '100%';
+      table.querySelectorAll('th, td').forEach(cell => {
+        cell.style.removeProperty('width');
+        cell.style.removeProperty('min-width');
+        cell.style.removeProperty('max-width');
+        cell.style.whiteSpace = 'normal';
+      });
+      const wrapper = document.createElement('div');
+      wrapper.className = 'prose-table-scroll';
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
     
     // Process headings (h1-h6) - make entire heading bold if it starts with a number
     const headings = prose.querySelectorAll('h1, h2, h3, h4, h5, h6');
@@ -650,7 +787,7 @@
             // Extract text after bullet
             const itemText = trimmed.replace(/^●\s*/, '').trim();
             if (itemText) {
-              listItems.push(`<li style="padding-left: 0.75rem !important; margin-bottom: 1rem !important; list-style-type: disc !important;">${itemText}</li>`);
+              listItems.push(`<li>${itemText}</li>`);
             }
           } else if (trimmed && hasBullets && listItems.length > 0) {
             // We've moved past the list
@@ -667,73 +804,13 @@
           if (beforeList.length > 0) {
             newHTML += beforeList.join('<br>') + '<br>';
           }
-          newHTML += `<ul style="padding-left: 3rem !important; margin: 2rem 0 !important; list-style-position: outside !important;">${listItems.join('')}</ul>`;
+          newHTML += `<ul>${listItems.join('')}</ul>`;
           if (afterList.length > 0) {
             newHTML += '<br>' + afterList.join('<br>');
           }
           p.innerHTML = newHTML;
         }
       }
-    });
-    
-    // Force list indentation - be very aggressive
-    const lists = prose.querySelectorAll('ul, ol');
-    lists.forEach(list => {
-      // Remove any conflicting styles first
-      list.style.removeProperty('padding');
-      list.style.removeProperty('margin');
-      // Apply indentation
-      list.style.setProperty('padding-left', '3rem', 'important');
-      list.style.setProperty('padding-right', '0', 'important');
-      list.style.setProperty('list-style-position', 'outside', 'important');
-      list.style.setProperty('margin-left', '0', 'important');
-      list.style.setProperty('margin-right', '0', 'important');
-      list.style.setProperty('margin-top', '2rem', 'important');
-      list.style.setProperty('margin-bottom', '2rem', 'important');
-    });
-    
-    // Ensure list items have proper spacing
-    const listItems = prose.querySelectorAll('li');
-    listItems.forEach(li => {
-      li.style.removeProperty('padding');
-      li.style.removeProperty('margin');
-      li.style.setProperty('padding-left', '0.75rem', 'important');
-      li.style.setProperty('padding-right', '0', 'important');
-      li.style.setProperty('margin-left', '0', 'important');
-      li.style.setProperty('margin-right', '0', 'important');
-      li.style.setProperty('margin-bottom', '1rem', 'important');
-      li.style.setProperty('text-indent', '0', 'important');
-    });
-    
-    // Make sure ul markers are gold and bold
-    const ulItems = prose.querySelectorAll('ul li');
-    ulItems.forEach(li => {
-      li.style.setProperty('list-style-type', 'disc', 'important');
-      li.style.setProperty('display', 'list-item', 'important');
-    });
-    
-    // Style ul markers with gold color via injected style
-    let markerStyle = document.getElementById('bullet-marker-style');
-    if (!markerStyle) {
-      markerStyle = document.createElement('style');
-      markerStyle.id = 'bullet-marker-style';
-      markerStyle.textContent = `
-        article .prose ul li::marker,
-        .prose ul li::marker,
-        div.prose ul li::marker {
-          color: #D4AF37 !important;
-          font-weight: bold !important;
-          font-size: 1.5rem !important;
-        }
-      `;
-      document.head.appendChild(markerStyle);
-    }
-    
-    // Make sure ol markers are bold
-    const olItems = prose.querySelectorAll('ol li');
-    olItems.forEach(li => {
-      li.style.setProperty('list-style-type', 'decimal', 'important');
-      li.style.setProperty('display', 'list-item', 'important');
     });
   });
 </script>
